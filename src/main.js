@@ -1,3 +1,3 @@
 import { app } from './components';
 
-app.mount('#app');
+// app.mount('#app');
