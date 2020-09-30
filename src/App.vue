@@ -129,6 +129,7 @@ export default {
                 fontSize: '15px',
                 backgroundColor: 'red',
                 margin: '0 10px',
+                borderRadius: '25px',
             },
             navbarStyles: {
                 backgroundColor: 'grey',

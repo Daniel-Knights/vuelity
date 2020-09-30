@@ -82,6 +82,10 @@ export default {
             if (this.rainbowBorder) this.$el.classList.add('dk__rainbow-before');
         }
 
+        if (this.$el.style.borderRadius) {
+            this.$el.style.setProperty('--border-radius', this.$el.style.borderRadius);
+        }
+
         // Store colors for hover
         this.background = this.$el.style.backgroundColor;
         this.color = this.$el.style.color;
@@ -94,14 +98,17 @@ export default {
 </script>
 <style lang="scss">
 .dk__component {
+    --border-radius: 5px;
+
     &.dk__btn {
         cursor: pointer;
         position: relative;
-        padding: 10px 40px;
-        font: 20px bold $font_primary;
+        height: 40px;
+        width: 125px;
+        font: 18px bold $font_primary;
         border: none;
         border-width: 3px;
-        border-radius: 25px;
+        border-radius: var(--border-radius);
         color: $white;
         background: darken($primary, 10%);
         box-shadow: 0px 0px 5px -2px $black;
@@ -135,7 +142,7 @@ export default {
     .dk__btn:hover {
         background: $primary 0.5s cubic-bezier(0.4, 0, 0.6, 1) forwards !important;
     }
-    .dk__rainbow-before.dk__btn::before {
+    &.dk__rainbow-before.dk__btn::before {
         content: '';
         display: block;
         position: absolute;
@@ -143,11 +150,11 @@ export default {
         top: 3px;
         width: calc(100% - 6px);
         height: calc(100% - 6px);
-        border-radius: 25px;
+        border-radius: var(--border-radius);
         background: black;
         z-index: -1;
     }
-    .dk__rainbow-after.dk__btn::after {
+    &.dk__rainbow-after.dk__btn::after {
         content: '';
         display: block;
         position: absolute;
