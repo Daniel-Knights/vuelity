@@ -4,6 +4,12 @@
 npm i vue-dk-lib
 ```
 
+For use with Vue2:
+
+```bash
+npm i vue-dk-lib@0.1.46
+```
+
 **Import**
 
 ```js
