@@ -1,0 +1,43 @@
+@mixin flex-x($spread, $align: false) {
+	display: flex;
+	@if $spread {
+		justify-content: #{$spread};
+	}
+	@if $align {
+		align-items: #{$align};
+	}
+}
+@mixin flex-y($spread, $align: false) {
+	display: flex;
+	@if $spread {
+		justify-content: #{$spread};
+	}
+	@if $align {
+		align-items: #{$align};
+	}
+	flex-direction: column;
+}
+@mixin flex-responsive {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+@mixin pseudo-elements {
+	content: '';
+	display: block;
+	margin: 0 auto;
+	height: 1px;
+	background-color: rgba($white, 0.6);
+}
+
+@mixin range-thumb {
+	cursor: pointer;
+	width: 15px;
+	height: 15px;
+	background: lighten($black, 80%);
+	border-radius: 50px;
+	box-shadow: 0px 0px 5px -1px $black;
+	transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
