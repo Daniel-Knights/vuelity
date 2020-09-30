@@ -1,28 +1,17 @@
-import { createApp } from 'vue';
-import DKButton from '@/components/Button.vue';
-import DKNavbar from '@/components/Navbar.vue';
-import DKPopup from '@/components/Popup.vue';
-import DKPagination from '@/components/Pagination.vue';
-import DKVideo from '@/components/Video/Video.vue';
-import DKSearchbar from '@/components/Searchbar/Searchbar.vue';
-import DKTooltip from '@/components/Tooltip.vue';
-import DKHoverbox from '@/components/Hoverbox.vue';
+import Button from './Button.vue';
+import Navbar from './Navbar.vue';
+import Popup from './Popup.vue';
+import Pagination from './Pagination.vue';
+import Video from './Video/Video.vue';
+import Searchbar from './Searchbar/Searchbar.vue';
+import Tooltip from './Tooltip.vue';
+import Hoverbox from './Hoverbox.vue';
 
-const app = createApp();
-
-const Components = {
-    DKButton,
-    DKNavbar,
-    DKPopup,
-    DKPagination,
-    DKVideo,
-    DKSearchbar,
-    DKTooltip,
-    DKHoverbox,
-};
-
-Object.keys(Components).forEach(name => {
-    app.component(name, Components[name]);
-});
-
-export default Components;
+export const DKButton = Button;
+export const DKNavbar = Navbar;
+export const DKPopup = Popup;
+export const DKPagination = Pagination;
+export const DKVideo = Video;
+export const DKSearchbar = Searchbar;
+export const DKTooltip = Tooltip;
+export const DKHoverbox = Hoverbox;

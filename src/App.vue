@@ -86,7 +86,29 @@
 <script>
 import Axios from 'axios';
 
+import {
+    DKButton,
+    DKNavbar,
+    DKPopup,
+    DKPagination,
+    DKVideo,
+    DKSearchbar,
+    DKTooltip,
+    DKHoverbox,
+} from './components';
+
 export default {
+    components: {
+        DKButton,
+        DKNavbar,
+        DKPopup,
+        DKPagination,
+        DKVideo,
+        DKSearchbar,
+        DKTooltip,
+        DKHoverbox,
+    },
+
     data() {
         return {
             videos: [],
