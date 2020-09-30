@@ -27,7 +27,6 @@ export default {
     <div id="app">
         <DKNavbar :styles="navbarStyles" position="top">
             <h1>Bonjour</h1>
-
             <DKSearchbar
                 :searchFunction="searchFunction"
                 :styles="searchbarStyles"
@@ -35,11 +34,9 @@ export default {
                 background="rgba(0,0,0,0.5)"
                 @search-value="searchValue($event)"
             />
-
             <DKHoverbox>
-                <a href="#">Home</a>
+                Home
             </DKHoverbox>
-
             <div class="auth-btns">
                 <DKHoverbox :containerStyles="hoverboxContainerStyles">
                     <DKButton
@@ -51,7 +48,6 @@ export default {
                         >Login</DKButton
                     >
                 </DKHoverbox>
-
                 <DKButton :styles="btnStyles" :ripple="false" :shine="true">Signup</DKButton>
             </div>
         </DKNavbar>
@@ -104,7 +100,7 @@ export default {
             :containerStyles="videoContainerStyles"
             :contextmenu="false"
             trackColor="red"
-            @click.native="videoFocused = String(video._uid)"
+            @click="videoFocused = String(video._uid)"
             @video-focused="videoFocused = String(video._uid)"
         />
 
@@ -124,7 +120,7 @@ import {
     DKSearchbar,
     DKTooltip,
     DKHoverbox,
-} from 'vue-dk-lib';
+} from './components';
 
 export default {
     components: {
@@ -158,6 +154,7 @@ export default {
                 fontSize: '15px',
                 backgroundColor: 'red',
                 margin: '0 10px',
+                borderRadius: '25px',
             },
             navbarStyles: {
                 backgroundColor: 'grey',
@@ -203,7 +200,6 @@ export default {
             testSrc: '',
         };
     },
-
     methods: {
         searchValue(e) {
             this.search = e;
@@ -212,14 +208,12 @@ export default {
             console.log(e);
         },
     },
-
     async created() {
         await Axios.get(
             `https://api.storyblok.com/v1/cdn/stories/videos?version=published&token=${process.env.VUE_APP_STORYBLOK_TOKEN}&cv=1596995321`
         ).then(res => {
             this.videos = res.data.story.content.sets[0].videos;
 
-            // Async source loading
             setTimeout(() => {
                 this.testSrc = res.data.story.content.sets[0].videos[0].filename;
             }, 5000);
@@ -259,6 +253,10 @@ body {
             color: #42b983;
         }
     }
+}
+
+.auth-btns {
+    display: flex;
 }
 </style>
 ```

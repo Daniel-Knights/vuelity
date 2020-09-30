@@ -102,6 +102,7 @@ export default {
 
     &.dk__btn {
         cursor: pointer;
+        display: block;
         position: relative;
         height: 40px;
         width: 125px;

@@ -229,4 +229,8 @@ body {
         }
     }
 }
+
+.auth-btns {
+    display: flex;
+}
 </style>
