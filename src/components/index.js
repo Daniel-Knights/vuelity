@@ -1,6 +1,4 @@
 import { createApp } from 'vue';
-import App from '@/App.vue';
-
 import DKButton from '@/components/Button.vue';
 import DKNavbar from '@/components/Navbar.vue';
 import DKPopup from '@/components/Popup.vue';
@@ -10,7 +8,7 @@ import DKSearchbar from '@/components/Searchbar/Searchbar.vue';
 import DKTooltip from '@/components/Tooltip.vue';
 import DKHoverbox from '@/components/Hoverbox.vue';
 
-export const app = createApp(App);
+const app = createApp();
 
 const Components = {
     DKButton,
