@@ -126,7 +126,7 @@ import {
     DKTooltip,
     DKHoverbox,
     DKToggle,
-} from './components';
+} from 'vue-dk-lib';
 
 export default {
     components: {
