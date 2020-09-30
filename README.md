@@ -13,8 +13,11 @@ npm i vue-dk-lib@0.1.46
 **Import**
 
 ```js
-import 'vue-dk-lib';
-import 'vue-dk-lib/dist/dkLib.css';
+import { DKButton } from 'vue-dk-lib';
+
+export default {
+    components: { DKButton };
+}
 ```
 
 **Examples**
@@ -121,7 +124,7 @@ import {
     DKSearchbar,
     DKTooltip,
     DKHoverbox,
-} from './components';
+} from 'vue-dk-lib';
 
 export default {
     components: {

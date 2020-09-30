@@ -3,7 +3,7 @@
         :style="buttonStyles"
         @mouseover="addHoverColor()"
         @mouseout="removeHoverColor()"
-        class="dk__btn"
+        class="dk__component dk__btn"
         @click="rippleHandler($event)"
     >
         <div v-if="shine" ref="shine" class="dk__shine"></div>
@@ -93,7 +93,7 @@ export default {
 };
 </script>
 <style lang="scss">
-button {
+.dk__component {
     &.dk__btn {
         cursor: pointer;
         position: relative;
