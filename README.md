@@ -24,88 +24,93 @@ export default {
 
 ```vue
 <template>
-    <div id="app">
-        <DKNavbar :styles="navbarStyles" position="top">
-            <h1>Bonjour</h1>
-            <DKSearchbar
-                :searchFunction="searchFunction"
-                :styles="searchbarStyles"
-                iconColor="#fff"
-                background="rgba(0,0,0,0.5)"
-                @search-value="searchValue($event)"
-            />
-            <DKHoverbox>
-                Home
-            </DKHoverbox>
-            <div class="auth-btns">
-                <DKHoverbox :containerStyles="hoverboxContainerStyles">
-                    <DKButton
-                        :styles="btnStyles"
-                        hoverBackground="brown"
-                        hoverColor="aqua"
-                        :rainbow="true"
-                        :rainbowBorder="true"
-                        >Login</DKButton
-                    >
-                </DKHoverbox>
-                <DKButton :styles="btnStyles" :ripple="false" :shine="true">Signup</DKButton>
-            </div>
-        </DKNavbar>
-
-        {{ search }}
-
-        <DKHoverbox :styles="hoverboxStyles" fill="red">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo commodi necessitatibus id
-            cupiditate eum, quas nulla esse nesciunt veniam error.
+    <DKNavbar :styles="navbarStyles" position="top">
+        <h1>Bonjour</h1>
+        <DKSearchbar
+            :searchFunction="searchFunction"
+            :styles="searchbarStyles"
+            iconColor="#fff"
+            background="rgba(0,0,0,0.5)"
+            @search-value="searchValue($event)"
+        />
+        <DKHoverbox>
+            Home
         </DKHoverbox>
+        <div class="auth-btns">
+            <DKHoverbox :containerStyles="hoverboxContainerStyles">
+                <DKButton
+                    :styles="btnStyles"
+                    hoverBackground="brown"
+                    hoverColor="aqua"
+                    :rainbow="true"
+                    :rainbowBorder="true"
+                    >Login</DKButton
+                >
+            </DKHoverbox>
+            <DKButton :styles="btnStyles" :ripple="false" :shine="true">Signup</DKButton>
+        </div>
+    </DKNavbar>
 
-        <DKTooltip text="Check" position="right" :styles="tooltipStyles" :arrow="false">
-            <DKButton :rainbow="true">CRAZY</DKButton>
-        </DKTooltip>
+    {{ search }}
 
-        <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, vitae corporis?
-            Earum quos
-            <DKTooltip text="An unknown word"
-                ><span style="text-decoration: underline;">quibusdam</span></DKTooltip
-            >, perferendis nesciunt nostrum ea laboriosam cumque.
-        </p>
+    <DKToggle
+        @toggled="logValue($event)"
+        boxShadow="none"
+        backgroundColor="blue"
+        toggleColor="red"
+    />
 
-        <DKPagination
-            :currentPage="1"
-            :lastPage="10"
-            @page-changed="paginateHandler($event)"
-            :styles="paginationStyles"
-            :blockStyles="paginationBlockStyles"
-        >
-            ►
-        </DKPagination>
+    <DKHoverbox :styles="hoverboxStyles" fill="red">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo commodi necessitatibus id
+        cupiditate eum, quas nulla esse nesciunt veniam error.
+    </DKHoverbox>
 
-        <DKVideo
-            :videoSrc="testSrc"
-            :containerStyles="videoContainerStyles"
-            videoPoster="https://a.storyblok.com/f/87848/800x800/a97f990693/sudhith-xavier-iun1o500lmi-unsplash-1.jpg"
-        />
-        <DKVideo
-            v-for="video in videos"
-            :key="video._uid"
-            :videoId="String(video._uid)"
-            :videoSrc="video.video.filename"
-            :videoTitle="video.title"
-            :videoFocused="videoFocused"
-            :videoPoster="video.poster ? video.poster.filename : ''"
-            :timeTags="video.tags"
-            :buttonStyles="videoButtonStyles"
-            :thumbStyles="videoThumbStyles"
-            :containerStyles="videoContainerStyles"
-            :contextmenu="false"
-            trackColor="red"
-            @click="videoFocused = String(video._uid)"
-            @video-focused="videoFocused = String(video._uid)"
-        />
+    <DKTooltip text="Check" position="right" :styles="tooltipStyles" :arrow="false">
+        <DKButton :rainbow="true">CRAZY</DKButton>
+    </DKTooltip>
 
-        <DKPopup :styles="popupStyles" crossColor="white" :cookie="true">Hey there!</DKPopup>
-    </div>
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, vitae corporis? Earum
+        quos
+        <DKTooltip text="An unknown word"
+            ><span style="text-decoration: underline;">quibusdam</span></DKTooltip
+        >, perferendis nesciunt nostrum ea laboriosam cumque.
+    </p>
+
+    <DKPagination
+        :currentPage="1"
+        :lastPage="10"
+        @page-changed="logValue($event)"
+        :styles="paginationStyles"
+        :blockStyles="paginationBlockStyles"
+    >
+        ►
+    </DKPagination>
+
+    <DKVideo
+        :videoSrc="testSrc"
+        :containerStyles="videoContainerStyles"
+        videoPoster="https://a.storyblok.com/f/87848/800x800/a97f990693/sudhith-xavier-iun1o500lmi-unsplash-1.jpg"
+    />
+    <DKVideo
+        v-for="video in videos"
+        :key="video._uid"
+        :videoId="String(video._uid)"
+        :videoSrc="video.video.filename"
+        :videoTitle="video.title"
+        :videoFocused="videoFocused"
+        :videoPoster="video.poster ? video.poster.filename : ''"
+        :timeTags="video.tags"
+        :buttonStyles="videoButtonStyles"
+        :thumbStyles="videoThumbStyles"
+        :containerStyles="videoContainerStyles"
+        :contextmenu="false"
+        trackColor="red"
+        @click="videoFocused = String(video._uid)"
+        @video-focused="videoFocused = String(video._uid)"
+    />
+
+    <DKPopup :styles="popupStyles" crossColor="white" :cookie="true">Hey there!</DKPopup>
 </template>
 
 <script>
@@ -120,6 +125,7 @@ import {
     DKSearchbar,
     DKTooltip,
     DKHoverbox,
+    DKToggle,
 } from './components';
 
 export default {
@@ -132,6 +138,7 @@ export default {
         DKSearchbar,
         DKTooltip,
         DKHoverbox,
+        DKToggle,
     },
 
     data() {
@@ -204,7 +211,7 @@ export default {
         searchValue(e) {
             this.search = e;
         },
-        paginateHandler(e) {
+        logValue(e) {
             console.log(e);
         },
     },

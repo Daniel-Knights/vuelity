@@ -6,6 +6,7 @@ import Video from './Video/Video.vue';
 import Searchbar from './Searchbar/Searchbar.vue';
 import Tooltip from './Tooltip.vue';
 import Hoverbox from './Hoverbox.vue';
+import Toggle from './Toggle.vue';
 
 export const DKButton = Button;
 export const DKNavbar = Navbar;
@@ -15,3 +16,4 @@ export const DKVideo = Video;
 export const DKSearchbar = Searchbar;
 export const DKTooltip = Tooltip;
 export const DKHoverbox = Hoverbox;
+export const DKToggle = Toggle;
