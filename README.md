@@ -22,7 +22,7 @@ export default {
 
 **Examples**
 
-```js
+```vue
 <template>
     <DKNavbar :styles="navbarStyles" position="top">
         <h1>Bonjour</h1>
