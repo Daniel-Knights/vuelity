@@ -1,10 +1,10 @@
 <template>
-    <div class="dk__navbar" :class="`dk__navbar-${position}`">
+    <header class="dk__navbar" :class="`dk__navbar-${position}`">
         <div class="dk__navbar-inner" :style="styles">
             <slot></slot>
         </div>
         <div class="dk__navbar-shadow"></div>
-    </div>
+    </header>
 </template>
 
 <script>
