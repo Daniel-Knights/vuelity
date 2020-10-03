@@ -3,7 +3,6 @@
         <div class="dk__navbar-inner" :style="styles">
             <slot></slot>
         </div>
-        <div class="dk__navbar-shadow"></div>
     </header>
 </template>
 
@@ -39,17 +38,8 @@ export default {
     font-family: $font_primary;
     color: $white;
     background-color: $primary;
+    box-shadow: 0 -5px 10px 5px $black;
     z-index: 1;
-}
-
-.dk__navbar-shadow {
-    position: absolute;
-    bottom: 0px;
-    left: -10px;
-    height: 10px;
-    width: 110vw;
-    box-shadow: 0 0 10px $black;
-    z-index: -1;
 }
 
 .dk__navbar-top {
@@ -59,8 +49,8 @@ export default {
     position: fixed;
     bottom: 0;
 
-    .dk__navbar-shadow {
-        top: 0;
+    .dk__navbar-inner {
+        box-shadow: 0 5px 10px 5px $black;
     }
 }
 </style>
