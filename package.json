@@ -26,7 +26,8 @@
         "webpack-bundle-analyzer": "^3.9.0"
     },
     "files": [
-        "dist/umd.min.js"
+        "dist/umd.min.js",
+        "dist/umd.min.js.map"
     ],
     "browserslist": [
         "> 1%",
