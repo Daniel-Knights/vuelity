@@ -1,8 +1,0 @@
-node_modules
-public
-src
-.env.local
-.gitignore
-.prettierrc
-babel.config.js
-vue.config.js
