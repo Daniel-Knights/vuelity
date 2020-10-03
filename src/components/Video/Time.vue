@@ -62,7 +62,7 @@ export default {
         videoBuffered: Number,
         timeTags: Array,
         fullscreenClick: Boolean,
-        thumbStyles: Object,
+        thumbStyles: { type: Object, default: {} },
         trackColor: String,
     },
 
@@ -273,9 +273,7 @@ export default {
             else {
                 this.videoEnded = false;
 
-                setTimeout(() => {
-                    this.setTransitionDuration();
-                }, 1000);
+                setTimeout(() => this.setTransitionDuration(), 1000);
             }
         },
         skipHandler() {
@@ -378,6 +376,7 @@ export default {
         text-align: right;
     }
     .dk__video-tooltip {
+        pointer-events: none;
         position: relative;
         top: -27px;
     }

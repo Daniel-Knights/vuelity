@@ -1,6 +1,6 @@
 <template>
     <button
-        :style="buttonStyles"
+        :style="styles"
         @mouseover="addHoverColor()"
         @mouseout="removeHoverColor()"
         class="dk__component dk__btn"
@@ -10,14 +10,13 @@
         <slot></slot>
     </button>
 </template>
+
 <script>
 export default {
     name: 'Button',
+
     props: {
-        styles: {
-            type: Object,
-            default: () => ({}),
-        },
+        styles: Object,
         hoverColor: String,
         hoverBackground: String,
         ripple: {
@@ -32,18 +31,16 @@ export default {
             type: Boolean,
             default: false,
         },
-        rainbowBorder: {
+        onlyBorder: {
+            type: Boolean,
+            default: false,
+        },
+        fillBorder: {
             type: Boolean,
             default: false,
         },
     },
-    data() {
-        return {
-            buttonStyles: { ...this.styles },
-            background: '',
-            color: '',
-        };
-    },
+
     methods: {
         rippleHandler(e) {
             const rect = e.target.getBoundingClientRect();
@@ -58,9 +55,7 @@ export default {
 
             if (this.ripple) this.$el.appendChild(rippleEl);
 
-            setTimeout(() => {
-                rippleEl.remove();
-            }, 500);
+            setTimeout(() => rippleEl.remove(), 500);
         },
         addHoverColor() {
             this.$el.style.color = this.hoverColor;
@@ -71,6 +66,7 @@ export default {
             this.$el.style.color = this.color;
         },
     },
+
     mounted() {
         // Randomize shine animation delay
         if (this.shine) this.$refs.shine.style.animationDelay = Math.random() * 1 + 's';
@@ -79,9 +75,18 @@ export default {
         if (this.rainbow) {
             this.$el.style.background = 'transparent';
             this.$el.classList.add('dk__rainbow-after');
-            if (this.rainbowBorder) this.$el.classList.add('dk__rainbow-before');
         }
 
+        // Inner fill
+        if (this.onlyBorder) this.$el.classList.add('dk__only-border');
+
+        // Single color/transparent animation fill
+        if (this.fillBorder) {
+            this.$el.style.background = 'transparent';
+            this.$el.classList.add('dk__fill');
+        }
+
+        // Set CSS border-radius variable
         if (this.$el.style.borderRadius) {
             this.$el.style.setProperty('--border-radius', this.$el.style.borderRadius);
         }
@@ -96,9 +101,26 @@ export default {
     },
 };
 </script>
+
 <style lang="scss">
 .dk__component {
     --border-radius: 5px;
+
+    font-family: 'Lato', Helvetica, sans-serif;
+
+    @mixin after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: -50%;
+        top: -50%;
+        width: 200%;
+        height: 200%;
+        background-size: 200% 200%;
+        transform: skew(40deg);
+        z-index: -2;
+        animation: dk__background-shift 5s linear infinite;
+    }
 
     &.dk__btn {
         cursor: pointer;
@@ -111,12 +133,17 @@ export default {
         border-width: 3px;
         border-radius: var(--border-radius);
         color: $white;
-        background: darken($primary, 10%);
+        background-color: darken($primary, 10%);
         box-shadow: 0px 0px 5px -2px $black;
         outline: none;
         overflow: hidden;
-        transition: all 0.5s;
+        transition: all 0.25s;
+
+        &:hover {
+            background-color: $primary;
+        }
     }
+
     .dk__ripple {
         pointer-events: none !important;
         position: absolute !important;
@@ -129,6 +156,7 @@ export default {
         width: 15rem !important;
         animation: dk__ripple-out 0.5s cubic-bezier(0.4, 0, 0.6, 1) forwards !important;
     }
+
     .dk__shine {
         position: absolute;
         top: 0;
@@ -140,10 +168,8 @@ export default {
         transform: skew(-10deg);
         animation: dk__shine 5s cubic-bezier(0.95, 0.05, 0.795, 1) infinite;
     }
-    .dk__btn:hover {
-        background: $primary 0.5s cubic-bezier(0.4, 0, 0.6, 1) forwards !important;
-    }
-    &.dk__rainbow-before.dk__btn::before {
+
+    &.dk__only-border.dk__btn::before {
         content: '';
         display: block;
         position: absolute;
@@ -152,17 +178,11 @@ export default {
         width: calc(100% - 6px);
         height: calc(100% - 6px);
         border-radius: var(--border-radius);
-        background: black;
+        background-color: #000;
         z-index: -1;
     }
+
     &.dk__rainbow-after.dk__btn::after {
-        content: '';
-        display: block;
-        position: absolute;
-        left: -50%;
-        top: -50%;
-        width: 200%;
-        height: 200%;
         background: linear-gradient(
             to right,
             #f79533,
@@ -175,19 +195,14 @@ export default {
             #6fba82,
             #f79533
         );
-        background-size: 200% 200%;
-        transform: skew(40deg);
-        z-index: -2;
-        animation: dk__rainbow 5s linear infinite;
+        @include after;
     }
-    @keyframes dk__rainbow {
-        0% {
-            background-position: 0% 50%;
-        }
-        100% {
-            background-position: 200% 50%;
-        }
+
+    &.dk__fill.dk__btn::after {
+        @include scrim-gradient($primary, 'to right');
+        @include after;
     }
+
     @keyframes dk__shine {
         0%,
         100% {
@@ -200,7 +215,7 @@ export default {
         }
         30% {
             opacity: 0;
-            left: 100%;
+            left: 200%;
         }
     }
     @keyframes dk__ripple-out {
@@ -219,6 +234,14 @@ export default {
             opacity: 0;
             max-height: 10rem;
             max-width: 10rem;
+        }
+    }
+    @keyframes dk__background-shift {
+        0% {
+            background-position: 0% 50%;
+        }
+        100% {
+            background-position: 200% 50%;
         }
     }
 }

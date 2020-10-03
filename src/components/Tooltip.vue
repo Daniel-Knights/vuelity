@@ -1,154 +1,160 @@
 <template>
-	<div class="dk__tooltip-container">
-		<div class="dk__tooltip">
-			<span v-html="text" class="dk__tip" :class="classPosition" :style="styles" ref="tip"></span>
-		</div>
-		<div ref="el" @mouseover="tipShow()" @mouseout="tipHide()">
-			<slot></slot>
-		</div>
-	</div>
+    <div class="dk__tooltip-container">
+        <div class="dk__tooltip">
+            <span
+                v-html="text"
+                class="dk__tip"
+                :class="classPosition"
+                :style="styles"
+                ref="tip"
+            ></span>
+        </div>
+        <div ref="el" @mouseover="tipShow()" @mouseout="tipHide()">
+            <slot></slot>
+        </div>
+    </div>
 </template>
 
 <script>
 export default {
-	name: 'Tooltip',
+    name: 'Tooltip',
 
-	props: {
-		text: {
-			type: String,
-			default: 'Add tooltip text to the "text" attribute',
-		},
-		position: {
-			type: String,
-			default: 'top',
-		},
-		styles: Object,
-		arrow: {
-			type: Boolean,
-			default: true,
-		},
-	},
+    props: {
+        text: {
+            type: String,
+            default: 'Add tooltip text to the "text" attribute',
+        },
+        position: {
+            type: String,
+            default: 'top',
+        },
+        styles: Object,
+        arrow: {
+            type: Boolean,
+            default: true,
+        },
+    },
 
-	computed: {
-		tipPosition: function() {
-			return this.position + ': -100%';
-		},
-		classPosition: function() {
-			if (this.arrow) return 'dk__tip-' + this.position;
-		},
-	},
+    computed: {
+        tipPosition: function() {
+            return this.position + ': -100%';
+        },
+        classPosition: function() {
+            if (this.arrow) return 'dk__tip-' + this.position;
+        },
+    },
 
-	methods: {
-		top() {
-			const tip = this.$refs.tip;
+    methods: {
+        top() {
+            const tip = this.$refs.tip;
 
-			tip.parentElement.style.transform = `translateY(${-tip.offsetHeight * 1.5}px)`;
-		},
-		right() {
-			const elWidth = this.$refs.el.offsetWidth;
-			const elHeight = this.$refs.el.offsetHeight;
-			const tipParent = this.$refs.tip.parentElement;
-			const tip = this.$refs.tip;
+            tip.parentElement.style.transform = `translateY(${-tip.offsetHeight * 1.5}px)`;
+        },
+        right() {
+            const elWidth = this.$refs.el.offsetWidth;
+            const elHeight = this.$refs.el.offsetHeight;
+            const tipParent = this.$refs.tip.parentElement;
+            const tip = this.$refs.tip;
 
-			tipParent.style.transform = `translate(${elWidth + 10}px, ${elHeight / 2 -
-				tip.offsetHeight / 2}px)`;
-			tipParent.style.justifyContent = 'flex-start';
-		},
-		bottom() {
-			const elHeight = this.$refs.el.offsetHeight;
+            tipParent.style.transform = `translate(${elWidth + 10}px, ${elHeight / 2 -
+                tip.offsetHeight / 2}px)`;
+            tipParent.style.justifyContent = 'flex-start';
+        },
+        bottom() {
+            const elHeight = this.$refs.el.offsetHeight;
 
-			this.$refs.tip.parentElement.style.transform = `translateY(${elHeight + 20}px)`;
-		},
-		left() {
-			const elWidth = this.$refs.el.offsetWidth;
-			const elHeight = this.$refs.el.offsetHeight;
-			const tip = this.$refs.tip;
+            this.$refs.tip.parentElement.style.transform = `translateY(${elHeight + 20}px)`;
+        },
+        left() {
+            const elWidth = this.$refs.el.offsetWidth;
+            const elHeight = this.$refs.el.offsetHeight;
+            const tip = this.$refs.tip;
 
-			tip.parentElement.style.transform = `translate(${-elWidth / 2 -
-				tip.offsetWidth / 2 -
-				10}px, ${elHeight / 2 - tip.offsetHeight / 2}px)`;
-			tip.style.justifyContent = 'flex-end';
-		},
-		tipShow() {
-			if (!this.$refs.tip) return;
-			this.$refs.tip.style.opacity = '1';
-			this.$refs.tip.style.transform = 'scale(1)';
-		},
-		tipHide() {
-			if (!this.$refs.tip) return;
-			this.$refs.tip.style.opacity = '0';
-			this.$refs.tip.style.transform = 'scale(0.8)';
-		},
-	},
+            tip.parentElement.style.transform = `translate(${-elWidth / 2 -
+                tip.offsetWidth / 2 -
+                10}px, ${elHeight / 2 - tip.offsetHeight / 2}px)`;
+            tip.style.justifyContent = 'flex-end';
+        },
+        tipShow() {
+            if (!this.$refs.tip) return;
+            this.$refs.tip.style.opacity = '1';
+            this.$refs.tip.style.transform = 'scale(1)';
+        },
+        tipHide() {
+            if (!this.$refs.tip) return;
+            this.$refs.tip.style.opacity = '0';
+            this.$refs.tip.style.transform = 'scale(0.8)';
+        },
+    },
 
-	mounted() {
-		if (this.position === 'top') this.top();
-		if (this.position === 'right') this.right();
-		if (this.position === 'bottom') this.bottom();
-		if (this.position === 'left') this.left();
-	},
+    mounted() {
+        if (this.position === 'top') this.top();
+        if (this.position === 'right') this.right();
+        if (this.position === 'bottom') this.bottom();
+        if (this.position === 'left') this.left();
+    },
 };
 </script>
 
 <style scoped lang="scss">
 @mixin pseudo {
-	content: '';
-	display: block;
-	position: absolute;
+    content: '';
+    display: block;
+    position: absolute;
 }
 
 .dk__tooltip-container {
-	display: inline-block;
-	width: fit-content;
+    display: inline-block;
+    width: fit-content;
 
-	.dk__tooltip {
-		pointer-events: none;
-		@include flex-x(center);
-		width: 100%;
-	}
+    .dk__tooltip {
+        pointer-events: none;
+        @include flex-x(center);
+        width: 100%;
+    }
 
-	.dk__tip {
-		@include flex-x(center);
-		position: absolute !important;
-		min-width: max-content;
-		padding: 5px 10px;
-		border-radius: 5px;
-		opacity: 0;
-		color: $white;
-		background-color: rgba($black, 0.9);
-		box-shadow: 0px 1px 10px -3px $black;
-		transform: scale(0.8);
-		transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 2);
-		z-index: 10 !important;
-	}
+    .dk__tip {
+        @include flex-x(center);
+        position: absolute !important;
+        min-width: max-content;
+        padding: 5px 10px;
+        border-radius: 5px;
+        opacity: 0;
+        color: $white;
+        background-color: rgba($black, 0.9);
+        box-shadow: 0px 1px 10px -3px $black;
+        transform: scale(0.8);
+        transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 2);
+        z-index: 10 !important;
+    }
 
-	.dk__tip::after {
-		@include pseudo;
-	}
+    .dk__tip::after {
+        @include pseudo;
+    }
 
-	.dk__tip-top::after {
-		bottom: -5px;
-		border-left: 5px solid transparent;
-		border-right: 5px solid transparent;
-		border-top: 5px solid rgba($black, 0.9);
-	}
-	.dk__tip-right::after {
-		left: -5px;
-		border-top: 5px solid transparent;
-		border-bottom: 5px solid transparent;
-		border-right: 5px solid rgba($black, 0.9);
-	}
-	.dk__tip-bottom::after {
-		top: -5px;
-		border-left: 5px solid transparent;
-		border-right: 5px solid transparent;
-		border-bottom: 5px solid rgba($black, 0.9);
-	}
-	.dk__tip-left::after {
-		right: -5px;
-		border-top: 5px solid transparent;
-		border-bottom: 5px solid transparent;
-		border-left: 5px solid rgba($black, 0.9);
-	}
+    .dk__tip-top::after {
+        bottom: -5px;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid rgba($black, 0.9);
+    }
+    .dk__tip-right::after {
+        left: -5px;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-right: 5px solid rgba($black, 0.9);
+    }
+    .dk__tip-bottom::after {
+        top: -5px;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid rgba($black, 0.9);
+    }
+    .dk__tip-left::after {
+        right: -5px;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 5px solid rgba($black, 0.9);
+    }
 }
 </style>

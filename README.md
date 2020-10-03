@@ -33,19 +33,12 @@ export default {
             background="rgba(0,0,0,0.5)"
             @search-value="searchValue($event)"
         />
-        <DKHoverbox>
+        <DKHoverbox :width="100" :height="50">
             Home
         </DKHoverbox>
         <div class="auth-btns">
             <DKHoverbox :containerStyles="hoverboxContainerStyles">
-                <DKButton
-                    :styles="btnStyles"
-                    hoverBackground="brown"
-                    hoverColor="aqua"
-                    :rainbow="true"
-                    :rainbowBorder="true"
-                    >Login</DKButton
-                >
+                <DKButton :styles="btnStyles" :onlyBorder="true" :fillBorder="true">Login</DKButton>
             </DKHoverbox>
             <DKButton :styles="btnStyles" :ripple="false" :shine="true">Signup</DKButton>
         </div>
@@ -55,9 +48,8 @@ export default {
 
     <DKToggle
         @toggled="logValue($event)"
-        boxShadow="none"
-        backgroundColor="blue"
-        toggleColor="red"
+        :containerStyles="toggleContainerStyles"
+        :toggleStyles="toggleStyles"
     />
 
     <DKHoverbox :styles="hoverboxStyles" fill="red">
@@ -90,13 +82,13 @@ export default {
     <DKVideo
         :videoSrc="testSrc"
         :containerStyles="videoContainerStyles"
-        videoPoster="https://a.storyblok.com/f/87848/800x800/a97f990693/sudhith-xavier-iun1o500lmi-unsplash-1.jpg"
+        videoPoster="https://your-video-poster.jpg"
     />
     <DKVideo
         v-for="video in videos"
         :key="video._uid"
         :videoId="String(video._uid)"
-        :videoSrc="video.video.filename"
+        :videoSrc="video.src"
         :videoTitle="video.title"
         :videoFocused="videoFocused"
         :videoPoster="video.poster ? video.poster.filename : ''"
@@ -110,7 +102,7 @@ export default {
         @video-focused="videoFocused = String(video._uid)"
     />
 
-    <DKPopup :styles="popupStyles" crossColor="white" :cookie="true">Hey there!</DKPopup>
+    <DKPopup :styles="popupStyles" crossColor="black" :cookie="true">Hey there!</DKPopup>
 </template>
 
 <script>
@@ -127,6 +119,8 @@ import {
     DKHoverbox,
     DKToggle,
 } from 'vue-dk-lib';
+
+// import * as DKLib from 'vue-dk-lib'
 
 export default {
     components: {
@@ -152,28 +146,16 @@ export default {
             hoverboxContainerStyles: {
                 display: 'inline-flex',
             },
+            toggleContainerStyles: {},
+            toggleStyles: {},
             tooltipStyles: {
                 fontSize: '12px',
                 backgroundColor: 'blue',
                 boxShadow: '10px 10px 1px black',
             },
-            btnStyles: {
-                fontSize: '15px',
-                backgroundColor: 'red',
-                margin: '0 10px',
-                borderRadius: '25px',
-            },
-            navbarStyles: {
-                backgroundColor: 'grey',
-                color: 'white',
-                fontSize: '15px',
-            },
-            popupStyles: {
-                fontSize: '15px',
-                backgroundColor: 'rgba(0,0,0,0.5)',
-                color: 'white',
-                borderColor: 'white',
-            },
+            btnStyles: {},
+            navbarStyles: {},
+            popupStyles: {},
             videoContainerStyles: {
                 borderRadius: '10px',
                 boxShadow: '1px 1px 10px -5px black',
@@ -195,18 +177,12 @@ export default {
             searchFunction: function(search) {
                 console.log(search);
             },
-            paginationStyles: {
-                color: 'white',
-                borderRadius: '5px',
-            },
-            paginationBlockStyles: {
-                borderRadius: '5px',
-                backgroundColor: '#054',
-                margin: '0 1px',
-            },
+            paginationStyles: {},
+            paginationBlockStyles: {},
             testSrc: '',
         };
     },
+
     methods: {
         searchValue(e) {
             this.search = e;
@@ -215,14 +191,14 @@ export default {
             console.log(e);
         },
     },
-    async created() {
-        await Axios.get(
-            `https://api.storyblok.com/v1/cdn/stories/videos?version=published&token=${process.env.VUE_APP_STORYBLOK_TOKEN}&cv=1596995321`
-        ).then(res => {
-            this.videos = res.data.story.content.sets[0].videos;
 
+    async created() {
+        await Axios.get('https://video.url').then(res => {
+            this.videos = res.data.videos;
+
+            // Async source loading
             setTimeout(() => {
-                this.testSrc = res.data.story.content.sets[0].videos[0].filename;
+                this.testSrc = res.data.src;
             }, 5000);
         });
     },
@@ -245,21 +221,6 @@ body {
     text-align: center;
     color: #2c3e50;
     width: 100%;
-    margin-top: 150px;
-    overflow: hidden;
-}
-
-#nav {
-    padding: 30px;
-
-    a {
-        font-weight: bold;
-        color: #2c3e50;
-
-        &.router-link-exact-active {
-            color: #42b983;
-        }
-    }
 }
 
 .auth-btns {

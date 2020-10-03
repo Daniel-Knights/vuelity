@@ -1,43 +1,73 @@
 @mixin flex-x($spread, $align: false) {
-	display: flex;
-	@if $spread {
-		justify-content: #{$spread};
-	}
-	@if $align {
-		align-items: #{$align};
-	}
+    display: flex;
+    @if $spread {
+        justify-content: #{$spread};
+    }
+    @if $align {
+        align-items: #{$align};
+    }
 }
 @mixin flex-y($spread, $align: false) {
-	display: flex;
-	@if $spread {
-		justify-content: #{$spread};
-	}
-	@if $align {
-		align-items: #{$align};
-	}
-	flex-direction: column;
+    display: flex;
+    @if $spread {
+        justify-content: #{$spread};
+    }
+    @if $align {
+        align-items: #{$align};
+    }
+    flex-direction: column;
 }
 @mixin flex-responsive {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 @mixin pseudo-elements {
-	content: '';
-	display: block;
-	margin: 0 auto;
-	height: 1px;
-	background-color: rgba($white, 0.6);
+    content: '';
+    display: block;
+    margin: 0 auto;
+    height: 1px;
+    background-color: rgba($white, 0.6);
 }
 
 @mixin range-thumb {
-	cursor: pointer;
-	width: 15px;
-	height: 15px;
-	background: lighten($black, 80%);
-	border-radius: 50px;
-	box-shadow: 0px 0px 5px -1px $black;
-	transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    background: lighten($black, 80%);
+    border-radius: 50px;
+    box-shadow: 0px 0px 5px -1px $black;
+    transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+@mixin scrim-gradient($startColor: 'black', $direction: 'to bottom') {
+    $scrimCoordinates: (
+        0: 1,
+        19: 0.738,
+        34: 0.541,
+        47: 0.382,
+        56.5: 0.278,
+        65: 0.194,
+        73: 0.126,
+        80.2: 0.075,
+        86.1: 0.042,
+        91: 0.021,
+        95.2: 0.008,
+        98.2: 0.002,
+        100: 0,
+    );
+
+    $hue: hue($startColor);
+    $saturation: saturation($startColor);
+    $lightness: lightness($startColor);
+    $stops: ();
+
+    @each $colorStop, $alphaValue in $scrimCoordinates {
+        $stop: hsl($hue, $saturation, $lightness, $alphaValue) percentage($colorStop/100);
+        $stops: append($stops, $stop, comma);
+    }
+
+    background: linear-gradient(unquote($direction), $stops);
 }

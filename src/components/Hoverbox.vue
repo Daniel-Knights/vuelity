@@ -1,5 +1,5 @@
 <template>
-    <div class="dk__hoverbox-container" :style="containerStyles" ref="hoverboxContainer">
+    <div class="dk__hoverbox-container" :style="containerStyles" ref="container">
         <svg
             class="dk__hoverbox"
             :width="hoverboxWidth"
@@ -9,11 +9,15 @@
         >
             <rect :width="hoverboxWidth" :height="hoverboxHeight" :fill="fill" />
         </svg>
-        <slot />
+        <div class="slot-container">
+            <slot />
+        </div>
     </div>
 </template>
 
 <script>
+import { ref, onMounted } from 'vue';
+
 export default {
     name: 'Hoverbox',
 
@@ -28,44 +32,42 @@ export default {
         },
     },
 
-    data() {
-        return {
-            hoverboxWidth: 0,
-            hoverboxHeight: 0,
+    setup(props, { slots }) {
+        const hoverboxWidth = ref(props.width);
+        const hoverboxHeight = ref(props.height);
+        const container = ref(null);
+        const hoverbox = ref(null);
+
+        const hoverboxMouseover = () => {
+            if (!hoverbox.value) return;
+            hoverbox.value.style.transform = 'rotateY(0deg) scale(1)';
+            hoverbox.value.style.opacity = '1';
         };
-    },
+        const hoverboxMouseout = () => {
+            if (!hoverbox.value) return;
+            hoverbox.value.style.transform = 'rotateY(30deg) scale(0.8)';
+            hoverbox.value.style.opacity = '0';
+        };
 
-    methods: {
-        hoverboxMouseover() {
-            if (!this.$refs.hoverbox) return;
-            this.$refs.hoverbox.style.transform = 'rotateY(0deg) scale(1)';
-            this.$refs.hoverbox.style.opacity = '1';
-        },
-        hoverboxMouseout() {
-            if (!this.$refs.hoverbox) return;
-            this.$refs.hoverbox.style.transform = 'rotateY(30deg) scale(0.8)';
-            this.$refs.hoverbox.style.opacity = '0';
-        },
-    },
+        onMounted(() => {
+            if (props.width == undefined) {
+                hoverboxWidth.value = container.value.offsetWidth + 20;
+            }
+            if (props.height == undefined) {
+                hoverboxHeight.value = container.value.offsetHeight + 10;
+            }
 
-    mounted() {
-        const container = this.$refs.hoverboxContainer;
-
-        if (!container) return;
-
-        if (this.width) this.hoverboxWidth = this.width;
-        if (this.height) this.hoverboxHeight = this.height;
-        if (this.width == undefined) this.hoverboxWidth = container.offsetWidth + 20;
-        if (this.height == undefined) this.hoverboxHeight = container.offsetHeight + 10;
-
-        container.addEventListener('mouseover', this.hoverboxMouseover);
-        container.addEventListener('mouseout', this.hoverboxMouseout);
+            container.value.addEventListener('mouseover', hoverboxMouseover);
+            container.value.addEventListener('mouseout', hoverboxMouseout);
+        });
 
         window.addEventListener('resize', () => {
-            if (this.width || this.height) return;
-            this.hoverboxWidth = container.offsetWidth + 20;
-            this.hoverboxHeight = container.offsetHeight + 10;
+            if (props.width || props.height) return;
+            hoverboxWidth.value = container.value.offsetWidth + 20;
+            hoverboxHeight.value = container.value.offsetHeight + 10;
         });
+
+        return { hoverboxWidth, hoverboxHeight, hoverbox, container };
     },
 };
 </script>
@@ -84,7 +86,11 @@ export default {
         opacity: 0;
         border-radius: 5px;
         transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
-        z-index: -100;
+        z-index: 0;
+    }
+
+    .slot-container {
+        z-index: 1;
     }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="dk__pages" :style="paginationStyles">
+    <div class="dk__pages" :style="styles">
         <div class="dk__paginate-left-container">
             <div
                 @click="paginateLeft($event)"
@@ -30,10 +30,11 @@
                     data-enter="1"
                     type="number"
                     placeholder="pg."
+                    ref="inputOne"
                 />
             </div>
             <div
-                @mouseup="enterPageOneHandler($event)"
+                @click="enterPageOneHandler($event)"
                 v-if="overflow && paginateCurrentPage > 2 && !enterPageOne"
                 class="dk__page dk__pagination-block"
             >
@@ -58,6 +59,7 @@
                     data-enter="2"
                     type="number"
                     placeholder="pg."
+                    ref="inputTwo"
                 />
             </div>
             <div
@@ -82,9 +84,13 @@
         </div>
     </div>
 </template>
+
 <script>
+import { ref, computed } from 'vue';
+
 export default {
     name: 'Page',
+
     props: {
         currentPage: {
             type: Number,
@@ -99,28 +105,31 @@ export default {
         },
         blockStyles: {
             type: Object,
-            default: () => ({}),
         },
     },
-    data() {
+
+    setup(props) {
+        const overflow = ref(false);
+        const enterPageOne = ref(false);
+        const enterPageTwo = ref(false);
+        const enterPageOneValue = ref('');
+        const enterPageTwoValue = ref('');
+        const paginateCurrentPage = ref(props.currentPage);
+        const disabledLeft = computed(() => paginateCurrentPage.value === 1);
+        const disabledRight = computed(() => paginateCurrentPage.value === props.lastPage);
+
         return {
-            overflow: false,
-            enterPageOne: false,
-            enterPageTwo: false,
-            enterPageOneValue: '',
-            enterPageTwoValue: '',
-            paginateCurrentPage: this.currentPage,
-            paginationStyles: { ...this.styles },
+            overflow,
+            enterPageOne,
+            enterPageTwo,
+            enterPageOneValue,
+            enterPageTwoValue,
+            paginateCurrentPage,
+            disabledLeft,
+            disabledRight,
         };
     },
-    computed: {
-        disabledLeft: function() {
-            return this.paginateCurrentPage === 1;
-        },
-        disabledRight: function() {
-            return this.paginateCurrentPage === this.lastPage;
-        },
-    },
+
     methods: {
         selectedPage() {
             let pages = document.querySelectorAll('.dk__page');
@@ -172,15 +181,11 @@ export default {
         },
         enterPageOneHandler(e) {
             this.enterPageOne = true;
-            setTimeout(() => {
-                e.target.firstChild.focus();
-            }, 1);
+            setTimeout(() => this.$refs.inputOne.focus(), 1);
         },
         enterPageTwoHandler(e) {
             this.enterPageTwo = true;
-            setTimeout(() => {
-                e.target.firstChild.focus();
-            }, 1);
+            setTimeout(() => this.$refs.inputTwo.focus(), 1);
         },
         paginateLeft(e) {
             if (this.paginateCurrentPage > 1) {
@@ -212,82 +217,97 @@ export default {
             document.getElementsByTagName('head')[0].appendChild(style);
         },
     },
+
     mounted() {
         this.selectedPage();
         this.pageOverflow();
         this.blockStyling();
     },
+
     updated() {
         this.selectedPage();
     },
 };
 </script>
-<style scoped lang="scss">
+
+<style lang="scss">
 .dk__pages {
+    user-select: none;
     @include flex-x(space-between, center);
     margin: 10px auto;
     width: 300px;
-    user-select: none;
-}
-.dk__disabled-pagination {
-    visibility: hidden;
-}
-.dk__pagination {
-    cursor: pointer;
-    @include flex-x(center, center);
-    height: 30px;
-    width: 30px;
-    transition: background-color 0.2s;
-}
-.dk__pagination:hover {
-    background-color: rgba($black, 0.2);
-}
-.dk__page-container {
-    display: flex;
-}
-.dk__page,
-input {
-    @include flex-x(center, center);
-    width: 30px;
-    height: 30px;
-}
-.dk__selected {
-    color: $white;
-    background-color: $black;
-}
-// Page number input
-.dk__selectable {
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-.dk__selectable:hover {
-    background-color: rgba($black, 0.2);
-}
-input {
-    outline: none;
-    border-width: 0;
-    text-align: center;
-    color: $white;
-    background-color: lighten($black, 10%);
-    transition: background-color 0.2s;
-}
-input:focus {
-    background-color: lighten($black, 20%);
-}
-::placeholder {
-    /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: darken(white, 20%);
-    opacity: 1; /* Firefox */
-}
-:-ms-input-placeholder {
-    /* Internet Explorer 10-11 */
-    color: darken(white, 20%);
-}
-::-ms-input-placeholder {
-    /* Microsoft Edge */
-    color: darken(white, 20%);
-}
-::-webkit-inner-spin-button {
-    appearance: none;
+    font-family: Helvetica, Arial, sans-serif;
+
+    .dk__disabled-pagination {
+        visibility: hidden;
+    }
+
+    .dk__pagination {
+        cursor: pointer;
+        @include flex-x(center, center);
+        height: 30px;
+        width: 30px;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background-color: rgba($black, 0.2);
+        }
+    }
+
+    .dk__page-container {
+        display: flex;
+    }
+
+    .dk__page,
+    input {
+        @include flex-x(center, center);
+        width: 30px;
+        height: 30px;
+    }
+
+    .dk__selected {
+        color: $white;
+        background-color: $black;
+    }
+
+    // Page number input
+    .dk__selectable {
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background-color: rgba($black, 0.2);
+        }
+    }
+
+    input {
+        outline: none;
+        border-width: 0;
+        text-align: center;
+        color: $white;
+        background-color: lighten($black, 10%);
+        transition: background-color 0.2s;
+
+        &:focus {
+            background-color: lighten($black, 20%);
+        }
+    }
+
+    ::placeholder {
+        /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: darken(white, 20%);
+        opacity: 1; /* Firefox */
+    }
+    :-ms-input-placeholder {
+        /* Internet Explorer 10-11 */
+        color: darken(white, 20%);
+    }
+    ::-ms-input-placeholder {
+        /* Microsoft Edge */
+        color: darken(white, 20%);
+    }
+    ::-webkit-inner-spin-button {
+        appearance: none;
+    }
 }
 </style>
