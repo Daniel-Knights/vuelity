@@ -34,6 +34,7 @@ export default {
     right: 0;
     left: 0;
     padding: 10px;
+    min-height: 100px;
     text-align: left;
     font-family: $font_primary;
     color: $white;
