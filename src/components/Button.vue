@@ -7,7 +7,9 @@
         @click="rippleHandler($event)"
     >
         <div v-if="shine" ref="shine" class="dk__shine"></div>
-        <slot></slot>
+        <div class="dk__btn-content">
+            <slot></slot>
+        </div>
     </button>
 </template>
 
@@ -35,7 +37,7 @@ export default {
             type: Boolean,
             default: false,
         },
-        fillBorder: {
+        fill: {
             type: Boolean,
             default: false,
         },
@@ -81,7 +83,7 @@ export default {
         if (this.onlyBorder) this.$el.classList.add('dk__only-border');
 
         // Single color/transparent animation fill
-        if (this.fillBorder) {
+        if (this.fill) {
             this.$el.style.background = 'transparent';
             this.$el.classList.add('dk__fill');
         }
@@ -144,6 +146,11 @@ export default {
         }
     }
 
+    .dk__btn-content {
+        position: relative;
+        z-index: 1;
+    }
+
     .dk__ripple {
         pointer-events: none !important;
         position: absolute !important;
@@ -179,7 +186,7 @@ export default {
         height: calc(100% - 6px);
         border-radius: var(--border-radius);
         background-color: #000;
-        z-index: -1;
+        z-index: 0;
     }
 
     &.dk__rainbow-after.dk__btn::after {
