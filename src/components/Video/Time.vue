@@ -199,7 +199,7 @@ export default {
             setTimeout(this.setTrackPosition, 10);
         },
         setTransitionDuration() {
-            if (!this.$refs.thumbContainer || !this.$refs.played) return;
+            if (!this.$refs.thumbContainer || !this.$refs.played || !this.videoPlaying) return;
 
             // If duration is too low thumb lags behind
             if (this.video.duration > 30) this.$refs.thumbContainer.style.transitionDuration = '1s';
@@ -212,6 +212,9 @@ export default {
             this.$refs.played.style.transitionDuration = '0s';
         },
         scrubStart(e) {
+            // Ensure transition duration set if scrubbing back from end
+            this.videoEnded = false;
+
             // Detect right click
             if (e.which === 3 || e.button === 2) return;
 
@@ -227,9 +230,7 @@ export default {
             // Set played track position
             this.playedPercent = eventPlayed * 100;
             // Set thumb position
-            setTimeout(() => {
-                this.playedPixels = this.$refs.played.offsetWidth;
-            }, 1);
+            setTimeout(() => (this.playedPixels = this.$refs.played.offsetWidth), 1);
         },
         scrubbing(e) {
             if (!this.dragging) return;
@@ -254,14 +255,14 @@ export default {
             this.dragging = false;
             if (this.$refs.played) this.playedPixels = this.$refs.played.offsetWidth;
 
+            // Reset state if not loading
             const interval = setInterval(() => {
-                if (!this.videoLoading) {
-                    this.setTrackPosition();
-                    this.setThumbPosition();
-                    if (!this.videoEnded) this.setTransitionDuration();
+                if (this.videoLoading) return;
+                this.setTrackPosition();
+                this.setThumbPosition();
+                if (!this.videoEnded) this.setTransitionDuration();
 
-                    clearInterval(interval);
-                }
+                clearInterval(interval);
             }, 100);
         },
         playHandler() {
@@ -269,15 +270,19 @@ export default {
             this.setThumbPosition();
             this.setTrackPosition();
 
-            if (!this.videoEnded) this.setTransitionDuration();
-            else {
-                this.videoEnded = false;
+            if (this.videoEnded) {
+                const endedInterval = setInterval(() => {
+                    if (this.playedPixels > 10) return;
+                    this.videoEnded = false;
+                    this.setTransitionDuration();
 
-                setTimeout(() => this.setTransitionDuration(), 1000);
-            }
+                    clearInterval(endedInterval);
+                }, 100);
+            } else this.setTransitionDuration();
         },
         skipHandler() {
             let currentMillisecond = 0;
+            this.videoEnded = false;
 
             const trackInterval = setInterval(() => {
                 this.playedPercent = (this.videoCurrentTime / this.video.duration) * 100;
@@ -285,53 +290,36 @@ export default {
                     setTimeout(() => (this.playedPixels = this.$refs.played.offsetWidth), 1);
                 }
 
-                console.log(this.videoLoading);
-
-                if (!this.videoLoading || this.videoPlaying) clearInterval(trackInterval);
-            }, 100);
-
-            const transitionInterval = setInterval(() => {
-                if (this.videoLoading || !this.videoPlaying) return;
-                this.setTransitionDuration();
-
-                clearInterval(transitionInterval);
+                if (!this.videoEnded && this.videoPlaying) this.setTransitionDuration();
+                if (this.videoPlaying) clearInterval(trackInterval);
             }, 100);
         },
     },
     created() {
         // Toggle thumb position function on play/pause
         let playPauseTimeout;
+
         this.video.addEventListener('play', () => {
             clearTimeout(playPauseTimeout);
             this.playHandler();
         });
         this.video.addEventListener('pause', () => {
-            playPauseTimeout = setTimeout(() => {
-                this.videoPlaying = false;
-            }, 1000);
+            playPauseTimeout = setTimeout(() => (this.videoPlaying = false), 1000);
         });
-        this.video.addEventListener('canplay', e => {
-            this.videoLoading = false;
-        });
+        this.video.addEventListener('canplay', e => (this.videoLoading = false));
         this.video.addEventListener('ended', () => {
             this.videoEnded = true;
             this.removeTransitionDuration();
         });
         // Scrubbing
-        document.addEventListener('mousemove', e => {
-            this.scrubbing(e);
-        });
-        document.addEventListener('mouseup', () => {
-            this.scrubEnd();
-        });
+        document.addEventListener('mousemove', e => this.scrubbing(e));
+        document.addEventListener('mouseup', () => this.scrubEnd());
         window.addEventListener('resize', () => {
             // Prevent thumb/track transition on resize/fullscreen
             this.removeTransitionDuration();
             if (this.$refs.played) this.playedPixels = this.$refs.played.offsetWidth;
 
-            setTimeout(() => {
-                this.setTransitionDuration();
-            }, 100);
+            setTimeout(() => this.setTransitionDuration(), 100);
         });
         // 5 second time skips on left/right arrow keys
         document.addEventListener('keyup', e => {
