@@ -1,9 +1,5 @@
-@import './mixins';
-
-$white: rgb(249, 253, 245);
-$black: rgb(19, 18, 18);
-$primary: rgb(90, 175, 255);
-$font_primary: Avenir, sans-serif;
+@import 'mixins';
+@import 'variables';
 
 * {
     box-sizing: border-box;

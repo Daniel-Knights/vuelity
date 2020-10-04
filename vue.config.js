@@ -7,7 +7,10 @@ module.exports = {
         extract: false,
         loaderOptions: {
             sass: {
-                additionalData: `@import "@/sass/app.scss";`,
+                additionalData: `
+                    @import "@/sass/_variables.scss";
+                    @import "@/sass/_mixins.scss";
+                `,
             },
         },
     },
