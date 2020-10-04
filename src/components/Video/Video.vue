@@ -161,9 +161,13 @@ export default {
 <style lang="scss">
 .dk__video-container {
     margin: 10px auto;
-    max-width: 100vw;
+    width: 100%;
     min-width: 280px;
     font-family: Helvetica, Arial, sans-serif;
+
+    * {
+        box-sizing: border-box;
+    }
 
     .dk__video {
         @include flex-y(center, center);
