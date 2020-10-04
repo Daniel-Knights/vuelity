@@ -127,7 +127,7 @@ export default {
         display: block;
         position: relative;
         height: 40px;
-        width: 125px;
+        min-width: 125px;
         font: 18px bold $font_primary;
         border: none;
         border-width: 3px;

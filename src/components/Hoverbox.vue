@@ -50,10 +50,10 @@ export default {
         };
 
         onMounted(() => {
-            if (props.width == undefined) {
+            if (props.width == undefined && container.value) {
                 hoverboxWidth.value = container.value.offsetWidth + 20;
             }
-            if (props.height == undefined) {
+            if (props.height == undefined && container.value) {
                 hoverboxHeight.value = container.value.offsetHeight + 10;
             }
 

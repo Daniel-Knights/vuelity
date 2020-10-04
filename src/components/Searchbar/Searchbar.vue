@@ -18,6 +18,7 @@
 
 <script>
 import { ref } from 'vue';
+
 import SearchIcon from './SearchIcon';
 
 export default {

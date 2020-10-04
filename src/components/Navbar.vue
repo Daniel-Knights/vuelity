@@ -8,6 +8,8 @@
 
 <script>
 export default {
+    name: 'Navbar',
+
     props: {
         position: {
             type: String,
