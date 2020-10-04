@@ -22,8 +22,7 @@
         "@vue/compiler-sfc": "^3.0.0",
         "axios": "^0.20.0",
         "sass": "^1.26.11",
-        "sass-loader": "^10.0.2",
-        "webpack-bundle-analyzer": "^3.9.0"
+        "sass-loader": "^10.0.2"
     },
     "files": [
         "dist/dkLib.umd.min.js"

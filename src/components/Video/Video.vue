@@ -1,5 +1,5 @@
 <template>
-    <div class="dk__video-container">
+    <div class="dk__video-container" :style="{ width }">
         <div class="dk__video" v-if="src" :style="containerStyles">
             <div class="dk__video-loading" v-if="isLoading || video.networkState === 2">
                 <div></div>
@@ -69,16 +69,14 @@ export default {
     },
 
     props: {
+        width: { type: String, default: '100%' },
         videoSrc: String,
         videoId: String,
         videoTitle: String,
         videoFocused: String,
         videoPoster: String,
         timeTags: Array,
-        contextmenu: {
-            type: Boolean,
-            default: true,
-        },
+        contextmenu: { type: Boolean, default: true },
         styles: Object,
         containerStyles: Object,
         buttonStyles: Object,
@@ -161,7 +159,6 @@ export default {
 <style lang="scss">
 .dk__video-container {
     margin: 10px auto;
-    width: 100%;
     min-width: 280px;
     font-family: Helvetica, Arial, sans-serif;
 

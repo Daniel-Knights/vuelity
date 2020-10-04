@@ -60,6 +60,7 @@
         videoPoster="https://a.storyblok.com/f/87848/800x800/a97f990693/sudhith-xavier-iun1o500lmi-unsplash-1.jpg"
     />
     <DKVideo
+        width="50vw"
         v-for="video in videos"
         :key="video._uid"
         :videoId="String(video._uid)"
