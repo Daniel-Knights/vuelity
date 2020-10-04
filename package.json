@@ -1,10 +1,6 @@
 {
     "name": "vue-dk-lib",
-<<<<<<< HEAD
     "version": "1.0.37",
-=======
-    "version": "1.0.36",
->>>>>>> bdff58286a80c33352861f8a7a92b688223b02e8
     "private": false,
     "main": "./dist/dkLib.umd.min.js",
     "scripts": {
