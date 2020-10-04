@@ -334,13 +334,13 @@ export default {
             }, 100);
         });
         // 5 second time skips on left/right arrow keys
-        document.addEventListener('keyup', e => {
+        document.addEventListener('keydown', e => {
             if (e.key !== 'ArrowRight' || this.videoId !== this.videoFocused) return;
             this.removeTransitionDuration();
             this.video.currentTime += 5;
             this.skipHandler();
         });
-        document.addEventListener('keyup', e => {
+        document.addEventListener('keydown', e => {
             if (e.key !== 'ArrowLeft' || this.videoId !== this.videoFocused) return;
             this.removeTransitionDuration();
             this.video.currentTime -= 5;
