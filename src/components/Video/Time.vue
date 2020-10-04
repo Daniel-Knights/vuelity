@@ -279,19 +279,17 @@ export default {
         skipHandler() {
             let currentMillisecond = 0;
 
-            setTimeout(() => {
+            const trackInterval = setInterval(() => {
                 this.playedPercent = (this.videoCurrentTime / this.video.duration) * 100;
+                if (this.$refs.played) {
+                    setTimeout(() => (this.playedPixels = this.$refs.played.offsetWidth), 1);
+                }
+
+                if (this.videoPlaying) clearInterval(trackInterval);
             }, 100);
 
-            const thumbInterval = setInterval(() => {
-                if (this.$refs.played) this.playedPixels = this.$refs.played.offsetWidth;
-                currentMillisecond += 10;
-
-                if (currentMillisecond >= 1000) clearInterval(thumbInterval);
-            }, 10);
-
             const transitionInterval = setInterval(() => {
-                if (this.videoLoading || !this.videoPlaying) return;
+                if (!this.videoPlaying) return;
                 this.setTransitionDuration();
 
                 clearInterval(transitionInterval);
@@ -334,13 +332,13 @@ export default {
             }, 100);
         });
         // 5 second time skips on left/right arrow keys
-        document.addEventListener('keydown', e => {
+        document.addEventListener('keyup', e => {
             if (e.key !== 'ArrowRight' || this.videoId !== this.videoFocused) return;
             this.removeTransitionDuration();
             this.video.currentTime += 5;
             this.skipHandler();
         });
-        document.addEventListener('keydown', e => {
+        document.addEventListener('keyup', e => {
             if (e.key !== 'ArrowLeft' || this.videoId !== this.videoFocused) return;
             this.removeTransitionDuration();
             this.video.currentTime -= 5;
