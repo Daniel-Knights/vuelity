@@ -14,9 +14,7 @@
         >
             <div
                 class="dk__video-thumb-container"
-                :style="{
-                    transform: 'translateX(' + playedPixels + 'px)',
-                }"
+                :style="{ transform: 'translateX(' + playedPixels + 'px)' }"
                 ref="thumbContainer"
             >
                 <div class="dk__video-thumb" :style="thumbStyles" ref="thumb"></div>
@@ -31,10 +29,7 @@
                 <div class="dk__video-track" ref="videoTrack">
                     <div
                         class="dk__video-played"
-                        :style="{
-                            maxWidth: playedPercent + '%',
-                            backgroundColor: trackColor,
-                        }"
+                        :style="{ maxWidth: playedPercent + '%', backgroundColor: trackColor }"
                         ref="played"
                     ></div>
                     <div
@@ -290,8 +285,10 @@ export default {
                     setTimeout(() => (this.playedPixels = this.$refs.played.offsetWidth), 1);
                 }
 
-                if (!this.videoEnded && this.videoPlaying) this.setTransitionDuration();
-                if (this.videoPlaying) clearInterval(trackInterval);
+                if (!this.videoEnded && this.videoPlaying && this.video.networkState !== 2)
+                    this.setTransitionDuration();
+                if (this.videoPlaying && this.video.networkState !== 2)
+                    clearInterval(trackInterval);
             }, 100);
         },
     },
