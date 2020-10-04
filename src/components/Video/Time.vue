@@ -285,11 +285,13 @@ export default {
                     setTimeout(() => (this.playedPixels = this.$refs.played.offsetWidth), 1);
                 }
 
-                if (this.videoPlaying) clearInterval(trackInterval);
+                console.log(this.videoLoading);
+
+                if (!this.videoLoading || this.videoPlaying) clearInterval(trackInterval);
             }, 100);
 
             const transitionInterval = setInterval(() => {
-                if (!this.videoPlaying) return;
+                if (this.videoLoading || !this.videoPlaying) return;
                 this.setTransitionDuration();
 
                 clearInterval(transitionInterval);
