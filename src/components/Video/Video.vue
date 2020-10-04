@@ -177,7 +177,6 @@ export default {
         height: 100%;
         width: 100%;
         max-width: 100%;
-        max-height: 575px;
     }
 
     .dk__video-play-main {
