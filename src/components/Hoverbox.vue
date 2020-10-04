@@ -62,7 +62,7 @@ export default {
         });
 
         window.addEventListener('resize', () => {
-            if (props.width || props.height) return;
+            if (props.width || props.height || !container.value) return;
             hoverboxWidth.value = container.value.offsetWidth + 20;
             hoverboxHeight.value = container.value.offsetHeight + 10;
         });
