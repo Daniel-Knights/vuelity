@@ -280,15 +280,22 @@ export default {
             this.videoEnded = false;
 
             const trackInterval = setInterval(() => {
+                // Determine if video is able to play consistently
+                const ready =
+                    this.videoPlaying &&
+                    this.video.readyState !== 1 &&
+                    this.video.networkState !== 2 &&
+                    !this.videoLoading;
+
+                currentMillisecond += 100;
                 this.playedPercent = (this.videoCurrentTime / this.video.duration) * 100;
+
                 if (this.$refs.played) {
                     setTimeout(() => (this.playedPixels = this.$refs.played.offsetWidth), 1);
                 }
 
-                if (!this.videoEnded && this.videoPlaying && this.video.networkState !== 2)
-                    this.setTransitionDuration();
-                if (this.videoPlaying && this.video.networkState !== 2)
-                    clearInterval(trackInterval);
+                if (!this.videoEnded && ready) this.setTransitionDuration();
+                if (ready || currentMillisecond > 3000) clearInterval(trackInterval);
             }, 100);
         },
     },

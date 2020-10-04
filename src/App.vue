@@ -64,7 +64,7 @@
         v-for="video in videos"
         :key="video._uid"
         :videoId="String(video._uid)"
-        :videoSrc="video.aws_url"
+        :videoSrc="require('@/assets/video.mp4')"
         :videoTitle="video.title"
         :videoFocused="videoFocused"
         :videoPoster="video.poster ? video.poster.filename : ''"

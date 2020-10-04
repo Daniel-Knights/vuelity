@@ -26,12 +26,13 @@ export default {
         let toggled = ref(() => {});
 
         onMounted(() => {
-            if (!toggleFocus.value) return;
-
             toggled.value = () => {
                 toggleOn.value = !toggleOn.value;
-                toggleFocus.value.style.transform = 'scale(2)';
-                toggleFocus.value.style.opacity = '1';
+
+                if (toggleFocus.value) {
+                    toggleFocus.value.style.transform = 'scale(2)';
+                    toggleFocus.value.style.opacity = '1';
+                }
 
                 context.emit('toggled', toggleOn.value);
             };
