@@ -7,7 +7,7 @@
         @click="rippleHandler($event)"
     >
         <div v-if="shine" ref="shine" class="dk__shine"></div>
-        <div class="dk__btn-content">
+        <div class="dk__btn-content" ref="content">
             <slot></slot>
         </div>
     </button>
@@ -55,7 +55,7 @@ export default {
             rippleEl.style.left = `${x}px`;
             rippleEl.style.top = `${y}px`;
 
-            if (this.ripple) this.$el.appendChild(rippleEl);
+            if (this.ripple) this.$refs.content.appendChild(rippleEl);
 
             setTimeout(() => rippleEl.remove(), 500);
         },
