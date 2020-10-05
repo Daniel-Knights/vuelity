@@ -59,7 +59,7 @@ export default {
     height: 19px;
     width: 40px;
     border-radius: 15px;
-    background: $black;
+    background: darken($primary, 10%);
     box-shadow: 0 0 2px $black;
 
     * {
