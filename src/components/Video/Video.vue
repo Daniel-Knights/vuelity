@@ -102,10 +102,6 @@ export default {
             // Async src
             this.src = val;
         },
-        video() {
-            // Ensure max-height if video is slow to load
-            this.setMaxHeight();
-        },
     },
 
     methods: {
