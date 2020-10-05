@@ -1,6 +1,6 @@
 <template>
     <div class="dk__video-container" :style="{ width }">
-        <div class="dk__video" v-if="src" :style="containerStyles">
+        <div class="dk__video" :style="containerStyles">
             <div class="dk__video-loading" v-if="isLoading || video.networkState === 2">
                 <div></div>
                 <div></div>
@@ -102,6 +102,10 @@ export default {
             // Async src
             this.src = val;
         },
+        video() {
+            // Ensure max-height if video is slow to load
+            this.setMaxHeight();
+        },
     },
 
     methods: {
@@ -143,19 +147,17 @@ export default {
                     (e.target.buffered.end(e.target.buffered.length - 1) / e.target.duration) * 100;
         },
         setMaxHeight() {
+            // Set video ratio
             this.video.style.maxHeight = this.video.offsetWidth * 0.575 + 'px';
         },
     },
 
     mounted() {
-        if (this.$refs.video) {
-            this.video = this.$refs.video;
-            this.setMaxHeight();
-            this.video.addEventListener('contextmenu', e => {
-                if (!this.contextmenu) e.preventDefault();
-            });
-            window.addEventListener('resize', this.setMaxHeight);
-        }
+        this.video = this.$refs.video;
+        this.video.addEventListener('contextmenu', e => {
+            if (!this.contextmenu) e.preventDefault();
+        });
+        window.addEventListener('resize', this.setMaxHeight);
     },
 };
 </script>
