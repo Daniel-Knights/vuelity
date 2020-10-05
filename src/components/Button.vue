@@ -4,7 +4,12 @@
         @mouseover="addHoverColor()"
         @mouseout="removeHoverColor()"
         class="dk__component dk__btn"
-        :class="{ dk__fill: fill, dk__rainbow: rainbow, 'dk__only-border': onlyBorder }"
+        :class="{
+            dk__fill: fill,
+            dk__rainbow: rainbow,
+            'dk__only-border': onlyBorder,
+            'dk__hover-enabled': hoverEnabled,
+        }"
         @click="rippleHandler($event)"
     >
         <div v-if="shine" ref="shine" class="dk__shine"></div>
@@ -22,6 +27,7 @@ export default {
         styles: { type: Object, default: {} },
         hoverColor: String,
         hoverBackground: String,
+        hoverEnabled: { type: Boolean, default: true },
         ripple: {
             type: Boolean,
             default: true,
@@ -134,10 +140,6 @@ export default {
         outline: none;
         overflow: hidden;
         transition: all 0.25s;
-
-        &:hover {
-            background-color: $primary;
-        }
     }
 
     .dk__btn-content {
@@ -168,6 +170,10 @@ export default {
         background-color: rgba($white, 0.9);
         transform: skew(-10deg);
         animation: dk__shine 5s cubic-bezier(0.95, 0.05, 0.795, 1) infinite;
+    }
+
+    &.dk__hover-enabled:hover {
+        background-color: $primary;
     }
 
     &.dk__only-border::before {

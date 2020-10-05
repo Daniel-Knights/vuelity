@@ -13,7 +13,7 @@
         </DKHoverbox>
         <div class="auth-btns">
             <DKHoverbox :containerStyles="hoverboxContainerStyles">
-                <DKButton :styles="btnStyles" :onlyBorder="true" :fillBorder="true">Login</DKButton>
+                <DKButton :styles="btnStyles" :onlyBorder="true">Login</DKButton>
             </DKHoverbox>
             <DKButton :styles="btnStyles" :ripple="false" :shine="true">Signup</DKButton>
         </div>
@@ -37,8 +37,7 @@
             :rainbow="true"
             :shine="true"
             :ripple="false"
-            :fill="true"
-            :onlyBorder="true"
+            :hoverEnabled="false"
             :styles="{ borderRadius: '50%' }"
             >CRAZY</DKButton
         >
