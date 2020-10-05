@@ -38,7 +38,7 @@ export default {
             };
 
             window.addEventListener('click', e => {
-                if (e.target !== toggle.value) {
+                if (e.target !== toggle.value && toggleFocus.value) {
                     toggleFocus.value.style.transform = 'scale(1)';
                     toggleFocus.value.style.opacity = '0';
                 }

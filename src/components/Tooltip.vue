@@ -59,7 +59,7 @@ export default {
         bottom() {
             const elHeight = this.$refs.el.offsetHeight;
 
-            this.$refs.tip.parentElement.style.transform = `translateY(${elHeight + 20}px)`;
+            this.$refs.tip.parentElement.style.transform = `translateY(${elHeight + 15}px)`;
         },
         left() {
             const elWidth = this.$refs.el.offsetWidth;
