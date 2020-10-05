@@ -32,16 +32,17 @@
         cupiditate eum, quas nulla esse nesciunt veniam error.
     </DKHoverbox>
 
-    <DKTooltip text="Check" position="right" :styles="tooltipStyles" :arrow="false">
+    <DKTooltip text="Check" position="right">
         <DKButton :rainbow="true">CRAZY</DKButton>
     </DKTooltip>
 
     <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, vitae corporis? Earum
         quos
-        <DKTooltip text="An unknown word"
-            ><span style="text-decoration: underline;">quibusdam</span></DKTooltip
-        >, perferendis nesciunt nostrum ea laboriosam cumque.
+        <DKTooltip text="An unknown word">
+            <span style="text-decoration: underline;">quibusdam</span>
+        </DKTooltip>
+        , perferendis nesciunt nostrum ea laboriosam cumque.
     </p>
 
     <DKPagination

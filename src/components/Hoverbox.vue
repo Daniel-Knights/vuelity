@@ -9,7 +9,7 @@
         >
             <rect :width="hoverboxWidth" :height="hoverboxHeight" :fill="fill" />
         </svg>
-        <div class="slot-container">
+        <div class="dk__slot-container">
             <slot />
         </div>
     </div>
@@ -89,7 +89,7 @@ export default {
         z-index: 0;
     }
 
-    .slot-container {
+    .dk__slot-container {
         z-index: 1;
     }
 }

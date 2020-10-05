@@ -1,13 +1,9 @@
 <template>
     <div class="dk__tooltip-container">
         <div class="dk__tooltip">
-            <span
-                v-html="text"
-                class="dk__tip"
-                :class="classPosition"
-                :style="styles"
-                ref="tip"
-            ></span>
+            <span class="dk__tip" :class="classPosition" :style="styles" ref="tip">
+                {{ text }}
+            </span>
         </div>
         <div ref="el" @mouseover="tipShow()" @mouseout="tipHide()">
             <slot></slot>
@@ -96,7 +92,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @mixin pseudo {
     content: '';
     display: block;
@@ -114,7 +110,7 @@ export default {
     }
 
     .dk__tip {
-        @include flex-x(center);
+        @include flex-x(center, center);
         position: absolute !important;
         min-width: max-content;
         padding: 5px 10px;

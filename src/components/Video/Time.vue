@@ -40,7 +40,7 @@
             </div>
         </div>
         <div class="dk__video-duration">
-            <span> {{ convertMilliseconds(video.duration) }}</span>
+            <span>{{ convertMilliseconds(video.duration) }}</span>
         </div>
     </div>
 </template>
