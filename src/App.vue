@@ -33,7 +33,15 @@
     </DKHoverbox>
 
     <DKTooltip text="Check" position="right">
-        <DKButton :rainbow="true">CRAZY</DKButton>
+        <DKButton
+            :rainbow="true"
+            :shine="true"
+            :ripple="false"
+            :fill="true"
+            :onlyBorder="true"
+            :styles="{ borderRadius: '50%' }"
+            >CRAZY</DKButton
+        >
     </DKTooltip>
 
     <p>
@@ -49,7 +57,6 @@
         :currentPage="1"
         :lastPage="10"
         @page-changed="logValue($event)"
-        :styles="paginationStyles"
         :blockStyles="paginationBlockStyles"
     >
         ►

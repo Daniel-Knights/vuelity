@@ -24,7 +24,7 @@ export default {
             type: String,
             default: 'top',
         },
-        styles: Object,
+        styles: { type: Object, default: {} },
         arrow: {
             type: Boolean,
             default: true,

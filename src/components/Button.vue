@@ -4,6 +4,7 @@
         @mouseover="addHoverColor()"
         @mouseout="removeHoverColor()"
         class="dk__component dk__btn"
+        :class="{ dk__fill: fill, dk__rainbow: rainbow, 'dk__only-border': onlyBorder }"
         @click="rippleHandler($event)"
     >
         <div v-if="shine" ref="shine" class="dk__shine"></div>
@@ -18,7 +19,7 @@ export default {
     name: 'Button',
 
     props: {
-        styles: Object,
+        styles: { type: Object, default: {} },
         hoverColor: String,
         hoverBackground: String,
         ripple: {
@@ -43,19 +44,27 @@ export default {
         },
     },
 
+    data() {
+        return {
+            background: '',
+            color: '',
+        };
+    },
+
     methods: {
         rippleHandler(e) {
+            if (!this.ripple) return;
+
             const rect = e.target.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
 
             let rippleEl = document.createElement('div');
             rippleEl.setAttribute('class', 'dk__ripple');
-
             rippleEl.style.left = `${x}px`;
             rippleEl.style.top = `${y}px`;
 
-            if (this.ripple) this.$refs.content.appendChild(rippleEl);
+            this.$refs.content.appendChild(rippleEl);
 
             setTimeout(() => rippleEl.remove(), 500);
         },
@@ -73,24 +82,9 @@ export default {
         // Randomize shine animation delay
         if (this.shine) this.$refs.shine.style.animationDelay = Math.random() * 1 + 's';
 
-        // Rainbow button
-        if (this.rainbow) {
-            this.$el.style.background = 'transparent';
-            this.$el.classList.add('dk__rainbow-after');
-        }
-
-        // Inner fill
-        if (this.onlyBorder) this.$el.classList.add('dk__only-border');
-
-        // Single color/transparent animation fill
-        if (this.fill) {
-            this.$el.style.background = 'transparent';
-            this.$el.classList.add('dk__fill');
-        }
-
         // Set CSS border-radius variable
-        if (this.$el.style.borderRadius) {
-            this.$el.style.setProperty('--border-radius', this.$el.style.borderRadius);
+        if (this.styles.borderRadius) {
+            this.$el.style.setProperty('--border-radius', this.styles.borderRadius);
         }
 
         // Store colors for hover
@@ -120,7 +114,7 @@ export default {
         height: 200%;
         background-size: 200% 200%;
         transform: skew(40deg);
-        z-index: -2;
+        z-index: -1;
         animation: dk__background-shift 5s linear infinite;
     }
 
@@ -176,7 +170,7 @@ export default {
         animation: dk__shine 5s cubic-bezier(0.95, 0.05, 0.795, 1) infinite;
     }
 
-    &.dk__only-border.dk__btn::before {
+    &.dk__only-border::before {
         content: '';
         display: block;
         position: absolute;
@@ -189,25 +183,33 @@ export default {
         z-index: 0;
     }
 
-    &.dk__rainbow-after.dk__btn::after {
-        background: linear-gradient(
-            to right,
-            #f79533,
-            #f37055,
-            #ef4e7b,
-            #a166ab,
-            #5073b8,
-            #1098ad,
-            #07b39b,
-            #6fba82,
-            #f79533
-        );
-        @include after;
+    &.dk__rainbow {
+        background: transparent;
+
+        &::after {
+            background: linear-gradient(
+                to right,
+                #f79533,
+                #f37055,
+                #ef4e7b,
+                #a166ab,
+                #5073b8,
+                #1098ad,
+                #07b39b,
+                #6fba82,
+                #f79533
+            );
+            @include after;
+        }
     }
 
-    &.dk__fill.dk__btn::after {
-        @include scrim-gradient($primary, 'to right');
-        @include after;
+    &.dk__fill {
+        background: transparent;
+
+        &::after {
+            @include scrim-gradient($primary, 'to right');
+            @include after;
+        }
     }
 
     @keyframes dk__shine {

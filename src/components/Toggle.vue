@@ -14,8 +14,8 @@ export default {
     name: 'Toggle',
 
     props: {
-        containerStyles: Object,
-        toggleStyles: Object,
+        containerStyles: { type: Object, default: {} },
+        toggleStyles: { type: Object, default: {} },
     },
 
     setup(props, context) {

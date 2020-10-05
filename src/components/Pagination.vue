@@ -99,12 +99,11 @@ export default {
         lastPage: Number,
         styles: {
             type: Object,
-            default: () => ({
-                color: '#000',
-            }),
+            default: { color: '#000' },
         },
         blockStyles: {
             type: Object,
+            default: {},
         },
     },
 

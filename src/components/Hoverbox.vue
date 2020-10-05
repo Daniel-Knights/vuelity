@@ -24,7 +24,7 @@ export default {
     props: {
         width: Number,
         height: Number,
-        styles: Object,
+        styles: { type: Object, default: {} },
         containerStyles: Object,
         fill: {
             type: String,

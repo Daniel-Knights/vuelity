@@ -77,10 +77,10 @@ export default {
         videoPoster: String,
         timeTags: Array,
         contextmenu: { type: Boolean, default: true },
-        styles: Object,
-        containerStyles: Object,
-        buttonStyles: Object,
-        thumbStyles: Object,
+        styles: { type: Object, default: {} },
+        containerStyles: { type: Object, default: {} },
+        buttonStyles: { type: Object, default: {} },
+        thumbStyles: { type: Object, default: {} },
         trackColor: String,
     },
 
@@ -98,9 +98,9 @@ export default {
     },
 
     watch: {
-        videoSrc: function(newVal, oldVal) {
+        videoSrc(val) {
             // Async src
-            this.src = newVal;
+            this.src = val;
         },
     },
 
@@ -114,12 +114,16 @@ export default {
             const video = this.video;
             const sibling = video.nextSibling.nextSibling;
             const controls = sibling.firstChild;
+
             clearTimeout(this.hideControlsTimeout);
+
             if (!controls || !video || !sibling) return;
+
             controls.style.opacity = '1';
             controls.style.transform = 'translateY(0px)';
             sibling.style.opacity = '1';
             video.style.cursor = 'default';
+
             this.hideControlsTimeout = setTimeout(() => {
                 controls.style.opacity = '0';
                 controls.style.transform = 'translateY(10px)';

@@ -53,8 +53,8 @@ export default {
         videoVolume: Number,
         videoBuffered: Number,
         timeTags: Array,
-        buttonStyles: Object,
-        thumbStyles: Object,
+        buttonStyles: { type: Object, default: {} },
+        thumbStyles: { type: Object, default: {} },
         trackColor: String,
     },
 

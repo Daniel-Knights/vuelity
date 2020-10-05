@@ -34,7 +34,7 @@ export default {
             default: true,
         },
         iconColor: String,
-        styles: Object,
+        styles: { type: Object, default: {} },
         background: {
             type: String,
         },

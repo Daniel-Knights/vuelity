@@ -18,7 +18,7 @@ export default {
                 return ['top', 'bottom'].indexOf(position) > -1;
             },
         },
-        styles: Object,
+        styles: { type: Object, default: {} },
     },
 };
 </script>

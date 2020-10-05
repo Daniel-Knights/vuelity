@@ -16,6 +16,7 @@ export default {
     props: {
         styles: {
             type: Object,
+            default: {},
         },
         cookie: {
             type: Boolean,
