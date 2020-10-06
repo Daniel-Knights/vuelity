@@ -1,5 +1,10 @@
 <template>
-    <header class="dk__navbar" :class="{ 'dk__navbar-slider': slider }" ref="nav">
+    <header
+        class="dk__navbar"
+        :class="{ 'dk__navbar-slider': slider }"
+        ref="nav"
+        :style="containerStyles"
+    >
         <div class="dk__navbar-inner" :style="styles">
             <slot></slot>
             <DKBurger
@@ -31,6 +36,7 @@ export default {
             },
         },
         styles: { type: Object, default: {} },
+        containerStyles: { type: Object, default: {} },
         burgerStyles: { type: Object, default: {} },
         slider: { type: Boolean, default: false },
     },
