@@ -18,7 +18,7 @@ export default {
         toggleStyles: { type: Object, default: {} },
     },
 
-    setup(props, context) {
+    setup(props, { emit }) {
         const toggle = ref(null);
         const toggleFocus = ref(null);
         const toggleOn = ref(false);
@@ -34,7 +34,7 @@ export default {
                     toggleFocus.value.style.opacity = '1';
                 }
 
-                context.emit('toggled', toggleOn.value);
+                emit('toggle', toggleOn.value);
             };
 
             window.addEventListener('click', e => {

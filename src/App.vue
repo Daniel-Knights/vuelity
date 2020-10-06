@@ -27,7 +27,7 @@
     {{ search }}
 
     <DKToggle
-        @toggled="logValue($event)"
+        @toggle="logValue($event)"
         :containerStyles="toggleContainerStyles"
         :toggleStyles="toggleStyles"
     />
