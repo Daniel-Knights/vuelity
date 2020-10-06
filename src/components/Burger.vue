@@ -41,10 +41,11 @@ export default {
     @include flex-x(center, center);
     position: absolute;
     padding: 10px;
-    height: 30px;
+    height: 50px;
     background: $primary;
     border-radius: 50%;
     box-shadow: 0 0 7px -3px $black;
+    box-sizing: border-box;
     transition: all 0.25s;
 
     .dk__burger {
