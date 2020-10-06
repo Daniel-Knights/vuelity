@@ -30,6 +30,7 @@
         @toggle="logValue($event)"
         :containerStyles="toggleContainerStyles"
         :toggleStyles="toggleStyles"
+        :initialState="true"
     />
 
     <DKHoverbox :styles="hoverboxStyles" fill="red">

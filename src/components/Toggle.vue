@@ -16,12 +16,13 @@ export default {
     props: {
         containerStyles: { type: Object, default: {} },
         toggleStyles: { type: Object, default: {} },
+        initialState: { type: Boolean, default: false },
     },
 
     setup(props, { emit }) {
         const toggle = ref(null);
         const toggleFocus = ref(null);
-        const toggleOn = ref(false);
+        const toggleOn = ref(props.initialState);
 
         let toggled = ref(() => {});
 
