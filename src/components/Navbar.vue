@@ -93,6 +93,7 @@ export default {
 
     .dk__navbar-inner {
         flex-direction: column;
+        position: relative;
         width: 200px;
         height: 100vh;
         box-shadow: $shadow 0 10px 5px $black;
