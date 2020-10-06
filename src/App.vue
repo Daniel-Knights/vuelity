@@ -20,7 +20,7 @@
             <DKHoverbox :containerStyles="hoverboxContainerStyles">
                 <DKButton :styles="btnStyles" :onlyBorder="true">Login</DKButton>
             </DKHoverbox>
-            <DKButton :styles="btnStyles" :ripple="false" :shine="true">Signup</DKButton>
+            <DKButton :styles="btnStyles" :shine="true">Signup</DKButton>
         </div>
     </DKNavbar>
 

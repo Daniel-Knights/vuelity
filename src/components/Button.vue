@@ -72,7 +72,7 @@ export default {
 
             this.$refs.content.appendChild(rippleEl);
 
-            setTimeout(() => rippleEl.remove(), 500);
+            setTimeout(() => rippleEl.remove(), 1000);
         },
         addHoverColor() {
             this.$el.style.color = this.hoverColor;
@@ -243,7 +243,7 @@ export default {
         50% {
             opacity: 0.3;
         }
-        90% {
+        70% {
             opacity: 0.1;
         }
         100% {
