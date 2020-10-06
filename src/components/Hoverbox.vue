@@ -32,7 +32,7 @@ export default {
         },
     },
 
-    setup(props, { slots }) {
+    setup(props) {
         const hoverboxWidth = ref(props.width);
         const hoverboxHeight = ref(props.height);
         const container = ref(null);
@@ -50,10 +50,10 @@ export default {
         };
 
         onMounted(() => {
-            if (props.width == undefined && container.value) {
+            if (props.width === undefined && container.value) {
                 hoverboxWidth.value = container.value.offsetWidth + 20;
             }
-            if (props.height == undefined && container.value) {
+            if (props.height === undefined && container.value) {
                 hoverboxHeight.value = container.value.offsetHeight + 10;
             }
 

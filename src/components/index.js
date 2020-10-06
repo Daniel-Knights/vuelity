@@ -7,6 +7,7 @@ import Searchbar from './Searchbar/Searchbar.vue';
 import Tooltip from './Tooltip.vue';
 import Hoverbox from './Hoverbox.vue';
 import Toggle from './Toggle.vue';
+import Burger from './Burger.vue';
 
 export const DKButton = Button;
 export const DKNavbar = Navbar;
@@ -17,3 +18,4 @@ export const DKSearchbar = Searchbar;
 export const DKTooltip = Tooltip;
 export const DKHoverbox = Hoverbox;
 export const DKToggle = Toggle;
+export const DKBurger = Burger;

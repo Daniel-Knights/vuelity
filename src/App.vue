@@ -1,5 +1,10 @@
 <template>
-    <DKNavbar :styles="navbarStyles" position="top">
+    <DKNavbar
+        :styles="navbarStyles"
+        position="left"
+        :slider="true"
+        :burgerStyles="{ background: 'red' }"
+    >
         <h1>Bonjour</h1>
         <DKSearchbar
             :searchFunction="searchFunction"
@@ -42,6 +47,8 @@
             >CRAZY</DKButton
         >
     </DKTooltip>
+
+    <DKBurger @open="logValue($event)" :styles="{ right: '0' }" />
 
     <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, vitae corporis? Earum
@@ -91,29 +98,20 @@
 <script>
 import Axios from 'axios';
 
-import {
-    DKButton,
-    DKNavbar,
-    DKPopup,
-    DKPagination,
-    DKVideo,
-    DKSearchbar,
-    DKTooltip,
-    DKHoverbox,
-    DKToggle,
-} from './components';
+import * as DKLib from './components';
 
 export default {
     components: {
-        DKButton,
-        DKNavbar,
-        DKPopup,
-        DKPagination,
-        DKVideo,
-        DKSearchbar,
-        DKTooltip,
-        DKHoverbox,
-        DKToggle,
+        DKButton: DKLib.DKButton,
+        DKNavbar: DKLib.DKNavbar,
+        DKPopup: DKLib.DKPopup,
+        DKPagination: DKLib.DKPagination,
+        DKVideo: DKLib.DKVideo,
+        DKSearchbar: DKLib.DKSearchbar,
+        DKTooltip: DKLib.DKTooltip,
+        DKHoverbox: DKLib.DKHoverbox,
+        DKToggle: DKLib.DKToggle,
+        DKBurger: DKLib.DKBurger,
     },
 
     data() {

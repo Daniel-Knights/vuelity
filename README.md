@@ -24,7 +24,12 @@ export default {
 
 ```vue
 <template>
-    <DKNavbar :styles="navbarStyles" position="top">
+    <DKNavbar
+        :styles="navbarStyles"
+        position="left"
+        :slider="true"
+        :burgerStyles="{ background: 'red' }"
+    >
         <h1>Bonjour</h1>
         <DKSearchbar
             :searchFunction="searchFunction"
@@ -38,7 +43,7 @@ export default {
         </DKHoverbox>
         <div class="auth-btns">
             <DKHoverbox :containerStyles="hoverboxContainerStyles">
-                <DKButton :styles="btnStyles" :onlyBorder="true" :fillBorder="true">Login</DKButton>
+                <DKButton :styles="btnStyles" :onlyBorder="true">Login</DKButton>
             </DKHoverbox>
             <DKButton :styles="btnStyles" :ripple="false" :shine="true">Signup</DKButton>
         </div>
@@ -57,23 +62,32 @@ export default {
         cupiditate eum, quas nulla esse nesciunt veniam error.
     </DKHoverbox>
 
-    <DKTooltip text="Check" position="right" :styles="tooltipStyles" :arrow="false">
-        <DKButton :rainbow="true">CRAZY</DKButton>
+    <DKTooltip text="Check" position="right">
+        <DKButton
+            :rainbow="true"
+            :shine="true"
+            :ripple="false"
+            :hoverEnabled="false"
+            :styles="{ borderRadius: '50%' }"
+            >CRAZY</DKButton
+        >
     </DKTooltip>
+
+    <DKBurger @open="logValue($event)" :styles="{ right: '0' }" />
 
     <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, vitae corporis? Earum
         quos
-        <DKTooltip text="An unknown word"
-            ><span style="text-decoration: underline;">quibusdam</span></DKTooltip
-        >, perferendis nesciunt nostrum ea laboriosam cumque.
+        <DKTooltip text="An unknown word">
+            <span style="text-decoration: underline;">quibusdam</span>
+        </DKTooltip>
+        , perferendis nesciunt nostrum ea laboriosam cumque.
     </p>
 
     <DKPagination
         :currentPage="1"
         :lastPage="10"
         @page-changed="logValue($event)"
-        :styles="paginationStyles"
         :blockStyles="paginationBlockStyles"
     >
         ►
@@ -82,13 +96,14 @@ export default {
     <DKVideo
         :videoSrc="testSrc"
         :containerStyles="videoContainerStyles"
-        videoPoster="https://your-video-poster.jpg"
+        videoPoster="https://a.storyblok.com/f/87848/800x800/a97f990693/sudhith-xavier-iun1o500lmi-unsplash-1.jpg"
     />
     <DKVideo
+        width="50vw"
         v-for="video in videos"
         :key="video._uid"
         :videoId="String(video._uid)"
-        :videoSrc="video.src"
+        :videoSrc="require('@/assets/video.mp4')"
         :videoTitle="video.title"
         :videoFocused="videoFocused"
         :videoPoster="video.poster ? video.poster.filename : ''"
@@ -118,9 +133,7 @@ import {
     DKTooltip,
     DKHoverbox,
     DKToggle,
-} from 'vue-dk-lib';
-
-// import * as DKLib from 'vue-dk-lib'
+} from './components';
 
 export default {
     components: {
@@ -182,7 +195,6 @@ export default {
             testSrc: '',
         };
     },
-
     methods: {
         searchValue(e) {
             this.search = e;
@@ -191,14 +203,15 @@ export default {
             console.log(e);
         },
     },
-
     async created() {
-        await Axios.get('https://video.url').then(res => {
-            this.videos = res.data.videos;
+        await Axios.get(
+            `https://api.storyblok.com/v1/cdn/stories/videos?version=published&token=${process.env.VUE_APP_STORYBLOK_TOKEN}&cv=1596995321`
+        ).then(res => {
+            this.videos = res.data.story.content.sets[0].videos;
 
             // Async source loading
             setTimeout(() => {
-                this.testSrc = res.data.src;
+                this.testSrc = res.data.story.content.sets[0].videos[0].filename;
             }, 5000);
         });
     },
@@ -210,7 +223,7 @@ export default {
 
 body {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
 }
 

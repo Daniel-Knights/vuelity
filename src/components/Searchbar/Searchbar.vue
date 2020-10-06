@@ -35,9 +35,7 @@ export default {
         },
         iconColor: String,
         styles: { type: Object, default: {} },
-        background: {
-            type: String,
-        },
+        background: { type: String },
     },
 
     setup(props) {
