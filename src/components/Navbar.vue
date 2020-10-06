@@ -7,12 +7,7 @@
     >
         <div class="dk__navbar-inner" :style="styles">
             <slot></slot>
-            <DKBurger
-                v-if="slider"
-                @open="slideNav($event)"
-                :style="burgerPosition()"
-                :styles="burgerStyles"
-            ></DKBurger>
+            <DKBurger v-if="slider" @open="slideNav($event)" :style="burgerPosition()"></DKBurger>
         </div>
     </header>
 </template>
@@ -85,7 +80,7 @@ export default {
                 },
             };
 
-            return position[this.position];
+            return { ...position[this.position], ...this.burgerStyles };
         },
     },
 };
