@@ -40,6 +40,7 @@
     <DKTooltip text="Check" position="right">
         <DKButton
             :rainbow="true"
+            :onlyBorder="true"
             :shine="true"
             :ripple="false"
             :hoverEnabled="false"

@@ -120,7 +120,7 @@ export default {
         height: 200%;
         background-size: 200% 200%;
         transform: skew(40deg);
-        z-index: -1;
+        z-index: 0;
         animation: dk__background-shift 5s linear infinite;
     }
 
@@ -170,6 +170,7 @@ export default {
         background-color: rgba($white, 0.9);
         transform: skew(-10deg);
         animation: dk__shine 5s cubic-bezier(0.95, 0.05, 0.795, 1) infinite;
+        z-index: 3;
     }
 
     &.dk__hover-enabled:hover {
@@ -186,7 +187,7 @@ export default {
         height: calc(100% - 6px);
         border-radius: var(--border-radius);
         background-color: #000;
-        z-index: 0;
+        z-index: 1;
     }
 
     &.dk__rainbow {
