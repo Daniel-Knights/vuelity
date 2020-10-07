@@ -1,81 +1,76 @@
 <template>
-    <DKNavbar
-        :styles="navbarStyles"
-        position="left"
-        :slider="true"
-        :burgerStyles="{ background: 'red' }"
-    >
-        <h1>Bonjour</h1>
-        <DKSearchbar
+    <VTNavbar :styles="navbarStyles" position="top" :slider="true">
+        <h1>Vuelity</h1>
+        <VTSearchbar
             :searchFunction="searchFunction"
             :styles="searchbarStyles"
             iconColor="#fff"
             background="rgba(0,0,0,0.5)"
             @search-value="searchValue($event)"
         />
-        <DKHoverbox :width="100" :height="50">
+        <VTHoverbox :width="100" :height="50">
             Home
-        </DKHoverbox>
+        </VTHoverbox>
         <div class="auth-btns">
-            <DKHoverbox :containerStyles="hoverboxContainerStyles">
-                <DKButton :styles="btnStyles" :onlyBorder="true">Login</DKButton>
-            </DKHoverbox>
-            <DKButton :styles="btnStyles" :shine="true">Signup</DKButton>
+            <VTHoverbox :containerStyles="hoverboxContainerStyles">
+                <VTButton :styles="btnStyles" :onlyBorder="true">Login</VTButton>
+            </VTHoverbox>
+            <VTButton :styles="btnStyles" :shine="true">Signup</VTButton>
         </div>
-    </DKNavbar>
+    </VTNavbar>
 
     {{ search }}
 
-    <DKToggle
+    <VTToggle
         @toggle="logValue($event)"
         :containerStyles="toggleContainerStyles"
         :toggleStyles="toggleStyles"
         :initialState="true"
     />
 
-    <DKHoverbox :styles="hoverboxStyles" fill="red">
+    <VTHoverbox :styles="hoverboxStyles" fill="red">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo commodi necessitatibus id
         cupiditate eum, quas nulla esse nesciunt veniam error.
-    </DKHoverbox>
+    </VTHoverbox>
 
-    <DKTooltip text="Check" position="right">
-        <DKButton
+    <VTTooltip text="Check" position="right">
+        <VTButton
             :rainbow="true"
             :onlyBorder="true"
             :shine="true"
             :ripple="false"
             :hoverEnabled="false"
             :styles="{ borderRadius: '50%' }"
-            >CRAZY</DKButton
+            >CRAZY</VTButton
         >
-    </DKTooltip>
+    </VTTooltip>
 
-    <DKBurger @open="logValue($event)" :styles="{ right: '0' }" />
+    <VTBurger @open="logValue($event)" :styles="{ right: '0' }" />
 
     <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, vitae corporis? Earum
         quos
-        <DKTooltip text="An unknown word">
+        <VTTooltip text="An unknown word">
             <span style="text-decoration: underline;">quibusdam</span>
-        </DKTooltip>
+        </VTTooltip>
         , perferendis nesciunt nostrum ea laboriosam cumque.
     </p>
 
-    <DKPagination
+    <VTPagination
         :currentPage="1"
         :lastPage="10"
         @page-changed="logValue($event)"
         :blockStyles="paginationBlockStyles"
     >
         ►
-    </DKPagination>
+    </VTPagination>
 
-    <DKVideo
+    <VTVideo
         :videoSrc="testSrc"
         :containerStyles="videoContainerStyles"
         videoPoster="https://a.storyblok.com/f/87848/800x800/a97f990693/sudhith-xavier-iun1o500lmi-unsplash-1.jpg"
     />
-    <DKVideo
+    <VTVideo
         width="50vw"
         v-for="video in videos"
         :key="video._uid"
@@ -94,26 +89,26 @@
         @video-focused="videoFocused = String(video._uid)"
     />
 
-    <DKPopup :styles="popupStyles" crossColor="black" :cookie="true">Hey there!</DKPopup>
+    <VTPopup :styles="popupStyles" crossColor="black" :cookie="true">Hey there!</VTPopup>
 </template>
 
 <script>
 import Axios from 'axios';
 
-import * as DKLib from './components';
+import * as VT from './components';
 
 export default {
     components: {
-        DKButton: DKLib.DKButton,
-        DKNavbar: DKLib.DKNavbar,
-        DKPopup: DKLib.DKPopup,
-        DKPagination: DKLib.DKPagination,
-        DKVideo: DKLib.DKVideo,
-        DKSearchbar: DKLib.DKSearchbar,
-        DKTooltip: DKLib.DKTooltip,
-        DKHoverbox: DKLib.DKHoverbox,
-        DKToggle: DKLib.DKToggle,
-        DKBurger: DKLib.DKBurger,
+        VTButton: VT.VTButton,
+        VTNavbar: VT.VTNavbar,
+        VTPopup: VT.VTPopup,
+        VTPagination: VT.VTPagination,
+        VTVideo: VT.VTVideo,
+        VTSearchbar: VT.VTSearchbar,
+        VTTooltip: VT.VTTooltip,
+        VTHoverbox: VT.VTHoverbox,
+        VTToggle: VT.VTToggle,
+        VTBurger: VT.VTBurger,
     },
 
     data() {

@@ -1,7 +1,7 @@
 <template>
-    <div class="dk__hoverbox-container" :style="containerStyles" ref="container">
+    <div class="vt__hoverbox-container" :style="containerStyles" ref="container">
         <svg
-            class="dk__hoverbox"
+            class="vt__hoverbox"
             :width="hoverboxWidth"
             :height="hoverboxHeight"
             :style="styles"
@@ -9,7 +9,7 @@
         >
             <rect :width="hoverboxWidth" :height="hoverboxHeight" :fill="fill" />
         </svg>
-        <div class="dk__slot-container">
+        <div class="vt__slot-container">
             <slot />
         </div>
     </div>
@@ -73,13 +73,13 @@ export default {
 </script>
 
 <style lang="scss">
-.dk__hoverbox-container {
+.vt__hoverbox-container {
     display: inline-flex;
     justify-content: center;
     align-items: center;
     width: fit-content;
 
-    .dk__hoverbox {
+    .vt__hoverbox {
         pointer-events: none;
         position: absolute;
         transform: rotateY(30deg) scale(0.8);
@@ -89,7 +89,7 @@ export default {
         z-index: 0;
     }
 
-    .dk__slot-container {
+    .vt__slot-container {
         z-index: 1;
     }
 }

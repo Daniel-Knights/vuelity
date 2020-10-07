@@ -1,7 +1,7 @@
 <template>
-    <div class="dk__tooltip-container">
-        <div class="dk__tooltip">
-            <span class="dk__tip" :class="classPosition" :style="styles" ref="tip">
+    <div class="vt__tooltip-container">
+        <div class="vt__tooltip">
+            <span class="vt__tip" :class="classPosition" :style="styles" ref="tip">
                 {{ text }}
             </span>
         </div>
@@ -36,7 +36,7 @@ export default {
             return this.position + ': -100%';
         },
         classPosition: function() {
-            if (this.arrow) return 'dk__tip-' + this.position;
+            if (this.arrow) return 'vt__tip-' + this.position;
         },
     },
 
@@ -99,11 +99,11 @@ export default {
     position: absolute;
 }
 
-.dk__tooltip-container {
+.vt__tooltip-container {
     display: inline-block;
     width: fit-content;
 
-    .dk__tooltip {
+    .vt__tooltip {
         pointer-events: none;
         @include flex-x(center);
         position: relative;
@@ -111,7 +111,7 @@ export default {
         z-index: 10;
     }
 
-    .dk__tip {
+    .vt__tip {
         @include flex-x(center, center);
         position: absolute !important;
         min-width: max-content;
@@ -125,29 +125,29 @@ export default {
         transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 2);
     }
 
-    .dk__tip::after {
+    .vt__tip::after {
         @include pseudo;
     }
 
-    .dk__tip-top::after {
+    .vt__tip-top::after {
         bottom: -5px;
         border-left: 5px solid transparent;
         border-right: 5px solid transparent;
         border-top: 5px solid rgba($black, 0.9);
     }
-    .dk__tip-right::after {
+    .vt__tip-right::after {
         left: -5px;
         border-top: 5px solid transparent;
         border-bottom: 5px solid transparent;
         border-right: 5px solid rgba($black, 0.9);
     }
-    .dk__tip-bottom::after {
+    .vt__tip-bottom::after {
         top: -5px;
         border-left: 5px solid transparent;
         border-right: 5px solid transparent;
         border-bottom: 5px solid rgba($black, 0.9);
     }
-    .dk__tip-left::after {
+    .vt__tip-left::after {
         right: -5px;
         border-top: 5px solid transparent;
         border-bottom: 5px solid transparent;

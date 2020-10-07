@@ -1,6 +1,6 @@
 <template>
-    <div @click="toggle($event)" class="dk__burger-container" :style="styles">
-        <div class="dk__burger">
+    <div @click="toggle($event)" class="vt__burger-container" :style="styles">
+        <div class="vt__burger">
             <span></span>
             <span></span>
             <span></span>
@@ -25,7 +25,7 @@ export default {
 
         const toggle = e => {
             open.value = !open.value;
-            e.target.classList.toggle('dk__burger-open');
+            e.target.classList.toggle('vt__burger-open');
             emit('open', open);
         };
 
@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style lang="scss">
-.dk__burger-container {
+.vt__burger-container {
     cursor: pointer;
     pointer-events: all;
     @include flex-x(center, center);
@@ -48,7 +48,7 @@ export default {
     box-sizing: border-box;
     transition: all 0.25s;
 
-    .dk__burger {
+    .vt__burger {
         pointer-events: none;
         position: relative;
         width: 30px;
@@ -77,7 +77,7 @@ export default {
         }
     }
 
-    &.dk__burger-open span {
+    &.vt__burger-open span {
         background: $white;
 
         &:nth-of-type(1),

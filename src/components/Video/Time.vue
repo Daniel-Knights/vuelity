@@ -1,45 +1,45 @@
 <template>
-    <div class="dk__time dk__control">
-        <div class="dk__current-time">
+    <div class="vt__time vt__control">
+        <div class="vt__current-time">
             <span>{{ convertMilliseconds(videoCurrentTime) }} </span>
         </div>
-        <div class="dk__video-tooltip">
-            <span ref="tooltip" class="dk__video-tip">{{ timeValueHover }}</span>
+        <div class="vt__video-tooltip">
+            <span ref="tooltip" class="vt__video-tip">{{ timeValueHover }}</span>
         </div>
         <div
-            class="dk__video-range-container"
+            class="vt__video-range-container"
             @mousemove="calculateTimeHover($event)"
             @mouseover="tooltipShow($event)"
             @mouseout="tooltipHide()"
         >
             <div
-                class="dk__video-thumb-container"
+                class="vt__video-thumb-container"
                 :style="{ transform: 'translateX(' + playedPixels + 'px)' }"
                 ref="thumbContainer"
             >
-                <div class="dk__video-thumb" :style="thumbStyles" ref="thumb"></div>
+                <div class="vt__video-thumb" :style="thumbStyles" ref="thumb"></div>
             </div>
             <div
-                class="dk__video-track-container"
+                class="vt__video-track-container"
                 @mousedown="scrubStart($event)"
                 @mouseover="scaleTrackUp()"
                 @mouseout="scaleTrackDown()"
                 ref="videoTrackContainer"
             >
-                <div class="dk__video-track" ref="videoTrack">
+                <div class="vt__video-track" ref="videoTrack">
                     <div
-                        class="dk__video-played"
+                        class="vt__video-played"
                         :style="{ maxWidth: playedPercent + '%', backgroundColor: trackColor }"
                         ref="played"
                     ></div>
                     <div
-                        class="dk__video-buffered"
+                        class="vt__video-buffered"
                         :style="{ maxWidth: videoBuffered + '%' }"
                     ></div>
                 </div>
             </div>
         </div>
-        <div class="dk__video-duration">
+        <div class="vt__video-duration">
             <span>{{ convertMilliseconds(video.duration) }}</span>
         </div>
     </div>
@@ -84,7 +84,7 @@ export default {
                 this.$refs.thumb.style.borderRadius = '50%';
             else if (!this.thumbStyles) this.$refs.thumb.style.borderRadius = '50%';
             // Scale tags
-            document.querySelectorAll('.dk__tag').forEach(tag => {
+            document.querySelectorAll('.vt__tag').forEach(tag => {
                 // Ensure tags are unique to current element
                 if (tag.parentNode.parentNode.parentNode.parentNode !== this.$el) return;
                 tag.style.transform = 'scaleY(5.1)';
@@ -100,7 +100,7 @@ export default {
                 this.$refs.thumb.style.borderRadius = '0%';
             else if (!this.thumbStyles) this.$refs.thumb.style.borderRadius = '0%';
             // Scale tags
-            document.querySelectorAll('.dk__tag').forEach(tag => {
+            document.querySelectorAll('.vt__tag').forEach(tag => {
                 // Ensure tags are unique to current element
                 if (tag.parentNode.parentNode.parentNode.parentNode !== this.$el) return;
                 tag.style.transform = 'scaleY(1)';
@@ -146,9 +146,9 @@ export default {
                 const tag = document.createElement('div');
                 const tagTitle = document.createElement('div');
 
-                tagContainer.className = 'dk__time-tag';
-                tag.className = 'dk__tag';
-                tagTitle.className = 'dk__tag-title';
+                tagContainer.className = 'vt__time-tag';
+                tag.className = 'vt__tag';
+                tagTitle.className = 'vt__tag-title';
                 // data-tag prevents normal tooltip
                 tagTitle.innerHTML = `<span data-tag="${true}">${timeTag.title}</span>`;
                 tagTitle.setAttribute('data-tag', true);
@@ -346,8 +346,8 @@ export default {
 </script>
 
 <style lang="scss">
-.dk__video-container {
-    .dk__time {
+.vt__video-container {
+    .vt__time {
         @include flex-x(false, center);
         justify-self: center;
         position: relative;
@@ -355,8 +355,8 @@ export default {
         pointer-events: none;
         height: fit-content;
     }
-    .dk__current-time,
-    .dk__video-duration {
+    .vt__current-time,
+    .vt__video-duration {
         @include flex-x(false, center);
         padding: 5px;
     }
@@ -367,12 +367,12 @@ export default {
         white-space: nowrap;
         text-align: right;
     }
-    .dk__video-tooltip {
+    .vt__video-tooltip {
         pointer-events: none;
         position: relative;
         top: -27px;
     }
-    .dk__video-tip {
+    .vt__video-tip {
         position: absolute;
         text-align: center;
         font-size: 12px;
@@ -381,7 +381,7 @@ export default {
         z-index: 2;
         transition: opacity 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
     }
-    .dk__video-range-container {
+    .vt__video-range-container {
         @include flex-x(false, center);
         position: relative;
         width: 100%;
@@ -390,11 +390,11 @@ export default {
     input {
         width: 100%;
     }
-    .dk__video-thumb-container {
+    .vt__video-thumb-container {
         position: relative;
         transition: transform 0s cubic-bezier(0, 1, 1, 1);
     }
-    .dk__video-thumb {
+    .vt__video-thumb {
         cursor: pointer;
         margin-left: -6.5px;
         width: 15px;
@@ -406,7 +406,7 @@ export default {
         transition: transform 0.1s cubic-bezier(0.215, 0.61, 0.355, 1),
             border-radius 0.1s cubic-bezier(0.215, 0.61, 0.355, 1);
     }
-    .dk__video-track-container {
+    .vt__video-track-container {
         cursor: pointer;
         pointer-events: all;
         position: absolute;
@@ -414,21 +414,21 @@ export default {
         width: 100%;
         z-index: -1;
     }
-    .dk__video-track {
+    .vt__video-track {
         position: relative;
         width: 100%;
         height: 3px;
         background-color: rgba($white, 0.2);
         transition: transform 0.1s cubic-bezier(0.215, 0.61, 0.355, 1);
     }
-    .dk__video-played {
+    .vt__video-played {
         position: absolute;
         width: 100%;
         height: 100%;
         background-color: rgb(40, 123, 225);
         transition: max-width 0s cubic-bezier(0.215, 0.61, 0.355, 1);
     }
-    .dk__video-buffered {
+    .vt__video-buffered {
         position: absolute;
         width: 100%;
         height: 100%;
@@ -436,7 +436,7 @@ export default {
         background-color: rgba($white, 0.3);
         transition: all 0.5s;
     }
-    .dk__time-tag {
+    .vt__time-tag {
         display: flex;
         flex-direction: column-reverse;
         pointer-events: none;
@@ -450,7 +450,7 @@ export default {
             width: unset;
         }
     }
-    .dk__tag-title {
+    .vt__tag-title {
         pointer-events: none;
         display: flex;
         padding: 2px;
@@ -462,7 +462,7 @@ export default {
         opacity: 0;
         transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
     }
-    .dk__tag {
+    .vt__tag {
         pointer-events: all;
         height: 3px;
         width: 5px;
@@ -471,10 +471,10 @@ export default {
         transition: all 0.1s cubic-bezier(0.215, 0.61, 0.355, 1),
             background-color 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
     }
-    .dk__tag:hover {
+    .vt__tag:hover {
         background-color: rgba($white, 1);
     }
-    .dk__tag:hover ~ .dk__tag-title {
+    .vt__tag:hover ~ .vt__tag-title {
         opacity: 1;
         transform: translate(calc(-50% + 2px), -6px);
     }

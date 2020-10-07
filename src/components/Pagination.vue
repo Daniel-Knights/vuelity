@@ -1,32 +1,32 @@
 <template>
-    <div class="dk__pages" :style="styles">
-        <div class="dk__paginate-left-container">
+    <div class="vt__pages" :style="styles">
+        <div class="vt__paginate-left-container">
             <div
                 @click="paginateLeft($event)"
-                class="dk__pagination dk__left dk__pagination-block"
-                :class="{ 'dk__disabled-pagination': disabledLeft }"
+                class="vt__pagination vt__left vt__pagination-block"
+                :class="{ 'vt__disabled-pagination': disabledLeft }"
                 style="transform: rotate(180deg)"
             >
                 <slot></slot>
             </div>
         </div>
-        <div class="dk__page-container">
+        <div class="vt__page-container">
             <div
                 v-if="overflow && (paginateCurrentPage > 3 || paginateCurrentPage === 2)"
                 @click="
                     paginateCurrentPage = 1;
                     $emit('page-changed', paginateCurrentPage);
                 "
-                class="dk__page dk__selectable dk__pagination-block"
+                class="vt__page vt__selectable vt__pagination-block"
             >
                 {{ 1 }}
             </div>
-            <div v-if="enterPageOne" class="dk__page">
+            <div v-if="enterPageOne" class="vt__page">
                 <input
                     v-model="enterPageOneValue"
                     @keydown.enter="enterPageHandler"
                     @blur="enterPageOne = false"
-                    class="dk__pagination-block"
+                    class="vt__pagination-block"
                     data-enter="1"
                     type="number"
                     placeholder="pg."
@@ -36,26 +36,26 @@
             <div
                 @click="enterPageOneHandler($event)"
                 v-if="overflow && paginateCurrentPage > 2 && !enterPageOne"
-                class="dk__page dk__pagination-block"
+                class="vt__page vt__pagination-block"
             >
                 ...
             </div>
-            <div class="dk__page dk__selectable dk__pagination-block">
+            <div class="vt__page vt__selectable vt__pagination-block">
                 {{ paginateCurrentPage }}
             </div>
             <div
                 @mouseup="enterPageTwoHandler($event)"
                 v-if="overflow && paginateCurrentPage < lastPage - 1 && !enterPageTwo"
-                class="dk__page dk__pagination-block"
+                class="vt__page vt__pagination-block"
             >
                 ...
             </div>
-            <div v-if="enterPageTwo" class="dk__page">
+            <div v-if="enterPageTwo" class="vt__page">
                 <input
                     v-model="enterPageTwoValue"
                     @keydown.enter="enterPageHandler"
                     @blur="enterPageTwo = false"
-                    class="dk__pagination-block"
+                    class="vt__pagination-block"
                     data-enter="2"
                     type="number"
                     placeholder="pg."
@@ -68,16 +68,16 @@
                     paginateCurrentPage = lastPage;
                     $emit('page-changed', paginateCurrentPage);
                 "
-                class="dk__page dk__selectable dk__pagination-block"
+                class="vt__page vt__selectable vt__pagination-block"
             >
                 {{ lastPage }}
             </div>
         </div>
-        <div class="dk__paginate-right-container">
+        <div class="vt__paginate-right-container">
             <div
                 @click="paginateRight($event)"
-                class="dk__pagination dk__right dk__pagination-block"
-                :class="{ 'dk__disabled-pagination': disabledRight }"
+                class="vt__pagination vt__right vt__pagination-block"
+                :class="{ 'vt__disabled-pagination': disabledRight }"
             >
                 <slot></slot>
             </div>
@@ -131,12 +131,12 @@ export default {
 
     methods: {
         selectedPage() {
-            let pages = document.querySelectorAll('.dk__page');
+            let pages = document.querySelectorAll('.vt__page');
 
             pages.forEach(page => {
                 if (this.paginateCurrentPage === Number(page.innerText)) {
-                    page.className = 'dk__page dk__pagination-block dk__selected';
-                } else page.className = 'dk__page dk__pagination-block dk__selectable';
+                    page.className = 'vt__page vt__pagination-block vt__selected';
+                } else page.className = 'vt__page vt__pagination-block vt__selectable';
             });
         },
         pageOverflow() {
@@ -210,7 +210,7 @@ export default {
             }
 
             style.type = 'text/css';
-            style.innerHTML = `.dk__pagination-block { ${String(blockStyleList)
+            style.innerHTML = `.vt__pagination-block { ${String(blockStyleList)
                 .split(';,')
                 .join(';')} }`;
             document.getElementsByTagName('head')[0].appendChild(style);
@@ -230,18 +230,18 @@ export default {
 </script>
 
 <style lang="scss">
-.dk__pages {
+.vt__pages {
     user-select: none;
     @include flex-x(space-between, center);
     margin: 10px auto;
     width: 300px;
     font-family: Helvetica, Arial, sans-serif;
 
-    .dk__disabled-pagination {
+    .vt__disabled-pagination {
         visibility: hidden;
     }
 
-    .dk__pagination {
+    .vt__pagination {
         cursor: pointer;
         @include flex-x(center, center);
         height: 30px;
@@ -253,24 +253,24 @@ export default {
         }
     }
 
-    .dk__page-container {
+    .vt__page-container {
         display: flex;
     }
 
-    .dk__page,
+    .vt__page,
     input {
         @include flex-x(center, center);
         width: 30px;
         height: 30px;
     }
 
-    .dk__selected {
+    .vt__selected {
         color: $white;
         background-color: $black;
     }
 
     // Page number input
-    .dk__selectable {
+    .vt__selectable {
         cursor: pointer;
         transition: background-color 0.2s;
 

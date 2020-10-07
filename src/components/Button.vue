@@ -3,17 +3,17 @@
         :style="styles"
         @mouseover="addHoverColor()"
         @mouseout="removeHoverColor()"
-        class="dk__component dk__btn"
+        class="vt__component vt__btn"
         :class="{
-            dk__fill: fill,
-            dk__rainbow: rainbow,
-            'dk__only-border': onlyBorder,
-            'dk__hover-enabled': hoverEnabled,
+            vt__fill: fill,
+            vt__rainbow: rainbow,
+            'vt__only-border': onlyBorder,
+            'vt__hover-enabled': hoverEnabled,
         }"
         @click="rippleHandler($event)"
     >
-        <div v-if="shine" ref="shine" class="dk__shine"></div>
-        <div class="dk__btn-content" ref="content">
+        <div v-if="shine" ref="shine" class="vt__shine"></div>
+        <div class="vt__btn-content" ref="content">
             <slot></slot>
         </div>
     </button>
@@ -66,7 +66,7 @@ export default {
             const y = e.clientY - rect.top;
 
             let rippleEl = document.createElement('div');
-            rippleEl.setAttribute('class', 'dk__ripple');
+            rippleEl.setAttribute('class', 'vt__ripple');
             rippleEl.style.left = `${x}px`;
             rippleEl.style.top = `${y}px`;
 
@@ -105,7 +105,7 @@ export default {
 </script>
 
 <style lang="scss">
-.dk__component {
+.vt__component {
     --border-radius: 5px;
 
     font-family: 'Lato', Helvetica, sans-serif;
@@ -121,10 +121,10 @@ export default {
         background-size: 200% 200%;
         transform: skew(40deg);
         z-index: 0;
-        animation: dk__background-shift 5s linear infinite;
+        animation: vt__background-shift 5s linear infinite;
     }
 
-    &.dk__btn {
+    &.vt__btn {
         cursor: pointer;
         display: block;
         position: relative;
@@ -142,12 +142,12 @@ export default {
         transition: all 0.25s;
     }
 
-    .dk__btn-content {
+    .vt__btn-content {
         position: relative;
         z-index: 1;
     }
 
-    .dk__ripple {
+    .vt__ripple {
         pointer-events: none !important;
         position: absolute !important;
         margin: 0 !important;
@@ -157,10 +157,10 @@ export default {
         border-radius: 50% !important;
         height: 55rem !important;
         width: 15rem !important;
-        animation: dk__ripple-out 0.5s cubic-bezier(0.4, 0, 0.6, 1) forwards !important;
+        animation: vt__ripple-out 0.5s cubic-bezier(0.4, 0, 0.6, 1) forwards !important;
     }
 
-    .dk__shine {
+    .vt__shine {
         position: absolute;
         top: 0;
         left: -50%;
@@ -169,15 +169,15 @@ export default {
         opacity: 0;
         background-color: rgba($white, 0.9);
         transform: skew(-10deg);
-        animation: dk__shine 5s cubic-bezier(0.95, 0.05, 0.795, 1) infinite;
+        animation: vt__shine 5s cubic-bezier(0.95, 0.05, 0.795, 1) infinite;
         z-index: 3;
     }
 
-    &.dk__hover-enabled:hover {
+    &.vt__hover-enabled:hover {
         background-color: $primary;
     }
 
-    &.dk__only-border::before {
+    &.vt__only-border::before {
         content: '';
         display: block;
         position: absolute;
@@ -190,7 +190,7 @@ export default {
         z-index: 1;
     }
 
-    &.dk__rainbow {
+    &.vt__rainbow {
         background: transparent;
 
         &::after {
@@ -210,7 +210,7 @@ export default {
         }
     }
 
-    &.dk__fill {
+    &.vt__fill {
         background: transparent;
 
         &::after {
@@ -219,7 +219,7 @@ export default {
         }
     }
 
-    @keyframes dk__shine {
+    @keyframes vt__shine {
         0%,
         100% {
             left: -50%;
@@ -234,7 +234,7 @@ export default {
             left: 200%;
         }
     }
-    @keyframes dk__ripple-out {
+    @keyframes vt__ripple-out {
         0% {
             opacity: 0;
             max-height: 0rem;
@@ -252,7 +252,7 @@ export default {
             max-width: 10rem;
         }
     }
-    @keyframes dk__background-shift {
+    @keyframes vt__background-shift {
         0% {
             background-position: 0% 50%;
         }

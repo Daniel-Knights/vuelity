@@ -1,6 +1,6 @@
 <template>
-    <div class="dk__popup" v-if="popupOpen" :style="popupStyles">
-        <div class="dk__popup-message">
+    <div class="vt__popup" v-if="popupOpen" :style="popupStyles">
+        <div class="vt__popup-message">
             <span @click="removePopup()" :style="{ color: popupColor }">&times;</span>
             <slot></slot>
         </div>
@@ -29,11 +29,11 @@ export default {
         const popupOpen = ref(true);
         const popupStyles = ref(props.styles);
         const popupColor = ref(props.crossColor);
-        let cookieCheck = document.cookie.split('dk__popup-closed=')[1];
+        let cookieCheck = document.cookie.split('vt__popup-closed=')[1];
 
         const removePopup = () => {
             popupOpen.value = false;
-            if (props.cookie) document.cookie = 'dk__popup-closed=true';
+            if (props.cookie) document.cookie = 'vt__popup-closed=true';
         };
 
         if (cookieCheck) cookieCheck = cookieCheck.split(';')[0];
@@ -45,7 +45,7 @@ export default {
 </script>
 
 <style lang="scss">
-.dk__popup {
+.vt__popup {
     position: fixed;
     padding: 10px;
     right: 50px;
@@ -73,7 +73,7 @@ export default {
         }
     }
 
-    .dk__popup-message {
+    .vt__popup-message {
         @include flex-x(center, center);
         margin: 10px;
         max-width: 190px;
@@ -83,10 +83,10 @@ export default {
     }
 
     @media only screen and (max-width: 700px) {
-        .dk__popup-container {
+        .vt__popup-container {
             @include flex-x(center);
         }
-        .dk__popup {
+        .vt__popup {
             right: unset;
         }
     }

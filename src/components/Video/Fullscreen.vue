@@ -1,5 +1,5 @@
 <template>
-    <div class="dk__fullscreen dk__control">
+    <div class="vt__fullscreen vt__control">
         <Maximise v-if="!videoFullscreen" @click.native="enterFullscreen()" :style="buttonStyles" />
         <Minimise v-else @click.native="leaveFullscreen()" :style="buttonStyles" />
     </div>

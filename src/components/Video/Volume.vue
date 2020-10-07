@@ -1,5 +1,5 @@
 <template>
-    <div class="dk__volume dk__control">
+    <div class="vt__volume vt__control">
         <VolumeMute :key="1" v-if="videoVolume < 0.01" @click.native="mute()" />
         <VolumeLow
             :key="2"
@@ -21,7 +21,7 @@
             :value="videoVolume"
         />
         <div
-            class="dk__volume-track"
+            class="vt__volume-track"
             :style="{ backgroundColor: trackColor, height: trackHeight + 'px' }"
         ></div>
     </div>
@@ -89,8 +89,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.dk__volume {
-    .dk__volume-track {
+.vt__volume {
+    .vt__volume-track {
         display: none;
         position: absolute;
         width: 10px;
@@ -157,10 +157,10 @@ export default {
     input[type='range']:focus {
         outline: none;
     }
-    input[type='range']:focus ~ .dk__volume-track {
+    input[type='range']:focus ~ .vt__volume-track {
         filter: brightness(1);
     }
-    svg:focus ~ .dk__volume-track {
+    svg:focus ~ .vt__volume-track {
         filter: brightness(1);
     }
     @supports (-ms-ime-align: auto) {
@@ -173,11 +173,11 @@ export default {
 }
 // Firefox tweak
 @-moz-document url-prefix() {
-    .dk__volume.dk__control {
+    .vt__volume.vt__control {
         input[type='range'] {
             transform: rotate(270deg) translate(70px, -36px);
         }
-        .dk__volume-track {
+        .vt__volume-track {
             transform: translate(9px, -38.5px);
         }
     }

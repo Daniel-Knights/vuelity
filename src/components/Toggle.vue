@@ -1,8 +1,8 @@
 <template>
-    <div @click="toggled()" class="dk__toggle-container" :style="containerStyles" ref="toggle">
-        <div class="dk__toggle-inner" :class="{ 'dk__toggle-on': toggleOn }">
-            <div class="dk__toggle-focus" ref="toggleFocus"></div>
-            <div class="dk__toggle" :style="toggleStyles"></div>
+    <div @click="toggled()" class="vt__toggle-container" :style="containerStyles" ref="toggle">
+        <div class="vt__toggle-inner" :class="{ 'vt__toggle-on': toggleOn }">
+            <div class="vt__toggle-focus" ref="toggleFocus"></div>
+            <div class="vt__toggle" :style="toggleStyles"></div>
         </div>
     </div>
 </template>
@@ -52,7 +52,7 @@ export default {
 </script>
 
 <style lang="scss">
-.dk__toggle-container {
+.vt__toggle-container {
     cursor: pointer;
     @include flex-x(false, center);
     position: relative;
@@ -67,20 +67,20 @@ export default {
         pointer-events: none;
     }
 
-    .dk__toggle-inner {
+    .vt__toggle-inner {
         @include flex-x(center, center);
         position: absolute;
         right: 100%;
         transform: translateX(calc(100% + 2px));
         transition: all 0.1s ease !important;
 
-        &.dk__toggle-on {
+        &.vt__toggle-on {
             right: 2px;
             transform: translateX(0);
         }
     }
 
-    .dk__toggle {
+    .vt__toggle {
         height: 15px;
         width: 15px;
         border-radius: 50%;
@@ -88,7 +88,7 @@ export default {
         transition: all 0.1s ease !important;
     }
 
-    .dk__toggle-focus {
+    .vt__toggle-focus {
         position: absolute;
         width: 100%;
         height: 100%;
@@ -97,7 +97,7 @@ export default {
         transition: all 0.1s ease !important;
     }
 
-    &:hover .dk__toggle {
+    &:hover .vt__toggle {
         background: rgba($white, 0.9);
     }
 }

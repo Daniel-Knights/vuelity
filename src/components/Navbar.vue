@@ -1,13 +1,13 @@
 <template>
     <header
-        class="dk__navbar"
-        :class="{ 'dk__navbar-slider': slider }"
+        class="vt__navbar"
+        :class="{ 'vt__navbar-slider': slider }"
         ref="nav"
         :style="containerStyles"
     >
-        <div class="dk__navbar-inner" :style="styles">
+        <div class="vt__navbar-inner" :style="styles">
             <slot></slot>
-            <DKBurger v-if="slider" @open="slideNav($event)" :style="burgerPosition()"></DKBurger>
+            <VTBurger v-if="slider" @open="slideNav($event)" :style="burgerPosition()"></VTBurger>
         </div>
     </header>
 </template>
@@ -15,12 +15,12 @@
 <script>
 import { onMounted, ref } from 'vue';
 
-import DKBurger from './Burger';
+import VTBurger from './Burger';
 
 export default {
     name: 'Navbar',
 
-    components: { DKBurger },
+    components: { VTBurger },
 
     props: {
         position: {
@@ -42,12 +42,12 @@ export default {
         const slideNav = e => {
             if (!nav) return;
             // Toggle open/closed state
-            nav.value.classList.toggle('dk__navbar-slider-open');
+            nav.value.classList.toggle('vt__navbar-slider-open');
         };
 
         onMounted(() => {
             // Set position
-            nav.value.classList.add(`dk__navbar-${props.position}`);
+            nav.value.classList.add(`vt__navbar-${props.position}`);
             // Allow for transition delay
             setTimeout(() => (nav.value.style.transition = 'all 0.25s'), 250);
         });
@@ -91,7 +91,7 @@ export default {
     position: fixed;
     width: auto;
 
-    .dk__navbar-inner {
+    .vt__navbar-inner {
         flex-direction: column;
         position: relative;
         width: 200px;
@@ -100,17 +100,17 @@ export default {
     }
 }
 
-.dk__navbar {
+.vt__navbar {
     position: relative;
     width: 100%;
     z-index: 10;
 
-    &.dk__navbar-slider.dk__navbar-slider-open {
+    &.vt__navbar-slider.vt__navbar-slider-open {
         transform: translate(0, 0);
     }
 }
 
-.dk__navbar-inner {
+.vt__navbar-inner {
     @include flex-x(space-between, center);
     right: 0;
     left: 0;
@@ -124,38 +124,38 @@ export default {
     z-index: 1;
 }
 
-.dk__navbar-top {
+.vt__navbar-top {
     top: 0;
 
-    &.dk__navbar-slider {
+    &.vt__navbar-slider {
         transform: translateY(-100%);
     }
 }
-.dk__navbar-bottom {
+.vt__navbar-bottom {
     position: fixed;
     bottom: 0;
 
-    .dk__navbar-inner {
+    .vt__navbar-inner {
         box-shadow: 0 5px 10px 5px $black;
     }
 
-    &.dk__navbar-slider {
+    &.vt__navbar-slider {
         transform: translateY(100%);
     }
 }
-.dk__navbar-left {
+.vt__navbar-left {
     left: 0;
     @include vertical;
 
-    &.dk__navbar-slider {
+    &.vt__navbar-slider {
         transform: translateX(-100%);
     }
 }
-.dk__navbar-right {
+.vt__navbar-right {
     right: 0;
     @include vertical(5px);
 
-    &.dk__navbar-slider {
+    &.vt__navbar-slider {
         transform: translateX(100%);
     }
 }

@@ -1,7 +1,7 @@
 <template>
-    <div class="dk__video-container" :style="{ width }">
-        <div class="dk__video" :style="containerStyles">
-            <div class="dk__video-loading" v-if="isLoading || video.networkState === 2">
+    <div class="vt__video-container" :style="{ width }">
+        <div class="vt__video" :style="containerStyles">
+            <div class="vt__video-loading" v-if="isLoading || video.networkState === 2">
                 <div></div>
                 <div></div>
                 <div></div>
@@ -30,11 +30,11 @@
             >
                 Your browser doesn't support the video element.
             </video>
-            <transition name="dk__play">
+            <transition name="vt__play">
                 <Play
                     v-if="!isPlaying && !isLoading && video.networkState !== 2"
                     @click.native="video.play()"
-                    class="dk__video-play-main"
+                    class="vt__video-play-main"
                 />
             </transition>
             <Controls
@@ -159,7 +159,7 @@ export default {
 </script>
 
 <style lang="scss">
-.dk__video-container {
+.vt__video-container {
     margin: 10px auto;
     min-width: 280px;
     font-family: Helvetica, Arial, sans-serif;
@@ -168,7 +168,7 @@ export default {
         box-sizing: border-box;
     }
 
-    .dk__video {
+    .vt__video {
         @include flex-y(center, center);
         position: relative;
         width: 100%;
@@ -182,7 +182,7 @@ export default {
         max-width: 100%;
     }
 
-    .dk__video-play-main {
+    .vt__video-play-main {
         cursor: pointer;
         position: absolute;
         padding: 25px 25px 25px 30px;
@@ -194,17 +194,17 @@ export default {
         transition: all 0.1s cubic-bezier(0.215, 0.61, 0.355, 1), filter 0.2s;
     }
 
-    .dk__video-play-main:hover {
+    .vt__video-play-main:hover {
         filter: brightness(0.9);
     }
 
-    .dk__play-enter,
-    .dk__play-leave-to {
+    .vt__play-enter,
+    .vt__play-leave-to {
         transform: scale(0.9);
         opacity: 0;
     }
 
-    .dk__video-loading {
+    .vt__video-loading {
         position: absolute;
         width: 80px;
         height: 80px;
@@ -274,12 +274,12 @@ export default {
         }
     }
     @media only screen and (max-width: 500px) {
-        .dk__video-play-main {
+        .vt__video-play-main {
             width: 50px;
             height: 50px;
             padding: 12.5px 12.5px 12.5px 15px;
         }
-        .dk__video-loading {
+        .vt__video-loading {
             width: 40px;
             height: 40px;
             div {

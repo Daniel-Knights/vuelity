@@ -1,12 +1,12 @@
 {
-    "name": "vue-dk-lib",
+    "name": "vuelity",
     "version": "1.0.56",
     "private": false,
-    "main": "./dist/dkLib.umd.min.js",
+    "main": "./dist/vuelity.umd.min.js",
     "scripts": {
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build",
-        "lib": "vue-cli-service build --target lib --name dkLib ./src/components/index.js"
+        "lib": "vue-cli-service build --target lib --name vuelity ./src/components/index.js"
     },
     "dependencies": {
         "core-js": "^3.6.5"
@@ -25,7 +25,7 @@
         "sass-loader": "^10.0.2"
     },
     "files": [
-        "dist/dkLib.umd.min.js"
+        "dist/vuelity.umd.min.js"
     ],
     "browserslist": [
         "> 1%",

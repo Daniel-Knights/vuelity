@@ -1,6 +1,6 @@
 <template>
-    <div class="dk__play-pause dk__control">
-        <transition name="dk__controls" mode="out-in" :duration="10">
+    <div class="vt__play-pause vt__control">
+        <transition name="vt__controls" mode="out-in" :duration="10">
             <Play
                 v-if="!videoPlaying"
                 @click.native="video.play()"

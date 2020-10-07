@@ -1,6 +1,6 @@
 <template>
-    <div class="dk__video-controls-container">
-        <div class="dk__video-controls">
+    <div class="vt__video-controls-container">
+        <div class="vt__video-controls">
             <PlayPause
                 :video="video"
                 :videoId="videoId"
@@ -74,16 +74,16 @@ export default {
 </script>
 
 <style lang="scss">
-.dk__controls-enter-active,
-.dk__controls-leave-active {
+.vt__controls-enter-active,
+.vt__controls-leave-active {
     transition: all 0.1s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
-.dk__controls-enter,
-.dk__controls-leave-to {
+.vt__controls-enter,
+.vt__controls-leave-to {
     opacity: 0;
 }
 
-.dk__video {
+.vt__video {
     &-controls-container {
         display: block;
         position: relative;
@@ -109,7 +109,7 @@ export default {
         transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
     }
 
-    .dk__control {
+    .vt__control {
         svg {
             cursor: pointer;
             display: block;
@@ -134,7 +134,7 @@ export default {
 
     // .time inside Time.vue
 
-    .dk__volume {
+    .vt__volume {
         @include flex-x(false, flex-end);
         justify-self: center;
         position: relative;
@@ -149,9 +149,9 @@ export default {
         }
 
         svg:hover ~ input,
-        svg:hover ~ .dk__volume-track,
+        svg:hover ~ .vt__volume-track,
         input:hover,
-        input:hover ~ .dk__volume-track {
+        input:hover ~ .vt__volume-track {
             display: block;
             opacity: 1;
         }
@@ -174,33 +174,33 @@ export default {
     }
 
     @media only screen and (max-width: 500px) {
-        .dk__video-controls-container {
+        .vt__video-controls-container {
             margin-top: -49px;
             height: 50px;
             padding-top: 2px;
         }
-        .dk__video-controls-container::before {
+        .vt__video-controls-container::before {
             transform: translateY(-2px);
         }
-        .dk__video-controls {
+        .vt__video-controls {
             grid-template-columns: 7fr minmax(50px, 0.5fr);
         }
-        .dk__play-pause {
+        .vt__play-pause {
             display: none;
         }
-        .dk__time span {
+        .vt__time span {
             font-size: 12px;
         }
-        .dk__tag-title {
+        .vt__tag-title {
             display: none;
         }
-        .dk__video-tooltip {
+        .vt__video-tooltip {
             display: none;
         }
-        .dk__volume {
+        .vt__volume {
             display: none;
         }
-        .dk__fullscreen {
+        .vt__fullscreen {
             svg {
                 width: 25px;
                 height: 25px;

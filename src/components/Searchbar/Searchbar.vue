@@ -1,5 +1,5 @@
 <template>
-    <div class="dk__search-container">
+    <div class="vt__search-container">
         <form @submit.prevent="searchRedirect($event)" :style="styles">
             <input
                 type="search"
@@ -9,7 +9,7 @@
                 :style="{ backgroundColor: background }"
                 @keyup="$emit('search-value', search)"
             />
-            <div v-if="icon" class="dk__search-submit">
+            <div v-if="icon" class="vt__search-submit">
                 <SearchIcon @click.native="searchRedirect($event)" :iconColor="iconColor" />
             </div>
         </form>
@@ -64,7 +64,7 @@ export default {
 </script>
 
 <style lang="scss">
-.dk__search-container {
+.vt__search-container {
     @include flex-x(center);
     width: 33%;
     height: 100%;
@@ -95,7 +95,7 @@ export default {
         }
     }
 
-    .dk__search-submit {
+    .vt__search-submit {
         @include flex-x(false, center);
         width: 36px;
         height: 36px;
