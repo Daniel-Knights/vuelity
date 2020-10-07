@@ -9,13 +9,29 @@ import Hoverbox from './Hoverbox.vue';
 import Toggle from './Toggle.vue';
 import Burger from './Burger.vue';
 
+export const VTBurger = Burger;
 export const VTButton = Button;
+export const VTHoverbox = Hoverbox;
 export const VTNavbar = Navbar;
 export const VTPopup = Popup;
 export const VTPagination = Pagination;
-export const VTVideo = Video;
 export const VTSearchbar = Searchbar;
 export const VTTooltip = Tooltip;
-export const VTHoverbox = Hoverbox;
 export const VTToggle = Toggle;
-export const VTBurger = Burger;
+export const VTVideo = Video;
+
+// CDN compatibility
+if (window !== undefined && window.Vue) {
+    window.Vuelity = {
+        VTBurger,
+        VTButton,
+        VTHoverbox,
+        VTNavbar,
+        VTPopup,
+        VTPagination,
+        VTSearchbar,
+        VTTooltip,
+        VTToggle,
+        VTVideo,
+    };
+}
