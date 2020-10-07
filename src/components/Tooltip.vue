@@ -107,6 +107,7 @@ export default {
         pointer-events: none;
         @include flex-x(center);
         width: 100%;
+        z-index: 10;
     }
 
     .dk__tip {
@@ -121,7 +122,6 @@ export default {
         box-shadow: 0px 1px 10px -3px $black;
         transform: scale(0.8);
         transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 2);
-        z-index: 10 !important;
     }
 
     .dk__tip::after {
