@@ -106,6 +106,7 @@ export default {
     .dk__tooltip {
         pointer-events: none;
         @include flex-x(center);
+        position: relative;
         width: 100%;
         z-index: 10;
     }
