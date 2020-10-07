@@ -7,7 +7,7 @@
                 :class="{ 'vt__disabled-pagination': disabledLeft }"
                 style="transform: rotate(180deg)"
             >
-                <slot><img src="@/assets/vt-arrow-right2.svg"/></slot>
+                <slot><Arrow /></slot>
             </div>
         </div>
         <div class="vt__page-container">
@@ -79,7 +79,7 @@
                 class="vt__pagination vt__right vt__pagination-block"
                 :class="{ 'vt__disabled-pagination': disabledRight }"
             >
-                <slot><img src="@/assets/vt-arrow-right2.svg"/></slot>
+                <slot><Arrow /></slot>
             </div>
         </div>
     </div>
@@ -87,9 +87,12 @@
 
 <script>
 import { ref, computed } from 'vue';
+import Arrow from './Arrow';
 
 export default {
     name: 'Page',
+
+    components: { Arrow },
 
     props: {
         currentPage: { type: Number, default: 1 },
@@ -307,7 +310,7 @@ export default {
     .vt__left {
         border-radius: 0 5px 5px 0;
 
-        img {
+        svg {
             width: 15px;
         }
 
