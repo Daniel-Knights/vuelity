@@ -92,19 +92,12 @@ export default {
     name: 'Page',
 
     props: {
-        currentPage: {
-            type: Number,
-            default: 1,
-        },
+        currentPage: { type: Number, default: 1 },
         lastPage: Number,
-        styles: {
-            type: Object,
-            default: { color: '#000' },
-        },
-        blockStyles: {
-            type: Object,
-            default: {},
-        },
+        styles: { type: Object, default: {} },
+        blockStyles: { type: Object, default: {} },
+        currentColor: { type: String, default: '' },
+        currentBackground: { type: String, default: '' },
     },
 
     setup(props) {
@@ -135,8 +128,8 @@ export default {
 
             pages.forEach(page => {
                 if (this.paginateCurrentPage === Number(page.innerText)) {
-                    page.className = 'vt__page vt__pagination-block vt__selected';
-                } else page.className = 'vt__page vt__pagination-block vt__selectable';
+                    page.classList.add('vt__selected');
+                } else page.classList.add('vt__selectable');
             });
         },
         pageOverflow() {
@@ -199,6 +192,8 @@ export default {
             }
         },
         blockStyling() {
+            if (Object.keys(this.blockStyles).length === 0) return;
+
             const style = document.createElement('style');
             let blockStyleList = [];
 
@@ -213,7 +208,21 @@ export default {
             style.innerHTML = `.vt__pagination-block { ${String(blockStyleList)
                 .split(';,')
                 .join(';')} }`;
-            document.getElementsByTagName('head')[0].appendChild(style);
+            document.head.appendChild(style);
+        },
+        currentStyling() {
+            if (!this.currentColor && !this.currentBackground) return;
+
+            const style = document.createElement('style');
+            style.type = 'text/css';
+            style.innerHTML = `
+                .vt__pages .vt__selected {
+                    color: ${this.currentColor};
+                    background-color: ${this.currentBackground};
+                }
+            `;
+
+            document.head.appendChild(style);
         },
     },
 
@@ -221,6 +230,7 @@ export default {
         this.selectedPage();
         this.pageOverflow();
         this.blockStyling();
+        this.currentStyling();
     },
 
     updated() {
@@ -235,7 +245,8 @@ export default {
     @include flex-x(space-between, center);
     margin: 10px auto;
     width: 300px;
-    font-family: Helvetica, Arial, sans-serif;
+    color: $dark-grey;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
 
     .vt__disabled-pagination {
         visibility: hidden;
@@ -249,7 +260,7 @@ export default {
         transition: background-color 0.2s;
 
         &:hover {
-            background-color: rgba($black, 0.2);
+            background-color: rgba($primary, 0.2);
         }
     }
 
@@ -266,7 +277,7 @@ export default {
 
     .vt__selected {
         color: $white;
-        background-color: $black;
+        background-color: $primary;
     }
 
     // Page number input
@@ -275,7 +286,7 @@ export default {
         transition: background-color 0.2s;
 
         &:hover {
-            background-color: rgba($black, 0.2);
+            background-color: rgba($primary, 0.2);
         }
     }
 
@@ -284,26 +295,26 @@ export default {
         border-width: 0;
         text-align: center;
         color: $white;
-        background-color: lighten($black, 10%);
+        background-color: lighten($primary, 10%);
         transition: background-color 0.2s;
 
         &:focus {
-            background-color: lighten($black, 20%);
+            background-color: lighten($primary, 20%);
         }
     }
 
     ::placeholder {
         /* Chrome, Firefox, Opera, Safari 10.1+ */
-        color: darken(white, 20%);
+        color: rgba($dark-grey, 0.4);
         opacity: 1; /* Firefox */
     }
     :-ms-input-placeholder {
         /* Internet Explorer 10-11 */
-        color: darken(white, 20%);
+        color: rgba($dark-grey, 0.4);
     }
     ::-ms-input-placeholder {
         /* Microsoft Edge */
-        color: darken(white, 20%);
+        color: rgba($dark-grey, 0.4);
     }
     ::-webkit-inner-spin-button {
         appearance: none;

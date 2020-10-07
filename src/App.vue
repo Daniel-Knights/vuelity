@@ -60,7 +60,9 @@
         :currentPage="1"
         :lastPage="10"
         @page-changed="logValue($event)"
-        :blockStyles="paginationBlockStyles"
+        :blockStyles="{ background: 'green' }"
+        currentColor="red"
+        currentBackground="blue"
     >
         ►
     </VTPagination>
