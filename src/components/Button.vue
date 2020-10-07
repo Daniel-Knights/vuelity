@@ -14,7 +14,7 @@
     >
         <div v-if="shine" ref="shine" class="vt__shine"></div>
         <div class="vt__btn-content" ref="content">
-            <slot></slot>
+            <slot>SUBMIT</slot>
         </div>
     </button>
 </template>

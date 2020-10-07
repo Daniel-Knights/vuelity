@@ -56,16 +56,7 @@
         , perferendis nesciunt nostrum ea laboriosam cumque.
     </p>
 
-    <VTPagination
-        :currentPage="1"
-        :lastPage="10"
-        @page-changed="logValue($event)"
-        :blockStyles="{ background: 'green' }"
-        currentColor="red"
-        currentBackground="blue"
-    >
-        ►
-    </VTPagination>
+    <VTPagination :currentPage="1" :lastPage="10" @page-changed="logValue($event)"></VTPagination>
 
     <VTVideo
         :videoSrc="testSrc"

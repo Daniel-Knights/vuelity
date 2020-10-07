@@ -7,7 +7,7 @@
                 :class="{ 'vt__disabled-pagination': disabledLeft }"
                 style="transform: rotate(180deg)"
             >
-                <slot></slot>
+                <slot><img src="@/assets/vt-arrow-right2.svg"/></slot>
             </div>
         </div>
         <div class="vt__page-container">
@@ -79,7 +79,7 @@
                 class="vt__pagination vt__right vt__pagination-block"
                 :class="{ 'vt__disabled-pagination': disabledRight }"
             >
-                <slot></slot>
+                <slot><img src="@/assets/vt-arrow-right2.svg"/></slot>
             </div>
         </div>
     </div>
@@ -244,13 +244,13 @@ export default {
     user-select: none;
     @include flex-x(space-between, center);
     margin: 10px auto;
-    width: 300px;
-    color: $dark-grey;
+    width: 210px;
+    color: $white;
+    background: $primary;
+    border-radius: 5px;
+    box-shadow: 0 0 5px -3px $black;
     font-family: Avenir, Helvetica, Arial, sans-serif;
-
-    .vt__disabled-pagination {
-        visibility: hidden;
-    }
+    font-weight: 500;
 
     .vt__pagination {
         cursor: pointer;
@@ -277,7 +277,7 @@ export default {
 
     .vt__selected {
         color: $white;
-        background-color: $primary;
+        background-color: lighten($primary, 10%);
     }
 
     // Page number input
@@ -286,7 +286,7 @@ export default {
         transition: background-color 0.2s;
 
         &:hover {
-            background-color: rgba($primary, 0.2);
+            background-color: lighten($primary, 20%);
         }
     }
 
@@ -299,7 +299,28 @@ export default {
         transition: background-color 0.2s;
 
         &:focus {
-            background-color: lighten($primary, 20%);
+            background-color: lighten($primary, 10%);
+        }
+    }
+
+    .vt__right,
+    .vt__left {
+        border-radius: 0 5px 5px 0;
+
+        img {
+            width: 15px;
+        }
+
+        &:hover {
+            background-color: lighten($primary, 10%);
+        }
+    }
+
+    .vt__disabled-pagination {
+        color: rgba($white, 0.5);
+
+        &:hover {
+            background-color: $primary;
         }
     }
 
