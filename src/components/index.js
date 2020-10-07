@@ -23,15 +23,15 @@ export const VTVideo = Video;
 // CDN compatibility
 if (window !== undefined && window.Vue) {
     window.Vuelity = {
-        VTBurger,
-        VTButton,
-        VTHoverbox,
-        VTNavbar,
-        VTPopup,
-        VTPagination,
-        VTSearchbar,
-        VTTooltip,
-        VTToggle,
-        VTVideo,
+        'vt-burger': VTBurger,
+        'vt-button': VTButton,
+        'vt-hoverbox': VTHoverbox,
+        'vt-navbar': VTNavbar,
+        'vt-popup': VTPopup,
+        'vt-pagination': VTPagination,
+        'vt-searchbar': VTSearchbar,
+        'vt-tooltip': VTTooltip,
+        'vt-toggle': VTToggle,
+        'vt-video': VTVideo,
     };
 }
