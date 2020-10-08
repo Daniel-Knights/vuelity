@@ -105,22 +105,6 @@ export default {
         currentBackground: { type: String, default: '' },
     },
 
-    watch: {
-        currentPage(val) {
-            this.validate();
-            if (this.valid) {
-                this.paginateCurrentPage = val;
-                this.$emit('page-changed', val);
-            }
-        },
-        currentColor() {
-            this.currentStyling();
-        },
-        currentBackground() {
-            this.currentStyling();
-        },
-    },
-
     setup(props) {
         const valid = ref(true);
         const overflow = ref(false);
@@ -143,6 +127,22 @@ export default {
             disabledLeft,
             disabledRight,
         };
+    },
+
+    watch: {
+        currentPage(val) {
+            this.validate();
+            if (this.valid) {
+                this.paginateCurrentPage = val;
+                this.$emit('page-changed', val);
+            }
+        },
+        currentColor() {
+            this.currentStyling();
+        },
+        currentBackground() {
+            this.currentStyling();
+        },
     },
 
     methods: {
