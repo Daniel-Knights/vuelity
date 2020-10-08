@@ -127,11 +127,6 @@ export default {
         outline: none;
         overflow: hidden;
         transition: all 0.25s;
-
-        &:hover {
-            color: var(--hover-color);
-            background-color: var(--hover-background);
-        }
     }
 
     .vt__btn-content {
@@ -153,7 +148,8 @@ export default {
     }
 
     &.vt__hover-enabled:hover {
-        background-color: $primary;
+        color: var(--hover-color);
+        background-color: var(--hover-background);
     }
 
     &.vt__only-border::before {
