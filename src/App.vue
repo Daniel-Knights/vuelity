@@ -62,6 +62,7 @@
         :lastPage="10"
         @page-changed="logValue($event)"
     />
+    {{ log }}
     <input type="number" v-model.number="number" />
     <input type="color" v-model="color" />
 
@@ -99,6 +100,7 @@ export default {
     data() {
         return {
             number: 1,
+            log: 1,
             color: '#ffffff',
             videos: [],
             videoFocused: '',
@@ -150,6 +152,7 @@ export default {
             this.search = e;
         },
         logValue(e) {
+            this.log = e;
             console.log(e);
         },
     },

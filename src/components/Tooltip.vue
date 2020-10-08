@@ -1,5 +1,5 @@
 <template>
-    <div class="vt__tooltip-container">
+    <div class="vt__tooltip-container" :style="containerStyles">
         <div class="vt__tooltip">
             <span class="vt__tip" :class="classPosition" :style="styles" ref="tip">
                 {{ text }}
@@ -25,6 +25,7 @@ export default {
             default: 'top',
         },
         styles: { type: Object, default: {} },
+        containerStyles: { type: Object, default: {} },
         arrow: {
             type: Boolean,
             default: true,
