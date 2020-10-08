@@ -1,5 +1,5 @@
 <template>
-    <div class="vt__pages" :style="styles">
+    <div class="vt__pages" :style="styles" v-if="valid">
         <div class="vt__paginate-left-container">
             <div
                 @click="paginateLeft($event)"
@@ -7,7 +7,7 @@
                 :class="{ 'vt__disabled-pagination': disabledLeft }"
                 style="transform: rotate(180deg)"
             >
-                <slot><Arrow /></slot>
+                <slot><Arrow :disabled="disabledLeft"/></slot>
             </div>
         </div>
         <div class="vt__page-container">
@@ -30,6 +30,7 @@
                     data-enter="1"
                     type="number"
                     placeholder="pg."
+                    :max="lastPage"
                     ref="inputOne"
                 />
             </div>
@@ -59,6 +60,7 @@
                     data-enter="2"
                     type="number"
                     placeholder="pg."
+                    :max="lastPage"
                     ref="inputTwo"
                 />
             </div>
@@ -79,14 +81,14 @@
                 class="vt__pagination vt__right vt__pagination-block"
                 :class="{ 'vt__disabled-pagination': disabledRight }"
             >
-                <slot><Arrow /></slot>
+                <slot><Arrow :disabled="disabledRight"/></slot>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import Arrow from './Arrow';
 
 export default {
@@ -103,7 +105,15 @@ export default {
         currentBackground: { type: String, default: '' },
     },
 
+    watch: {
+        currentPage(val) {
+            this.validate();
+            if (this.valid) this.paginateCurrentPage = val;
+        },
+    },
+
     setup(props) {
+        const valid = ref(true);
         const overflow = ref(false);
         const enterPageOne = ref(false);
         const enterPageTwo = ref(false);
@@ -114,6 +124,7 @@ export default {
         const disabledRight = computed(() => paginateCurrentPage.value === props.lastPage);
 
         return {
+            valid,
             overflow,
             enterPageOne,
             enterPageTwo,
@@ -227,9 +238,23 @@ export default {
 
             document.head.appendChild(style);
         },
+        validate() {
+            if (this.currentPage > this.lastPage) {
+                console.error(
+                    `Vuelity [Error]: Prop currentPage must be less than or equal to lastPage, received ${this.currentPage}`
+                );
+                this.valid = false;
+            } else if (this.currentPage <= 0) {
+                console.error(
+                    `Vuelity [Error]: Prop currentPage must be greater than 0, received ${this.currentPage}`
+                );
+                this.valid = false;
+            }
+        },
     },
 
     mounted() {
+        this.validate();
         this.selectedPage();
         this.pageOverflow();
         this.blockStyling();
@@ -320,6 +345,7 @@ export default {
     }
 
     .vt__disabled-pagination {
+        cursor: default;
         color: rgba($white, 0.5);
 
         &:hover {

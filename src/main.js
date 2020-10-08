@@ -1,4 +1,11 @@
 import { createApp } from 'vue';
 import App from './App';
+import * as Vuelity from '@/components';
 
-createApp(App).mount('#app');
+const app = createApp(App);
+
+Object.keys(Vuelity).forEach(el => {
+    app.component(el, Vuelity[el]);
+});
+
+app.mount('#app');

@@ -56,7 +56,8 @@
         , perferendis nesciunt nostrum ea laboriosam cumque.
     </p>
 
-    <VTPagination :currentPage="1" :lastPage="10" @page-changed="logValue($event)"></VTPagination>
+    <VTPagination :currentPage="number" :lastPage="10" @page-changed="logValue($event)" />
+    <input type="number" v-model.number="number" />
 
     <VTVideo
         :videoSrc="testSrc"
@@ -88,24 +89,10 @@
 <script>
 import Axios from 'axios';
 
-import * as VT from './components';
-
 export default {
-    components: {
-        VTButton: VT.VTButton,
-        VTNavbar: VT.VTNavbar,
-        VTPopup: VT.VTPopup,
-        VTPagination: VT.VTPagination,
-        VTVideo: VT.VTVideo,
-        VTSearchbar: VT.VTSearchbar,
-        VTTooltip: VT.VTTooltip,
-        VTHoverbox: VT.VTHoverbox,
-        VTToggle: VT.VTToggle,
-        VTBurger: VT.VTBurger,
-    },
-
     data() {
         return {
+            number: 1,
             videos: [],
             videoFocused: '',
             search: '',

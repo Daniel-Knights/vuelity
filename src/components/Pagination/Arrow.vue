@@ -15,13 +15,23 @@
             ></path>
         </defs>
         <g>
-            <g><use xlink:href="#e57m1rNmfT" opacity="1" fill="#f5fafd" fill-opacity="1"></use></g>
+            <g><use xlink:href="#e57m1rNmfT" opacity="1" :fill="fill" fill-opacity="1"></use></g>
         </g>
     </svg>
 </template>
 
 <script>
+import { computed } from 'vue';
+
 export default {
     name: 'Arrow',
+
+    props: { disabled: { type: Boolean, default: true } },
+
+    setup(props) {
+        const fill = computed(() => (props.disabled ? '#d4dadd' : '#f5fafd'));
+
+        return { fill };
+    },
 };
 </script>
