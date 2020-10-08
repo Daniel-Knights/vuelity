@@ -108,7 +108,10 @@ export default {
     watch: {
         currentPage(val) {
             this.validate();
-            if (this.valid) this.paginateCurrentPage = val;
+            if (this.valid) {
+                this.paginateCurrentPage = val;
+                this.$emit('page-changed', val);
+            }
         },
         currentColor() {
             this.currentStyling();
