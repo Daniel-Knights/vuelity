@@ -12,7 +12,7 @@
         </div>
         <div class="vt__page-container">
             <div
-                v-if="overflow && (paginateCurrentPage > 3 || paginateCurrentPage === 2)"
+                v-if="overflow && paginateCurrentPage >= 2"
                 @click="
                     paginateCurrentPage = 1;
                     $emit('page-changed', paginateCurrentPage);
