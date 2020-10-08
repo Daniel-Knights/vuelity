@@ -92,7 +92,7 @@ export default {
 
 .vt__component {
     --hover-color: #ffffff;
-    --hover-background: #83dbca;
+    --hover-background: #5bd0b9;
     --border-radius: 5px;
 
     font-family: 'Lato', Helvetica, sans-serif;
