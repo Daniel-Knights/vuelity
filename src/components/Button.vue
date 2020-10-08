@@ -127,6 +127,11 @@ export default {
         outline: none;
         overflow: hidden;
         transition: all 0.25s;
+
+        &:hover {
+            color: var(--hover-color);
+            background-color: var(--hover-background);
+        }
     }
 
     .vt__btn-content {
@@ -191,11 +196,6 @@ export default {
             @include scrim-gradient($primary, 'to right');
             @include after;
         }
-    }
-
-    &:hover {
-        color: var(--hover-color);
-        background-color: var(--hover-background);
     }
 
     @keyframes vt__shine {
