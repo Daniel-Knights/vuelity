@@ -88,6 +88,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../sass/ripple';
+
 .vt__component {
     --hover-color: #ffffff;
     --hover-background: #83dbca;
@@ -130,19 +132,6 @@ export default {
     .vt__btn-content {
         position: relative;
         z-index: 1;
-    }
-
-    .vt__ripple {
-        pointer-events: none !important;
-        position: absolute !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        background-color: $white;
-        transform: translate(-50%, -50%) !important;
-        border-radius: 50% !important;
-        height: 55rem !important;
-        width: 15rem !important;
-        animation: vt__ripple-out 0.5s cubic-bezier(0.4, 0, 0.6, 1) forwards !important;
     }
 
     .vt__shine {
@@ -222,24 +211,6 @@ export default {
         30% {
             opacity: 0;
             left: 200%;
-        }
-    }
-    @keyframes vt__ripple-out {
-        0% {
-            opacity: 0;
-            max-height: 0rem;
-            max-width: 0rem;
-        }
-        50% {
-            opacity: 0.3;
-        }
-        70% {
-            opacity: 0.1;
-        }
-        100% {
-            opacity: 0;
-            max-height: 10rem;
-            max-width: 10rem;
         }
     }
     @keyframes vt__background-shift {

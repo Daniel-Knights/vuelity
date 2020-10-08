@@ -1,6 +1,6 @@
 <template>
     <div class="vt__pages" :style="styles" v-if="valid" ref="pages">
-        <div class="vt__paginate-left-container">
+        <div>
             <div
                 @click="paginateLeft($event)"
                 class="vt__pagination vt__left vt__pagination-block"
@@ -75,7 +75,7 @@
                 {{ lastPage }}
             </div>
         </div>
-        <div class="vt__paginate-right-container">
+        <div>
             <div
                 @click="paginateRight($event)"
                 class="vt__pagination vt__right vt__pagination-block"
