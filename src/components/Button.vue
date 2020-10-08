@@ -1,16 +1,14 @@
 <template>
     <button
         :style="styles"
-        @mouseover="addHoverColor()"
-        @mouseout="removeHoverColor()"
         class="vt__component vt__btn"
         :class="{
-            vt__fill: fill,
+            'vt__fill-border': fillBorder,
             vt__rainbow: rainbow,
-            'vt__only-border': onlyBorder,
+            'vt__only-border': onlyBorder || fillBorder,
             'vt__hover-enabled': hoverEnabled,
         }"
-        @click="rippleHandler($event)"
+        ref="button"
     >
         <div v-if="shine" ref="shine" class="vt__shine"></div>
         <div class="vt__btn-content" ref="content">
@@ -20,6 +18,9 @@
 </template>
 
 <script>
+import { onMounted, ref } from 'vue';
+import rippleHandler from './ripple';
+
 export default {
     name: 'Button',
 
@@ -28,59 +29,41 @@ export default {
         hoverColor: String,
         hoverBackground: String,
         hoverEnabled: { type: Boolean, default: true },
-        ripple: {
-            type: Boolean,
-            default: true,
-        },
-        shine: {
-            type: Boolean,
-            default: false,
-        },
-        rainbow: {
-            type: Boolean,
-            default: false,
-        },
-        onlyBorder: {
-            type: Boolean,
-            default: false,
-        },
-        fill: {
-            type: Boolean,
-            default: false,
-        },
+        ripple: { type: Boolean, default: true },
+        shine: { type: Boolean, default: false },
+        rainbow: { type: Boolean, default: false },
+        onlyBorder: { type: Boolean, default: false },
+        fillBorder: { type: Boolean, default: false },
     },
 
-    data() {
-        return {
-            background: '',
-            color: '',
+    setup(props) {
+        const button = ref(null);
+        const content = ref(null);
+        const ripple = rippleHandler;
+        const background = ref('');
+        const color = ref('');
+
+        const setColors = () => {
+            if (props.hoverColor) button.value.style.setProperty('--hover-color', props.hoverColor);
+            if (props.hoverBackground)
+                button.value.style.setProperty('--hover-background', props.hoverBackground);
         };
+
+        onMounted(() => {
+            if (props.ripple) {
+                button.value.addEventListener('click', e => rippleHandler(e, content.value));
+            }
+        });
+
+        return { button, content, background, color, setColors };
     },
 
-    methods: {
-        rippleHandler(e) {
-            if (!this.ripple) return;
-
-            const rect = e.target.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            let rippleEl = document.createElement('div');
-            rippleEl.setAttribute('class', 'vt__ripple');
-            rippleEl.style.left = `${x}px`;
-            rippleEl.style.top = `${y}px`;
-
-            this.$refs.content.appendChild(rippleEl);
-
-            setTimeout(() => rippleEl.remove(), 1000);
+    watch: {
+        hoverColor() {
+            this.setColors();
         },
-        addHoverColor() {
-            this.$el.style.color = this.hoverColor;
-            this.$el.style.backgroundColor = this.hoverBackground;
-        },
-        removeHoverColor() {
-            this.$el.style.backgroundColor = this.background;
-            this.$el.style.color = this.color;
+        hoverBackground() {
+            this.setColors();
         },
     },
 
@@ -106,6 +89,8 @@ export default {
 
 <style lang="scss">
 .vt__component {
+    --hover-color: #ffffff;
+    --hover-background: #83dbca;
     --border-radius: 5px;
 
     font-family: 'Lato', Helvetica, sans-serif;
@@ -210,13 +195,18 @@ export default {
         }
     }
 
-    &.vt__fill {
+    &.vt__fill-border {
         background: transparent;
 
         &::after {
             @include scrim-gradient($primary, 'to right');
             @include after;
         }
+    }
+
+    &:hover {
+        color: var(--hover-color);
+        background-color: var(--hover-background);
     }
 
     @keyframes vt__shine {

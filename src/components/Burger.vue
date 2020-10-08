@@ -42,7 +42,7 @@ export default {
     position: absolute;
     padding: 10px;
     height: 50px;
-    background: $primary;
+    background: darken($primary, 5%);
     border-radius: 50%;
     box-shadow: 0 0 7px -3px $black;
     box-sizing: border-box;
@@ -97,7 +97,7 @@ export default {
     }
 
     &:hover {
-        background: darken($primary, 10%);
+        background: lighten($primary, 5%);
     }
 }
 </style>

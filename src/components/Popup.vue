@@ -1,7 +1,12 @@
 <template>
-    <div class="vt__popup" v-if="popupOpen" :style="popupStyles">
+    <div
+        class="vt__popup"
+        v-if="popupOpen"
+        @click="removePopup()"
+        :style="{ ...styles, animationDelay: delay }"
+        ref="popup"
+    >
         <div class="vt__popup-message">
-            <span @click="removePopup()" :style="{ color: popupColor }">&times;</span>
             <slot></slot>
         </div>
     </div>
@@ -14,64 +19,66 @@ export default {
     name: 'Popup',
 
     props: {
-        styles: {
-            type: Object,
-            default: {},
-        },
-        cookie: {
-            type: Boolean,
-            default: false,
-        },
-        crossColor: String,
+        styles: { type: Object, default: {} },
+        cookie: { type: Boolean, default: false },
+        hoverColor: String,
+        hoverBackground: String,
+        delay: { type: String, default: '2s' },
     },
 
     setup(props) {
+        const popup = ref(null);
         const popupOpen = ref(true);
-        const popupStyles = ref(props.styles);
-        const popupColor = ref(props.crossColor);
         let cookieCheck = document.cookie.split('vt__popup-closed=')[1];
 
         const removePopup = () => {
             popupOpen.value = false;
             if (props.cookie) document.cookie = 'vt__popup-closed=true';
         };
+        const setColors = () => {
+            if (props.hoverColor) popup.value.style.setProperty('--hover-color', props.hoverColor);
+            if (props.hoverBackground)
+                popup.value.style.setProperty('--hover-background', props.hoverBackground);
+        };
 
         if (cookieCheck) cookieCheck = cookieCheck.split(';')[0];
         if (cookieCheck === 'true') popupOpen.value = false;
 
-        return { popupOpen, popupStyles, popupColor, removePopup };
+        onMounted(() => setColors());
+
+        return { popup, popupOpen, removePopup, setColors };
+    },
+
+    watch: {
+        hoverColor() {
+            this.setColors();
+        },
+        hoverBackground() {
+            this.setColors();
+        },
     },
 };
 </script>
 
 <style lang="scss">
 .vt__popup {
+    --hover-color: #ffffff;
+    --hover-background: #83dbca;
+
+    cursor: pointer;
     position: fixed;
-    padding: 10px;
+    bottom: 0;
     right: 50px;
-    bottom: -100%;
-    background-color: $white;
-    border: 2px solid $primary;
-    border-bottom: none;
+    padding: 10px;
+    color: $white;
+    font: 500 20px $font_primary;
+    background-color: $primary;
     border-radius: 5px 5px 0 0;
     box-shadow: 0px 1px 5px -2px $black;
-    animation: popup 1s 3s forwards cubic-bezier(0.215, 0.61, 0.355, 1);
+    transform: translateY(101%);
+    transition: all 0.2s;
+    animation: popup 1s forwards cubic-bezier(0.215, 0.61, 0.355, 1);
     z-index: 1000;
-
-    span {
-        cursor: pointer;
-        position: absolute;
-        margin-right: 5px;
-        top: -5px;
-        right: 3px;
-        font-size: 30px;
-        color: $primary;
-        transition: color 0.3s;
-
-        &:hover {
-            color: lighten($primary, 20%);
-        }
-    }
 
     .vt__popup-message {
         @include flex-x(center, center);
@@ -79,7 +86,11 @@ export default {
         max-width: 190px;
         min-width: 100px;
         min-height: 30px;
-        font-family: $font_primary;
+    }
+
+    &:hover {
+        color: var(--hover-color) !important;
+        background-color: var(--hover-background) !important;
     }
 
     @media only screen and (max-width: 700px) {
@@ -92,11 +103,8 @@ export default {
     }
 
     @keyframes popup {
-        0% {
-            bottom: -100%;
-        }
-        100% {
-            bottom: 0;
+        to {
+            transform: translateY(0);
         }
     }
 }
