@@ -34,5 +34,19 @@
     ],
     "externals": {
         "vue": "vue"
-    }
+    },
+    "keywords": [
+        "vue",
+        "vue3",
+        "component-library",
+        "components",
+        "vt__",
+        "ui",
+        "ux",
+        "html",
+        "javascript",
+        "css",
+        "sass",
+        "scss"
+    ]
 }

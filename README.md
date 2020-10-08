@@ -15,8 +15,8 @@ npm i vuelity
 ### CDN
 
 ```html
-<script src="https://unpkg.com/vue@3.0.0/dist/vue.global.js">
-<script src="https://unpkg.com/vuelity/dist/vuelity.umd.min.js">
+<script src="https://unpkg.com/vue@3.0.0/dist/vue.global.js"></script>
+<script src="https://unpkg.com/vuelity/dist/vuelity.umd.min.js"></script>
 ```
 
 ## Import
@@ -44,7 +44,7 @@ Object.keys(Vuelity).forEach(el => {
 ### CDN
 
 ```js
-app.component('vt-button', Vuelity['vt-navbar']);
+app.component('vt-button', Vuelity['vt-button']);
 ```
 
 Or register all at once:
