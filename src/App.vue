@@ -56,8 +56,14 @@
         , perferendis nesciunt nostrum ea laboriosam cumque.
     </p>
 
-    <VTPagination :currentPage="number" :lastPage="10" @page-changed="logValue($event)" />
+    <VTPagination
+        :currentColor="color"
+        :currentPage="number"
+        :lastPage="10"
+        @page-changed="logValue($event)"
+    />
     <input type="number" v-model.number="number" />
+    <input type="color" v-model="color" />
 
     <VTVideo
         :videoSrc="testSrc"
@@ -93,6 +99,7 @@ export default {
     data() {
         return {
             number: 1,
+            color: '#ffffff',
             videos: [],
             videoFocused: '',
             search: '',

@@ -1,5 +1,5 @@
 <template>
-    <div class="vt__pages" :style="styles" v-if="valid">
+    <div class="vt__pages" :style="styles" v-if="valid" ref="pages">
         <div class="vt__paginate-left-container">
             <div
                 @click="paginateLeft($event)"
@@ -109,6 +109,12 @@ export default {
         currentPage(val) {
             this.validate();
             if (this.valid) this.paginateCurrentPage = val;
+        },
+        currentColor() {
+            this.currentStyling();
+        },
+        currentBackground() {
+            this.currentStyling();
         },
     },
 
@@ -227,16 +233,8 @@ export default {
         currentStyling() {
             if (!this.currentColor && !this.currentBackground) return;
 
-            const style = document.createElement('style');
-            style.type = 'text/css';
-            style.innerHTML = `
-                .vt__pages .vt__selected {
-                    color: ${this.currentColor};
-                    background-color: ${this.currentBackground};
-                }
-            `;
-
-            document.head.appendChild(style);
+            this.$refs.pages.style.setProperty('--current-color', this.currentColor);
+            this.$refs.pages.style.setProperty('--current-background', this.currentBackground);
         },
         validate() {
             if (this.currentPage > this.lastPage) {
@@ -269,6 +267,9 @@ export default {
 
 <style lang="scss">
 .vt__pages {
+    --current-color: #f5fafd;
+    --current-background: #83dbca;
+
     user-select: none;
     @include flex-x(space-between, center);
     margin: 10px auto;
@@ -304,8 +305,8 @@ export default {
     }
 
     .vt__selected {
-        color: $white;
-        background-color: lighten($primary, 10%);
+        color: var(--current-color);
+        background-color: var(--current-background);
     }
 
     // Page number input
