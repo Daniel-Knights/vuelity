@@ -130,6 +130,8 @@ export default {
 
             .vt__search-submit {
                 @include flex-x(false, center);
+                position: absolute;
+                right: 0;
                 width: 36px;
                 height: 36px;
             }
@@ -146,7 +148,7 @@ export default {
             width: 10px;
 
             path {
-                fill: var(--primary);
+                fill: var(--color);
                 transition: all 0.25s;
             }
         }
@@ -183,7 +185,6 @@ export default {
 
         svg {
             cursor: pointer;
-            margin-left: -35px;
             width: 20px;
             height: 20px;
             text-align: center;
