@@ -183,7 +183,6 @@ export default {
         svg {
             cursor: pointer;
             margin-left: -35px;
-            padding: 10px 5px;
             width: 20px;
             height: 20px;
             text-align: center;
