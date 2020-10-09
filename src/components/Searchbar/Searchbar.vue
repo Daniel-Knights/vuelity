@@ -9,10 +9,7 @@
                 <SearchCross />
             </div>
         </transition>
-        <form
-            @submit.prevent="searchSubmit()"
-            :class="{ 'vt__icon-enabled': iconEnabled && submitEnabled }"
-        >
+        <form @submit.prevent="searchSubmit()" :class="{ 'vt__icon-enabled': iconEnabled }">
             <input
                 type="text"
                 :placeholder="defaultPlaceholder"
@@ -23,7 +20,7 @@
                 @focus="focusHandler()"
                 @blur="blurHandler()"
             />
-            <div class="vt__search-submit" v-if="submitEnabled">
+            <div class="vt__search-submit">
                 <slot>
                     <SearchIcon @click.native="searchSubmit()" />
                 </slot>
@@ -48,10 +45,9 @@ export default {
         placeholder: String,
         crossEnabled: { type: Boolean, default: true },
         iconEnabled: { type: Boolean, default: true },
-        submitEnabled: { type: Boolean, default: true },
+        contrast: { type: Boolean, default: false },
         primary: { type: String, default: '#ffffff' },
         secondary: { type: String, default: '#5bd0b9' },
-        contrast: { type: Boolean, default: false },
     },
 
     setup(props, { emit }) {
@@ -61,7 +57,6 @@ export default {
 
         const setColor = (property, color) => container.value.style.setProperty(property, color);
         const searchSubmit = () => {
-            if (!props.submitEnabled) return;
             if (!search.value) defaultPlaceholder.value = 'Invalid Search';
             else defaultPlaceholder.value = props.placeholder || 'Search...';
 
