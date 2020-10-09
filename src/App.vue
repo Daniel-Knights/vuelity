@@ -1,15 +1,7 @@
 <template>
     <VTNavbar :styles="navbarStyles" position="top" :slider="false">
         <h1>Vuelity</h1>
-        <VTSearchbar
-            @search-submit="logValue($event)"
-            :color="color"
-            placeholder="test"
-            :focusColor="color"
-            :backgroundColor="color"
-            :backgroundFocusColor="color"
-            @search-value="searchValue($event)"
-        />
+        <VTSearchbar @search-submit="logValue($event)" @search-value="searchValue($event)" />
         <VTHoverbox :width="100" :height="50">
             Home
         </VTHoverbox>
@@ -21,7 +13,13 @@
         </div>
     </VTNavbar>
 
-    <VTSearchbar :style="{ margin: '100px auto' }" />
+    <VTSearchbar
+        :style="{ margin: '100px auto' }"
+        :primary="color"
+        :secondary="colorTwo"
+        :contrast="true"
+    />
+    <VTSearchbar :style="{ margin: '100px auto' }" :primary="color" :secondary="colorTwo" />
     {{ search }}
 
     <VTToggle
@@ -68,6 +66,7 @@
     {{ log }}
     <input type="number" v-model.number="number" />
     <input type="color" v-model="color" />
+    <input type="color" v-model="colorTwo" />
 
     <VTButton />
 
@@ -109,6 +108,7 @@ export default {
             number: 1,
             log: 1,
             color: '#ffffff',
+            colorTwo: '#5bd0b9',
             videos: [],
             videoFocused: '',
             search: '',

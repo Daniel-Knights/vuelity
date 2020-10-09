@@ -20,8 +20,8 @@
                 v-model="search"
                 :style="styles"
                 @keyup="$emit('search-value', search)"
-                @focus="setColor('--color', focusColor)"
-                @blur="setColor('--color', color)"
+                @focus="focusHandler()"
+                @blur="blurHandler()"
             />
             <div class="vt__search-submit" v-if="submitEnabled">
                 <slot>
@@ -49,10 +49,9 @@ export default {
         crossEnabled: { type: Boolean, default: true },
         iconEnabled: { type: Boolean, default: true },
         submitEnabled: { type: Boolean, default: true },
-        color: { type: String, default: '#5bd0b9' },
-        focusColor: { type: String, default: '#ffffff' },
-        backgroundColor: { type: String, default: '#ffffff' },
-        backgroundFocusColor: { type: String, default: '#b2eee3' },
+        primary: { type: String, default: '#ffffff' },
+        secondary: { type: String, default: '#5bd0b9' },
+        contrast: { type: Boolean, default: false },
     },
 
     setup(props, { emit }) {
@@ -60,7 +59,7 @@ export default {
         const search = ref('');
         const defaultPlaceholder = ref(props.placeholder || 'Search...');
 
-        let setColor = ref(() => {});
+        const setColor = (property, color) => container.value.style.setProperty(property, color);
         const searchSubmit = () => {
             if (!props.submitEnabled) return;
             if (!search.value) defaultPlaceholder.value = 'Invalid Search';
@@ -68,29 +67,57 @@ export default {
 
             emit('search-submit', search.value);
         };
+        const focusHandler = () => {
+            if (props.contrast) {
+                setColor('--primary-shift', props.primary);
+            } else setColor('--primary-shift', props.secondary);
+        };
+        const blurHandler = () => {
+            if (props.contrast) {
+                setColor('--primary-shift', props.secondary);
+            } else setColor('--primary-shift', props.primary);
+        };
 
         onMounted(() => {
             setColor.value = (property, color) =>
                 container.value.style.setProperty(property, color);
-            setColor.value('--primary', props.color);
-            setColor.value('--color', props.color);
-            setColor.value('--bg', props.backgroundColor);
-            setColor.value('--focus-bg', props.backgroundFocusColor);
+
+            if (props.contrast) {
+                setColor.value('--primary-static', props.secondary);
+                setColor.value('--primary-shift', props.secondary);
+                setColor.value('--secondary', props.primary);
+            } else {
+                setColor.value('--primary-static', props.primary);
+                setColor.value('--primary-shift', props.primary);
+                setColor.value('--secondary', props.secondary);
+            }
         });
 
-        return { container, search, defaultPlaceholder, setColor, searchSubmit };
+        return {
+            container,
+            search,
+            defaultPlaceholder,
+            setColor,
+            searchSubmit,
+            focusHandler,
+            blurHandler,
+        };
     },
 
     watch: {
-        color(val) {
-            this.setColor('--primary', this.color);
-            this.setColor('--color', this.color);
+        primary(val) {
+            if (this.contrast) {
+                this.setColor('--secondary', this.primary);
+            } else {
+                this.setColor('--primary-static', this.primary);
+                this.setColor('--primary-shift', this.primary);
+            }
         },
-        backgroundColor(val) {
-            this.setColor('--bg', this.backgroundColor);
-        },
-        backgroundFocusColor(val) {
-            this.setColor('--focus-bg', this.backgroundFocusColor);
+        secondary(val) {
+            if (this.contrast) {
+                this.setColor('--primary-static', this.secondary);
+                this.setColor('--primary-shift', this.secondary);
+            } else this.setColor('--secondary', this.secondary);
         },
     },
 };
@@ -110,10 +137,9 @@ export default {
 }
 
 .vt__search-container {
-    --primary: #5bd0b9;
-    --color: #5bd0b9;
-    --bg: #ffffff;
-    --focus-bg: #b2eee3;
+    --primary-static: #ffffff;
+    --primary-shift: #ffffff;
+    --secondary: #5bd0b9;
 
     @include flex-x(center, center);
     position: relative;
@@ -148,13 +174,9 @@ export default {
             width: 10px;
 
             path {
-                fill: var(--primary);
+                fill: var(--primary-static);
                 transition: all 0.25s;
             }
-        }
-
-        &:hover path {
-            fill: var(--focus-bg);
         }
     }
 
@@ -163,11 +185,11 @@ export default {
         max-width: 18rem;
         height: 35px;
         font: 500 14px $font_primary;
-        color: var(--color);
+        color: var(--primary-shift);
         border: none;
-        border-bottom: 1px solid var(--primary);
+        border-bottom: 1px solid var(--primary-static);
         background-color: transparent;
-        background: linear-gradient(to bottom, var(--bg) 50%, var(--focus-bg) 50%);
+        background: linear-gradient(to bottom, var(--secondary) 50%, var(--primary-static) 50%);
         background-position: 0 0;
         background-size: 200% 200%;
         transition: all 0.5s;
@@ -175,7 +197,7 @@ export default {
         -webkit-appearance: none;
 
         &:focus {
-            color: var(--color);
+            color: var(--primary-shift);
             background-position: 0 100%;
         }
     }
@@ -195,7 +217,7 @@ export default {
             transition: transform 0.3s;
 
             path {
-                fill: var(--color);
+                fill: var(--primary-shift);
                 transition: fill 0.25s 0.1s;
             }
 
@@ -206,7 +228,7 @@ export default {
     }
 
     @mixin placeholder {
-        color: var(--color);
+        color: var(--primary-shift);
         font: 500 13px $font_primary;
         transition: color 0.25s 0.1s;
     }
