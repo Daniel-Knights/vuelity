@@ -118,13 +118,14 @@ export default {
     @include flex-x(center, center);
     position: relative;
     width: fit-content;
+    box-sizing: border-box;
 
     form {
         @include flex-x(false, center);
 
         &.vt__icon-enabled {
             [type='text'] {
-                padding: 0 35px 0 15px;
+                padding: 0 45px 0 15px;
             }
 
             .vt__search-submit {
