@@ -21,7 +21,7 @@
         </div>
     </VTNavbar>
 
-    <VTSearchbar />
+    <VTSearchbar :style="{ margin: '100px auto' }" />
     {{ search }}
 
     <VTToggle

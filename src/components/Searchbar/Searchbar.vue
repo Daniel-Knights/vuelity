@@ -148,7 +148,7 @@ export default {
             width: 10px;
 
             path {
-                fill: var(--color);
+                fill: var(--primary);
                 transition: all 0.25s;
             }
         }
