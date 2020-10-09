@@ -1,11 +1,13 @@
 <template>
-    <VTNavbar :styles="navbarStyles" position="top" :slider="true">
+    <VTNavbar :styles="navbarStyles" position="top" :slider="false">
         <h1>Vuelity</h1>
         <VTSearchbar
-            :searchFunction="searchFunction"
-            :styles="searchbarStyles"
-            iconColor="#fff"
-            background="rgba(0,0,0,0.5)"
+            @search-submit="logValue($event)"
+            :color="color"
+            placeholder="test"
+            :focusColor="color"
+            :backgroundColor="color"
+            :backgroundFocusColor="color"
             @search-value="searchValue($event)"
         />
         <VTHoverbox :width="100" :height="50">
@@ -19,6 +21,7 @@
         </div>
     </VTNavbar>
 
+    <VTSearchbar :iconEnabled="false" :style="{ margin: '0 auto' }" />
     {{ search }}
 
     <VTToggle
