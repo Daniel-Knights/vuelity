@@ -32,8 +32,8 @@ export default {
         ripple: { type: Boolean, default: true },
         shine: { type: Boolean, default: false },
         hoverEnabled: { type: Boolean, default: true },
-        hoverColor: String,
-        hoverBackground: String,
+        hoverColor: { type: String, default: '#ffffff' },
+        hoverBackground: { type: String, default: '#5bd0b9' },
     },
 
     setup(props) {
