@@ -67,7 +67,12 @@
         , perferendis nesciunt nostrum ea laboriosam cumque.
     </p>
 
-    <VTPagination :currentPage="number" :lastPage="10" @page-changed="logValue($event)" />
+    <VTPagination
+        :disabledColor="color"
+        :currentPage="number"
+        :lastPage="10"
+        @page-changed="logValue($event)"
+    />
     {{ log }}
     <input type="number" v-model.number="number" />
     <input type="color" v-model="color" />
