@@ -89,7 +89,7 @@
 
 <script>
 import { ref, computed, watch, onMounted } from 'vue';
-import Arrow from './Arrow';
+import Arrow from './svg/Arrow';
 
 export default {
     name: 'Page',

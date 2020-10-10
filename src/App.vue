@@ -67,18 +67,21 @@
         , perferendis nesciunt nostrum ea laboriosam cumque.
     </p>
 
-    <VTPagination
-        :disabledColor="color"
-        :currentPage="number"
-        :lastPage="10"
-        @page-changed="logValue($event)"
-    />
-    {{ log }}
-    <input type="number" v-model.number="number" />
-    <input type="color" v-model="color" />
-    <input type="color" v-model="colorTwo" />
+    <VTButton @click="modalCondition = true">OPEN MODAL</VTButton>
+    <VTModal v-if="modalCondition" @close="modalCondition = false">
+        <VTPagination
+            :disabledColor="color"
+            :currentPage="number"
+            :lastPage="10"
+            @page-changed="logValue($event)"
+        />
+        {{ log }}
+        <input type="number" v-model.number="number" />
+        <input type="color" v-model="color" />
+        <input type="color" v-model="colorTwo" />
 
-    <VTButton />
+        <VTButton />
+    </VTModal>
 
     <!-- <VTVideo
         :videoSrc="testSrc"
@@ -107,6 +110,8 @@
     <VTPopup :hoverColor="color" :hoverBackground="colorTwo" animationDelay="2s" :cookie="false"
         >You will be automatically logged out in 5s</VTPopup
     >
+
+    <VTScrolltop />
 </template>
 
 <script>
@@ -115,6 +120,7 @@ import Axios from 'axios';
 export default {
     data() {
         return {
+            modalCondition: false,
             number: 1,
             log: 1,
             color: '#ffffff',
@@ -193,7 +199,7 @@ export default {
 
 body {
     margin: 0;
-    min-height: 100vh;
+    min-height: 1000vh;
     width: 100%;
     // background: $primary;
 }

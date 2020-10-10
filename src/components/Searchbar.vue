@@ -6,7 +6,7 @@
                 @click="search = ''"
                 class="vt__search-cross"
             >
-                <SearchCross />
+                <Cross />
             </div>
         </transition>
         <form @submit.prevent="searchSubmit()" :class="{ 'vt__icon-enabled': iconEnabled }">
@@ -32,13 +32,13 @@
 <script>
 import { onMounted, ref } from 'vue';
 
-import SearchCross from './SearchCross';
-import SearchIcon from './SearchIcon';
+import Cross from './svg/Cross';
+import SearchIcon from './svg/SearchIcon';
 
 export default {
     name: 'Searchbar',
 
-    components: { SearchCross, SearchIcon },
+    components: { Cross, SearchIcon },
 
     props: {
         styles: { type: Object, default: {} },
