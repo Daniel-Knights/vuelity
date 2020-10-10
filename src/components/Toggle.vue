@@ -1,5 +1,5 @@
 <template>
-    <div @click="toggled()" class="vt__toggle-container" :style="containerStyles" ref="toggle">
+    <div @click="toggled()" class="vt__toggle-container" :style="containerStyles" ref="container">
         <div class="vt__toggle-inner" :class="{ 'vt__toggle-on': toggleOn }">
             <div class="vt__toggle-focus" ref="toggleFocus"></div>
             <div class="vt__toggle" :style="toggleStyles"></div>
@@ -17,14 +17,18 @@ export default {
         containerStyles: { type: Object, default: {} },
         toggleStyles: { type: Object, default: {} },
         initialState: { type: Boolean, default: false },
+        hoverColor: { type: String, default: '#ededed' },
     },
 
     setup(props, { emit }) {
-        const toggle = ref(null);
+        const container = ref(null);
         const toggleFocus = ref(null);
         const toggleOn = ref(props.initialState);
 
         let toggled = ref(() => {});
+        const setColor = (property, color) => {
+            container.value.style.setProperty(property, color);
+        };
 
         onMounted(() => {
             toggled.value = () => {
@@ -39,20 +43,30 @@ export default {
             };
 
             window.addEventListener('click', e => {
-                if (e.target !== toggle.value && toggleFocus.value) {
+                if (e.target !== container.value && toggleFocus.value) {
                     toggleFocus.value.style.transform = 'scale(1)';
                     toggleFocus.value.style.opacity = '0';
                 }
             });
+
+            setColor('--hover-color', props.hoverColor);
         });
 
-        return { toggle, toggleFocus, toggleOn, toggled };
+        return { container, toggleFocus, toggleOn, toggled, setColor };
+    },
+
+    watch: {
+        hoverColor(val) {
+            this.setColor('--hover-color', this.hoverColor);
+        },
     },
 };
 </script>
 
 <style lang="scss">
 .vt__toggle-container {
+    --hover-color: #ededed;
+
     cursor: pointer;
     @include flex-x(false, center);
     position: relative;
@@ -72,7 +86,7 @@ export default {
         position: absolute;
         right: 100%;
         transform: translateX(calc(100% + 2px));
-        transition: all 0.1s ease !important;
+        transition: all 0.1s ease;
 
         &.vt__toggle-on {
             right: 2px;
@@ -85,7 +99,7 @@ export default {
         width: 15px;
         border-radius: 50%;
         background: $white;
-        transition: all 0.1s ease !important;
+        transition: all 0.1s ease;
     }
 
     .vt__toggle-focus {
@@ -94,11 +108,11 @@ export default {
         height: 100%;
         background: radial-gradient(transparent, rgba($white, 0.5));
         border-radius: 50%;
-        transition: all 0.1s ease !important;
+        transition: all 0.1s ease;
     }
 
     &:hover .vt__toggle {
-        background: rgba($white, 0.9);
+        background: var(--hover-color);
     }
 }
 </style>

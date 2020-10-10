@@ -26,28 +26,28 @@ export default {
 
     props: {
         styles: { type: Object, default: {} },
-        hoverColor: String,
-        hoverBackground: String,
-        hoverEnabled: { type: Boolean, default: true },
+        rainbow: { type: Boolean, default: false },
+        fillBorder: { type: Boolean, default: false },
+        onlyBorder: { type: Boolean, default: false },
         ripple: { type: Boolean, default: true },
         shine: { type: Boolean, default: false },
-        rainbow: { type: Boolean, default: false },
-        onlyBorder: { type: Boolean, default: false },
-        fillBorder: { type: Boolean, default: false },
+        hoverEnabled: { type: Boolean, default: true },
+        hoverColor: String,
+        hoverBackground: String,
     },
 
     setup(props) {
         const button = ref(null);
         const content = ref(null);
-        const ripple = rippleHandler;
-        const background = ref('');
-        const color = ref('');
 
         const setProp = (property, color) => {
             button.value.style.setProperty(property, color);
         };
 
         onMounted(() => {
+            setProp('--hover-color', props.hoverColor);
+            setProp('--hover-bg', props.hoverBackground);
+
             // Set ripple effect
             if (props.ripple) {
                 button.value.addEventListener('click', e => rippleHandler(e, content.value));
@@ -58,17 +58,13 @@ export default {
                 setProp('--border-radius', props.styles.borderRadius);
             }
 
-            // Store colors for hover
-            background.value = button.value.style.backgroundColor;
-            color.value = button.value.style.color;
-
             // Safari ripple
             if (navigator.vendor.match(/apple/i)) {
                 button.value.style.webkitMaskImage = 'radial-gradient(white, black)';
             }
         });
 
-        return { button, content, background, color, setProp };
+        return { button, content, setProp };
     },
 
     watch: {
@@ -76,7 +72,7 @@ export default {
             this.setProp('--hover-color', val);
         },
         hoverBackground(val) {
-            this.setProp('--hover-background', val);
+            this.setProp('--hover-bg', val);
         },
     },
 
@@ -92,7 +88,7 @@ export default {
 
 .vt__component {
     --hover-color: #ffffff;
-    --hover-background: #5bd0b9;
+    --hover-bg: #5bd0b9;
     --border-radius: 5px;
 
     font-family: 'Lato', Helvetica, sans-serif;
@@ -149,7 +145,7 @@ export default {
 
     &.vt__hover-enabled:hover {
         color: var(--hover-color);
-        background-color: var(--hover-background);
+        background-color: var(--hover-bg);
     }
 
     &.vt__only-border::before {

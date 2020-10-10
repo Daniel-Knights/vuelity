@@ -97,14 +97,14 @@ export default {
     components: { Arrow },
 
     props: {
-        currentPage: { type: Number, default: 1 },
-        lastPage: Number,
         styles: { type: Object, default: {} },
         blockStyles: { type: Object, default: {} },
         color: { type: String, default: '#ffffff' },
         disabledColor: { type: String, default: '#dbdbdb' },
         background: { type: String, default: '#5bd0b9' },
         altBackground: { type: String, default: '#83dbca' },
+        currentPage: { type: Number, default: 1 },
+        lastPage: Number,
     },
 
     setup(props) {

@@ -21,9 +21,9 @@ export default {
     props: {
         styles: { type: Object, default: {} },
         cookie: { type: Boolean, default: false },
+        delay: { type: String, default: '2s' },
         hoverColor: { type: String, default: '#ffffff' },
         hoverBackground: { type: String, default: '#83dbca' },
-        delay: { type: String, default: '2s' },
     },
 
     setup(props) {

@@ -27,6 +27,7 @@
         :containerStyles="toggleContainerStyles"
         :toggleStyles="toggleStyles"
         :initialState="true"
+        :hoverColor="color"
     />
 
     <VTHoverbox :styles="hoverboxStyles" fill="red">
@@ -41,16 +42,18 @@
             :shine="true"
             :ripple="false"
             :hoverEnabled="false"
+            hoverColor="red"
+            hoverBackground="blue"
             :styles="{ borderRadius: '50%' }"
             >CRAZY</VTButton
         >
     </VTTooltip>
 
     <VTBurger
-        :background="colorTwo"
-        :hoverBackground="color"
-        :stripColor="color"
-        :stripHoverColor="colorTwo"
+        background="red"
+        hoverBackground="blue"
+        stripColor="blue"
+        stripHoverColor="red"
         @open="logValue($event)"
         :styles="{ right: '0' }"
     />

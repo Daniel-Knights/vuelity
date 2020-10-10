@@ -23,16 +23,10 @@ export default {
     components: { VTBurger },
 
     props: {
-        position: {
-            type: String,
-            default: 'top',
-            validator(position) {
-                return ['top', 'bottom', 'left', 'right'].indexOf(position) > -1;
-            },
-        },
         styles: { type: Object, default: {} },
         containerStyles: { type: Object, default: {} },
         burgerStyles: { type: Object, default: {} },
+        position: { type: String, default: 'top' },
         slider: { type: Boolean, default: false },
     },
 

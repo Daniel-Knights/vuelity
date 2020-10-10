@@ -22,21 +22,18 @@ export default {
     name: 'Hoverbox',
 
     props: {
-        width: Number,
-        height: Number,
         styles: { type: Object, default: {} },
         containerStyles: Object,
-        fill: {
-            type: String,
-            default: 'rgba(255, 255, 255, 0.5)',
-        },
+        width: Number,
+        height: Number,
+        fill: { type: String, default: 'rgba(255, 255, 255, 0.5)' },
     },
 
     setup(props) {
-        const hoverboxWidth = ref(props.width);
-        const hoverboxHeight = ref(props.height);
         const container = ref(null);
         const hoverbox = ref(null);
+        const hoverboxWidth = ref(props.width);
+        const hoverboxHeight = ref(props.height);
 
         const hoverboxMouseover = () => {
             if (!hoverbox.value) return;
@@ -67,7 +64,7 @@ export default {
             hoverboxHeight.value = container.value.offsetHeight + 10;
         });
 
-        return { hoverboxWidth, hoverboxHeight, hoverbox, container };
+        return { hoverbox, container, hoverboxWidth, hoverboxHeight };
     },
 };
 </script>
