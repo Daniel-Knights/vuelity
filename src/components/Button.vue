@@ -43,46 +43,46 @@ export default {
         const background = ref('');
         const color = ref('');
 
-        const setColors = () => {
-            if (props.hoverColor) button.value.style.setProperty('--hover-color', props.hoverColor);
-            if (props.hoverBackground)
-                button.value.style.setProperty('--hover-background', props.hoverBackground);
+        const setProp = (property, color) => {
+            button.value.style.setProperty(property, color);
         };
 
         onMounted(() => {
+            // Set ripple effect
             if (props.ripple) {
                 button.value.addEventListener('click', e => rippleHandler(e, content.value));
             }
+
+            // Set CSS border-radius variable
+            if (props.styles.borderRadius) {
+                setProp('--border-radius', props.styles.borderRadius);
+            }
+
+            // Store colors for hover
+            background.value = button.value.style.backgroundColor;
+            color.value = button.value.style.color;
+
+            // Safari ripple
+            if (navigator.vendor.match(/apple/i)) {
+                button.value.style.webkitMaskImage = 'radial-gradient(white, black)';
+            }
         });
 
-        return { button, content, background, color, setColors };
+        return { button, content, background, color, setProp };
     },
 
     watch: {
-        hoverColor() {
-            this.setColors();
+        hoverColor(val) {
+            this.setProp('--hover-color', val);
         },
-        hoverBackground() {
-            this.setColors();
+        hoverBackground(val) {
+            this.setProp('--hover-background', val);
         },
     },
 
     mounted() {
         // Randomize shine animation delay
         if (this.shine) this.$refs.shine.style.animationDelay = Math.random() * 1 + 's';
-
-        // Set CSS border-radius variable
-        if (this.styles.borderRadius) {
-            this.$el.style.setProperty('--border-radius', this.styles.borderRadius);
-        }
-
-        // Store colors for hover
-        this.background = this.$el.style.backgroundColor;
-        this.color = this.$el.style.color;
-
-        // Safari ripple
-        if (navigator.vendor.match(/apple/i))
-            this.$el.style.webkitMaskImage = 'radial-gradient(white, black)';
     },
 };
 </script>

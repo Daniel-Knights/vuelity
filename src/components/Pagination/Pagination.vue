@@ -103,8 +103,8 @@ export default {
         blockStyles: { type: Object, default: {} },
         color: { type: String, default: '#ffffff' },
         disabledColor: { type: String, default: '#dbdbdb' },
-        backgroundColor: { type: String, default: '#5bd0b9' },
-        altBackgroundColor: { type: String, default: '#83dbca' },
+        background: { type: String, default: '#5bd0b9' },
+        altBackground: { type: String, default: '#83dbca' },
     },
 
     setup(props) {
@@ -126,8 +126,8 @@ export default {
         onMounted(() => {
             setColor('--color', props.color);
             setColor('--disabled-color', props.disabledColor);
-            setColor('--bg', props.backgroundColor);
-            setColor('--alt-bg', props.altBackgroundColor);
+            setColor('--bg', props.background);
+            setColor('--alt-bg', props.altBackground);
         });
 
         return {
@@ -159,10 +159,10 @@ export default {
         disabledColor(val) {
             this.setColor('--disabled-color', val);
         },
-        backgroundColor(val) {
+        background(val) {
             this.setColor('--bg', val);
         },
-        altBackgroundColor(val) {
+        altBackground(val) {
             this.setColor('--alt-bg', val);
         },
     },

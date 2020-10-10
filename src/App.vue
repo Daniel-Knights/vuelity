@@ -57,12 +57,7 @@
         , perferendis nesciunt nostrum ea laboriosam cumque.
     </p>
 
-    <VTPagination
-        :currentColor="color"
-        :currentPage="number"
-        :lastPage="10"
-        @page-changed="logValue($event)"
-    />
+    <VTPagination :currentPage="number" :lastPage="10" @page-changed="logValue($event)" />
     {{ log }}
     <input type="number" v-model.number="number" />
     <input type="color" v-model="color" />
@@ -94,7 +89,7 @@
         @video-focused="videoFocused = String(video._uid)"
     /> -->
 
-    <VTPopup animationDelay="2s" :cookie="false"
+    <VTPopup :hoverColor="color" :hoverBackground="colorTwo" animationDelay="2s" :cookie="false"
         >You will be automatically logged out in 5s</VTPopup
     >
 </template>

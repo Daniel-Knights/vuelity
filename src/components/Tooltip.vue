@@ -16,20 +16,14 @@ export default {
     name: 'Tooltip',
 
     props: {
+        styles: { type: Object, default: {} },
+        containerStyles: { type: Object, default: {} },
         text: {
             type: String,
             default: 'Add tooltip text to the "text" attribute',
         },
-        position: {
-            type: String,
-            default: 'top',
-        },
-        styles: { type: Object, default: {} },
-        containerStyles: { type: Object, default: {} },
-        arrow: {
-            type: Boolean,
-            default: true,
-        },
+        position: { type: String, default: 'top' },
+        arrow: { type: Boolean, default: true },
     },
 
     computed: {

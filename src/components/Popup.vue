@@ -21,8 +21,8 @@ export default {
     props: {
         styles: { type: Object, default: {} },
         cookie: { type: Boolean, default: false },
-        hoverColor: String,
-        hoverBackground: String,
+        hoverColor: { type: String, default: '#ffffff' },
+        hoverBackground: { type: String, default: '#83dbca' },
         delay: { type: String, default: '2s' },
     },
 
@@ -35,26 +35,27 @@ export default {
             popupOpen.value = false;
             if (props.cookie) document.cookie = 'vt__popup-closed=true';
         };
-        const setColors = () => {
-            if (props.hoverColor) popup.value.style.setProperty('--hover-color', props.hoverColor);
-            if (props.hoverBackground)
-                popup.value.style.setProperty('--hover-background', props.hoverBackground);
+        const setColor = (property, color) => {
+            popup.value.style.setProperty(property, color);
         };
 
         if (cookieCheck) cookieCheck = cookieCheck.split(';')[0];
         if (cookieCheck === 'true') popupOpen.value = false;
 
-        onMounted(() => setColors());
+        onMounted(() => {
+            setColor('--hover-color', props.hoverColor);
+            setColor('--hover-background', props.hoverBackground);
+        });
 
-        return { popup, popupOpen, removePopup, setColors };
+        return { popup, popupOpen, removePopup, setColor };
     },
 
     watch: {
-        hoverColor() {
-            this.setColors();
+        hoverColor(val) {
+            this.setColor('--hover-color', val);
         },
-        hoverBackground() {
-            this.setColors();
+        hoverBackground(val) {
+            this.setColor('--hover-background', val);
         },
     },
 };

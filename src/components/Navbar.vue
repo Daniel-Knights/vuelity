@@ -7,7 +7,7 @@
     >
         <div class="vt__navbar-inner" :style="styles">
             <slot></slot>
-            <VTBurger v-if="slider" @open="slideNav($event)" :style="burgerPosition()"></VTBurger>
+            <VTBurger v-if="slider" @open="slideNav()" :style="burgerPosition()"></VTBurger>
         </div>
     </header>
 </template>
@@ -39,7 +39,7 @@ export default {
     setup(props) {
         const nav = ref(null);
 
-        const slideNav = e => {
+        const slideNav = () => {
             if (!nav) return;
             // Toggle open/closed state
             nav.value.classList.toggle('vt__navbar-slider-open');

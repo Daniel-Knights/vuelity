@@ -102,17 +102,17 @@ export default {
     watch: {
         primary(val) {
             if (this.contrast) {
-                this.setColor('--secondary', this.primary);
+                this.setColor('--secondary', val);
             } else {
-                this.setColor('--primary-static', this.primary);
-                this.setColor('--primary-shift', this.primary);
+                this.setColor('--primary-static', val);
+                this.setColor('--primary-shift', val);
             }
         },
         secondary(val) {
             if (this.contrast) {
-                this.setColor('--primary-static', this.secondary);
-                this.setColor('--primary-shift', this.secondary);
-            } else this.setColor('--secondary', this.secondary);
+                this.setColor('--primary-static', val);
+                this.setColor('--primary-shift', val);
+            } else this.setColor('--secondary', val);
         },
     },
 };
