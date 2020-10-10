@@ -46,7 +46,14 @@
         >
     </VTTooltip>
 
-    <VTBurger @open="logValue($event)" :styles="{ right: '0' }" />
+    <VTBurger
+        :background="colorTwo"
+        :hoverBackground="color"
+        :stripColor="color"
+        :stripHoverColor="colorTwo"
+        @open="logValue($event)"
+        :styles="{ right: '0' }"
+    />
 
     <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, vitae corporis? Earum

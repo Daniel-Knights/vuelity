@@ -100,7 +100,7 @@ export default {
             background: var(--strips);
             opacity: 1;
             transform: rotate(0deg);
-            transition: all 0.25s ease-in-out;
+            transition: all 0.25s;
         }
 
         $top: 0, 7, 7, 7, 14;
@@ -133,6 +133,10 @@ export default {
 
     &:hover {
         background: var(--bg-hover);
+
+        span {
+            background: var(--strips-hover);
+        }
     }
 }
 </style>
