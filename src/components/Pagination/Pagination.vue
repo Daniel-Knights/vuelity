@@ -88,7 +88,7 @@
 </template>
 
 <script>
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 import Arrow from './Arrow';
 
 export default {
@@ -101,11 +101,14 @@ export default {
         lastPage: Number,
         styles: { type: Object, default: {} },
         blockStyles: { type: Object, default: {} },
-        currentColor: { type: String, default: '' },
-        currentBackground: { type: String, default: '' },
+        color: { type: String, default: '#ffffff' },
+        disabledColor: { type: String, default: '#dbdbdb' },
+        backgroundColor: { type: String, default: '#5bd0b9' },
+        altBackgroundColor: { type: String, default: '#83dbca' },
     },
 
     setup(props) {
+        const pages = ref(null);
         const valid = ref(true);
         const overflow = ref(false);
         const enterPageOne = ref(false);
@@ -116,7 +119,19 @@ export default {
         const disabledLeft = computed(() => paginateCurrentPage.value === 1);
         const disabledRight = computed(() => paginateCurrentPage.value === props.lastPage);
 
+        const setColor = (property, color) => {
+            pages.value.style.setProperty(property, color);
+        };
+
+        onMounted(() => {
+            setColor('--color', props.color);
+            setColor('--disabled-color', props.disabledColor);
+            setColor('--bg', props.backgroundColor);
+            setColor('--alt-bg', props.altBackgroundColor);
+        });
+
         return {
+            pages,
             valid,
             overflow,
             enterPageOne,
@@ -126,6 +141,7 @@ export default {
             paginateCurrentPage,
             disabledLeft,
             disabledRight,
+            setColor,
         };
     },
 
@@ -137,11 +153,17 @@ export default {
             this.paginateCurrentPage = val;
             this.$emit('page-changed', val);
         },
-        currentColor() {
-            this.currentStyling();
+        color(val) {
+            this.setColor('--color', val);
         },
-        currentBackground() {
-            this.currentStyling();
+        disabledColor(val) {
+            this.setColor('--disabled-color', val);
+        },
+        backgroundColor(val) {
+            this.setColor('--bg', val);
+        },
+        altBackgroundColor(val) {
+            this.setColor('--alt-bg', val);
         },
     },
 
@@ -233,12 +255,6 @@ export default {
                 .join(';')} }`;
             document.head.appendChild(style);
         },
-        currentStyling() {
-            if (!this.currentColor && !this.currentBackground) return;
-
-            this.$refs.pages.style.setProperty('--current-color', this.currentColor);
-            this.$refs.pages.style.setProperty('--current-background', this.currentBackground);
-        },
         validate() {
             if (this.currentPage > this.lastPage) {
                 console.error(
@@ -259,7 +275,6 @@ export default {
         this.selectedPage();
         this.pageOverflow();
         this.blockStyling();
-        this.currentStyling();
     },
 
     updated() {
@@ -270,15 +285,17 @@ export default {
 
 <style lang="scss">
 .vt__pages {
-    --current-color: #f5fafd;
-    --current-background: #83dbca;
+    --color: #ffffff;
+    --disabled-color: #dbdbdb;
+    --bg: #5bd0b9;
+    --alt-bg: #83dbca;
 
     user-select: none;
     @include flex-x(space-between, center);
     margin: 10px auto;
     width: 210px;
-    color: $white;
-    background: $primary;
+    color: var(--color);
+    background: var(--bg);
     border-radius: 5px;
     box-shadow: 0 0 5px -3px $black;
     font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -292,7 +309,7 @@ export default {
         transition: background-color 0.2s;
 
         &:hover {
-            background-color: rgba($primary, 0.2);
+            background-color: var(--alt-bg);
         }
     }
 
@@ -307,31 +324,31 @@ export default {
         height: 30px;
     }
 
-    .vt__selected {
-        color: var(--current-color);
-        background-color: var(--current-background);
-    }
-
     // Page number input
     .vt__selectable {
         cursor: pointer;
         transition: background-color 0.2s;
 
         &:hover {
-            background-color: lighten($primary, 20%);
+            background-color: var(--alt-bg);
         }
+    }
+
+    .vt__selected {
+        cursor: default;
+        background-color: var(--alt-bg);
     }
 
     input {
         outline: none;
         border-width: 0;
         text-align: center;
-        color: $white;
-        background-color: lighten($primary, 10%);
+        color: var(--color);
+        background-color: var(--bg);
         transition: background-color 0.2s;
 
         &:focus {
-            background-color: lighten($primary, 10%);
+            background-color: var(--alt-bg);
         }
     }
 
@@ -342,18 +359,24 @@ export default {
         svg {
             width: 15px;
         }
+        path {
+            fill: var(--color);
+        }
 
         &:hover {
-            background-color: lighten($primary, 10%);
+            background-color: var(--alt-bg);
         }
     }
 
     .vt__disabled-pagination {
         cursor: default;
-        color: rgba($white, 0.5);
+
+        path {
+            fill: var(--disabled-color);
+        }
 
         &:hover {
-            background-color: $primary;
+            background-color: var(--bg);
         }
     }
 
