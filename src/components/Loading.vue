@@ -1,11 +1,19 @@
 <template>
-    <div class="vt__loading-container">
+    <div class="vt__loading-container" :style="containerStyles">
         <slot>
-            <div class="vt__loading"></div>
-            <div class="vt__loading"></div>
-            <div class="vt__loading"></div>
-            <div class="vt__loading"></div>
-            <div class="vt__loading"></div>
+            <div v-if="default" :style="styles">
+                <div class="vt__loading"></div>
+                <div class="vt__loading"></div>
+                <div class="vt__loading"></div>
+                <div class="vt__loading"></div>
+                <div class="vt__loading"></div>
+            </div>
+            <div v-else :style="styles" class="vt__spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
         </slot>
     </div>
 </template>
@@ -14,7 +22,11 @@
 export default {
     name: 'Loading',
 
-    props: {},
+    props: {
+        styles: { type: Object, default: {} },
+        containerStyles: { type: Object, default: {} },
+        default: { type: Boolean, default: true },
+    },
 };
 </script>
 
@@ -76,6 +88,42 @@ export default {
                 border-radius: 0;
                 opacity: 0;
                 transform: translate(10%, 10%) scaleY(0);
+            }
+        }
+    }
+
+    .vt__spinner {
+        display: inline-block;
+        position: relative;
+        width: 120px;
+        height: 120px;
+
+        > * {
+            box-sizing: border-box;
+            display: block;
+            position: absolute;
+            margin: 8px;
+            width: 100px;
+            height: 100px;
+            border: 3px solid;
+            border-radius: 50%;
+            border-color: $white transparent transparent transparent;
+            animation: vt__spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+
+            &:nth-child(1) {
+                animation-delay: -0.45s;
+            }
+            &:nth-child(2) {
+                animation-delay: -0.3s;
+            }
+            &:nth-child(3) {
+                animation-delay: -0.15s;
+            }
+        }
+
+        @keyframes vt__spinner {
+            to {
+                transform: rotate(360deg);
             }
         }
     }
