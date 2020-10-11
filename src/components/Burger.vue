@@ -5,9 +5,10 @@
         class="vt__burger-container"
         :style="styles"
         tabindex="0"
+        aria-label="toggle"
         ref="container"
     >
-        <div class="vt__burger">
+        <div class="vt__burger" aria-hidden="true">
             <span></span>
             <span></span>
             <span></span>

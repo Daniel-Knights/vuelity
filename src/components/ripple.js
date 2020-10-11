@@ -5,6 +5,7 @@ const rippleHandler = (e, el) => {
 
     let rippleEl = document.createElement('div');
     rippleEl.setAttribute('class', 'vt__ripple');
+    rippleEl.setAttribute('aria-hidden', 'true');
     rippleEl.style.left = `${x}px`;
     rippleEl.style.top = `${y}px`;
 

@@ -6,6 +6,7 @@
         @keyup.enter="removePopup()"
         :style="{ ...styles, animationDelay: delay }"
         tabindex="0"
+        aria-live="polite"
         ref="popup"
     >
         <div class="vt__popup-message">

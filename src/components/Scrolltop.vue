@@ -1,16 +1,17 @@
 <template>
-    <div
+    <button
         @click="scroll($event)"
         @keyup.enter="scroll($event)"
         class="vt__scrolltop-container"
         :style="styles"
+        aria-label="scroll to top"
         tabindex="0"
         ref="container"
     >
-        <div class="vt__scrolltop">
+        <div class="vt__scrolltop" aria-hidden="true">
             <Chevron />
         </div>
-    </div>
+    </button>
 </template>
 
 <script>
@@ -91,6 +92,7 @@ export default {
     padding: 10px;
     height: 50px;
     background: var(--bg);
+    border: none;
     border-radius: 50%;
     box-shadow: 0 0 7px -3px $black;
     overflow: hidden;

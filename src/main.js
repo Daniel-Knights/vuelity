@@ -8,4 +8,6 @@ Object.keys(Vuelity).forEach(el => {
     app.component(el, Vuelity[el]);
 });
 
+Vuelity.vtAccessibility();
+
 app.mount('#app');

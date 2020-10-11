@@ -1,7 +1,11 @@
 <template>
     <div class="vt__video-container" :style="{ width }">
         <div class="vt__video" :style="containerStyles">
-            <div class="vt__video-loading" v-if="isLoading || video.networkState === 2">
+            <div
+                class="vt__video-loading"
+                v-if="isLoading || video.networkState === 2"
+                aria-label="loading"
+            >
                 <div></div>
                 <div></div>
                 <div></div>
@@ -13,7 +17,6 @@
                 <div></div>
             </div>
             <video
-                :aria-label="videoTitle"
                 :id="videoId"
                 @click="playPause()"
                 @mousemove="displayControls()"
@@ -23,9 +26,12 @@
                 @timeupdate="updateCurrentTime()"
                 @volumechange="updateVolume()"
                 @progress="videoBuffer($event)"
+                @focus="focused = videoId"
                 :poster="videoPoster"
                 :style="styles"
                 :src="src"
+                :aria-label="videoTitle"
+                tabindex="0"
                 ref="video"
             >
                 Your browser doesn't support the video element.
@@ -35,13 +41,14 @@
                     v-if="!isPlaying && !isLoading && video.networkState !== 2"
                     @click="video.play()"
                     class="vt__video-play-main"
+                    aria-hidden="true"
                 />
             </transition>
             <Controls
                 v-if="!isLoading"
                 :video="video"
                 :videoId="videoId"
-                :videoFocused="videoFocused"
+                :videoFocused="focused"
                 :videoPlaying="isPlaying"
                 :videoCurrentTime="videoCurrentTime"
                 :videoVolume="videoVolume"
@@ -51,6 +58,7 @@
                 :thumbStyles="thumbStyles"
                 :trackColor="trackColor"
                 @mousemove="displayControls()"
+                aria-hidden="true"
             />
         </div>
     </div>
@@ -90,6 +98,7 @@ export default {
             videoCurrentTime: 0,
             videoBuffered: 0,
             videoVolume: 1,
+            focused: this.videoFocused,
             isLoading: true,
             src: this.videoSrc || 'Null',
             isPlaying: false,

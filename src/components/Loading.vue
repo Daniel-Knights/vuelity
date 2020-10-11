@@ -1,14 +1,19 @@
 <template>
-    <div class="vt__loading-container" :style="containerStyles">
+    <div
+        class="vt__loading-container"
+        :style="containerStyles"
+        aria-label="loading"
+        aria-live="polite"
+    >
         <slot>
-            <div v-if="default" :style="styles">
+            <div v-if="default" :style="styles" aria-hidden="true">
                 <div class="vt__loading"></div>
                 <div class="vt__loading"></div>
                 <div class="vt__loading"></div>
                 <div class="vt__loading"></div>
                 <div class="vt__loading"></div>
             </div>
-            <div v-else :style="styles" class="vt__spinner">
+            <div v-else :style="styles" class="vt__spinner" aria-hidden="true">
                 <div></div>
                 <div></div>
                 <div></div>

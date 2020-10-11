@@ -6,7 +6,7 @@
                 @click="search = ''"
                 class="vt__search-cross"
             >
-                <Cross @keyup.enter="search = ''" tabindex="0" />
+                <Cross @keyup.enter="search = ''" aria-label="clear input" tabindex="0" />
             </div>
         </transition>
         <form @submit.prevent="searchSubmit()" :class="{ 'vt__icon-enabled': iconEnabled }">
@@ -19,8 +19,9 @@
                 @keyup="$emit('search-value', search)"
                 @focus="focusHandler()"
                 @blur="blurHandler()"
+                aria-label="search input"
             />
-            <div class="vt__search-submit">
+            <div class="vt__search-submit" aria-label="submit search">
                 <slot>
                     <SearchIcon @click="searchSubmit()" />
                 </slot>

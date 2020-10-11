@@ -1,5 +1,5 @@
 <template>
-    <div class="vt__pages" :style="styles" v-if="valid" ref="pages">
+    <div class="vt__pages" :style="styles" v-if="valid" aria-label="pagination" ref="pages">
         <div>
             <div
                 @click="paginateLeft($event)"
@@ -7,6 +7,7 @@
                 class="vt__pagination vt__left vt__pagination-block"
                 :class="{ 'vt__disabled-pagination': disabledLeft }"
                 style="transform: rotate(180deg)"
+                aria-label="left navigation"
                 :tabindex="disabledLeft ? -1 : 0"
             >
                 <slot><Arrow :disabled="disabledLeft"/></slot>
@@ -38,6 +39,7 @@
                     type="number"
                     placeholder="pg."
                     :max="lastPage"
+                    aria-label="page number input"
                     ref="inputOne"
                 />
             </div>
@@ -46,11 +48,12 @@
                 @keyup.enter="enterPageOneHandler($event)"
                 v-if="overflow && paginateCurrentPage > 2 && !enterPageOne"
                 class="vt__page vt__pagination-block"
+                aria-label="reveal page number input"
                 tabindex="0"
             >
                 ...
             </div>
-            <div class="vt__page vt__selectable vt__pagination-block">
+            <div class="vt__page vt__selectable vt__pagination-block" aria-label="current page">
                 {{ paginateCurrentPage }}
             </div>
             <div
@@ -58,6 +61,7 @@
                 @keyup.enter="enterPageTwoHandler($event)"
                 v-if="overflow && paginateCurrentPage < lastPage - 1 && !enterPageTwo"
                 class="vt__page vt__pagination-block"
+                aria-label="reveal page number input"
                 tabindex="0"
             >
                 ...
@@ -72,6 +76,7 @@
                     type="number"
                     placeholder="pg."
                     :max="lastPage"
+                    aria-label="page number input"
                     ref="inputTwo"
                 />
             </div>
@@ -97,6 +102,7 @@
                 @keyup.enter="paginateRight($event)"
                 class="vt__pagination vt__right vt__pagination-block"
                 :class="{ 'vt__disabled-pagination': disabledRight }"
+                aria-label="right navigation"
                 :tabindex="disabledRight ? -1 : 0"
             >
                 <slot><Arrow :disabled="disabledRight"/></slot>

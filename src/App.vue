@@ -90,7 +90,7 @@
         :videoSrc="testSrc"
         :containerStyles="videoContainerStyles"
         videoPoster="https://a.storyblok.com/f/87848/800x800/a97f990693/sudhith-xavier-iun1o500lmi-unsplash-1.jpg"
-    />
+    /> -->
     <VTVideo
         width="50vw"
         v-for="video in videos"
@@ -108,7 +108,7 @@
         trackColor="red"
         @click="videoFocused = String(video._uid)"
         @video-focused="videoFocused = String(video._uid)"
-    /> -->
+    />
 
     <VTPopup :hoverColor="color" :hoverBackground="colorTwo" animationDelay="2s" :cookie="false"
         >You will be automatically logged out in 5s</VTPopup

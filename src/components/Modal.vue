@@ -4,6 +4,7 @@
             class="vt__modal-container"
             @click="closeHandler($event, container)"
             :style="containerStyles"
+            aria-live="polite"
             ref="container"
         >
             <div

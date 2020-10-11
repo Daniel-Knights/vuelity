@@ -12,8 +12,9 @@ import Toggle from './Toggle.vue';
 import Tooltip from './Tooltip.vue';
 import Video from './Video/Video.vue';
 
+// Tab outline
 import accessibilityTab from './tab';
-accessibilityTab();
+export const vtAccessibility = accessibilityTab;
 
 export const VTButton = Button;
 export const VTBurger = Burger;
@@ -32,6 +33,7 @@ export const VTVideo = Video;
 // CDN compatibility
 if (window !== undefined && window.Vue) {
     window.Vuelity = {
+        vtAccessibility: accessibilityTab,
         'vt-button': VTButton,
         'vt-burger': VTBurger,
         'vt-hoverbox': VTHoverbox,

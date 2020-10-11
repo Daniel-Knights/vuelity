@@ -11,7 +11,7 @@
         tabindex="0"
         ref="button"
     >
-        <div v-if="shine" ref="shine" class="vt__shine"></div>
+        <div v-if="shine" ref="shine" class="vt__shine" aria-hidden="true"></div>
         <div class="vt__btn-content" ref="content">
             <slot>SUBMIT</slot>
         </div>

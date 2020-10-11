@@ -5,6 +5,7 @@
             :width="hoverboxWidth"
             :height="hoverboxHeight"
             :style="styles"
+            aria-hidden="true"
             ref="hoverbox"
         >
             <rect :width="hoverboxWidth" :height="hoverboxHeight" :fill="fill" />

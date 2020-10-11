@@ -4,10 +4,13 @@
         @keyup.enter="toggled()"
         class="vt__toggle-container"
         :style="containerStyles"
+        aria-label="toggle"
+        :aria-checked="toggleOn"
+        role="switch"
         ref="container"
         tabindex="0"
     >
-        <div class="vt__toggle-inner" :class="{ 'vt__toggle-on': toggleOn }">
+        <div class="vt__toggle-inner" :class="{ 'vt__toggle-on': toggleOn }" aria-hidden="true">
             <div class="vt__toggle-focus" ref="toggleFocus"></div>
             <div class="vt__toggle" :style="toggleStyles"></div>
         </div>
