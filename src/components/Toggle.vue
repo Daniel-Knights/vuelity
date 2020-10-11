@@ -1,5 +1,12 @@
 <template>
-    <div @click="toggled()" class="vt__toggle-container" :style="containerStyles" ref="container">
+    <div
+        @click="toggled()"
+        @keyup.enter="toggled()"
+        class="vt__toggle-container"
+        :style="containerStyles"
+        ref="container"
+        tabindex="0"
+    >
         <div class="vt__toggle-inner" :class="{ 'vt__toggle-on': toggleOn }">
             <div class="vt__toggle-focus" ref="toggleFocus"></div>
             <div class="vt__toggle" :style="toggleStyles"></div>

@@ -1,5 +1,12 @@
 <template>
-    <div @click="scroll($event)" class="vt__scrolltop-container" :style="styles" ref="container">
+    <div
+        @click="scroll($event)"
+        @keyup.enter="scroll($event)"
+        class="vt__scrolltop-container"
+        :style="styles"
+        tabindex="0"
+        ref="container"
+    >
         <div class="vt__scrolltop">
             <Chevron />
         </div>
@@ -31,7 +38,7 @@ export default {
         const scroll = e => {
             window.scroll(0, 0);
 
-            if (props.ripple) {
+            if (props.ripple && e.type !== 'keyup') {
                 rippleHandler(e, container.value);
             }
         };

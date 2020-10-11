@@ -1,5 +1,12 @@
 <template>
-    <div @click="toggle($event)" class="vt__burger-container" :style="styles" ref="container">
+    <div
+        @click="toggle($event)"
+        @keyup.enter="toggle($event)"
+        class="vt__burger-container"
+        :style="styles"
+        tabindex="0"
+        ref="container"
+    >
         <div class="vt__burger">
             <span></span>
             <span></span>

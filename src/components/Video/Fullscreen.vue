@@ -1,7 +1,7 @@
 <template>
     <div class="vt__fullscreen vt__control">
-        <Maximise v-if="!videoFullscreen" @click.native="enterFullscreen()" :style="buttonStyles" />
-        <Minimise v-else @click.native="leaveFullscreen()" :style="buttonStyles" />
+        <Maximise v-if="!videoFullscreen" @click="enterFullscreen()" :style="buttonStyles" />
+        <Minimise v-else @click="leaveFullscreen()" :style="buttonStyles" />
     </div>
 </template>
 

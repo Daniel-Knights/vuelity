@@ -3,7 +3,9 @@
         class="vt__popup"
         v-if="popupOpen"
         @click="removePopup()"
+        @keyup.enter="removePopup()"
         :style="{ ...styles, animationDelay: delay }"
+        tabindex="0"
         ref="popup"
     >
         <div class="vt__popup-message">

@@ -1,17 +1,13 @@
 <template>
     <div class="vt__volume vt__control">
-        <VolumeMute :key="1" v-if="videoVolume < 0.01" @click.native="mute()" />
-        <VolumeLow
-            :key="2"
-            v-else-if="videoVolume > 0 && videoVolume < 0.33"
-            @click.native="mute()"
-        />
+        <VolumeMute :key="1" v-if="videoVolume < 0.01" @click="mute()" />
+        <VolumeLow :key="2" v-else-if="videoVolume > 0 && videoVolume < 0.33" @click="mute()" />
         <VolumeMedium
             :key="3"
             v-else-if="videoVolume >= 0.33 && videoVolume < 0.66"
-            @click.native="mute()"
+            @click="mute()"
         />
-        <VolumeFull :key="4" v-else @click.native="mute()" />
+        <VolumeFull :key="4" v-else @click="mute()" />
         <input
             type="range"
             @input="volume($event)"

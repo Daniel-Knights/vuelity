@@ -12,6 +12,9 @@
             <VTButton :styles="btnStyles" :shine="true">Signup</VTButton>
         </div>
     </VTNavbar>
+    <div :style="{ position: 'relative', width: '500px', height: '600px' }">
+        <VTLoading />
+    </div>
 
     <VTSearchbar
         :style="{ margin: '100px auto' }"
@@ -196,7 +199,9 @@ export default {
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic');
-
+html {
+    scroll-behavior: smooth;
+}
 body {
     margin: 0;
     min-height: 1000vh;

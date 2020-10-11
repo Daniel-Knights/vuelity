@@ -8,6 +8,7 @@
             'vt__only-border': onlyBorder || fillBorder,
             'vt__hover-enabled': hoverEnabled,
         }"
+        tabindex="0"
         ref="button"
     >
         <div v-if="shine" ref="shine" class="vt__shine"></div>
@@ -120,7 +121,6 @@ export default {
         color: $white;
         background-color: darken($primary, 10%);
         box-shadow: 0px 0px 5px -2px $black;
-        outline: none;
         overflow: hidden;
         transition: all 0.25s;
     }

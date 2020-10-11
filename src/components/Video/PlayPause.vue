@@ -3,11 +3,11 @@
         <transition name="vt__controls" mode="out-in" :duration="10">
             <Play
                 v-if="!videoPlaying"
-                @click.native="video.play()"
+                @click="video.play()"
                 :key="videoPlaying"
                 :style="buttonStyles"
             />
-            <Pause v-else @click.native="video.pause()" :key="videoPlaying" :style="buttonStyles" />
+            <Pause v-else @click="video.pause()" :key="videoPlaying" :style="buttonStyles" />
         </transition>
     </div>
 </template>

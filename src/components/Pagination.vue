@@ -3,9 +3,11 @@
         <div>
             <div
                 @click="paginateLeft($event)"
+                @keyup.enter="paginateLeft($event)"
                 class="vt__pagination vt__left vt__pagination-block"
                 :class="{ 'vt__disabled-pagination': disabledLeft }"
                 style="transform: rotate(180deg)"
+                :tabindex="disabledLeft ? -1 : 0"
             >
                 <slot><Arrow :disabled="disabledLeft"/></slot>
             </div>
@@ -17,14 +19,19 @@
                     paginateCurrentPage = 1;
                     $emit('page-changed', paginateCurrentPage);
                 "
+                @keyup.enter="
+                    paginateCurrentPage = 1;
+                    $emit('page-changed', paginateCurrentPage);
+                "
                 class="vt__page vt__selectable vt__pagination-block"
+                tabindex="0"
             >
                 {{ 1 }}
             </div>
             <div v-if="enterPageOne" class="vt__page">
                 <input
                     v-model="enterPageOneValue"
-                    @keydown.enter="enterPageHandler"
+                    @keyup.enter="enterPageHandler($event)"
                     @blur="enterPageOne = false"
                     class="vt__pagination-block"
                     data-enter="1"
@@ -36,8 +43,10 @@
             </div>
             <div
                 @click="enterPageOneHandler($event)"
+                @keyup.enter="enterPageOneHandler($event)"
                 v-if="overflow && paginateCurrentPage > 2 && !enterPageOne"
                 class="vt__page vt__pagination-block"
+                tabindex="0"
             >
                 ...
             </div>
@@ -45,16 +54,18 @@
                 {{ paginateCurrentPage }}
             </div>
             <div
-                @mouseup="enterPageTwoHandler($event)"
+                @click="enterPageTwoHandler($event)"
+                @keyup.enter="enterPageTwoHandler($event)"
                 v-if="overflow && paginateCurrentPage < lastPage - 1 && !enterPageTwo"
                 class="vt__page vt__pagination-block"
+                tabindex="0"
             >
                 ...
             </div>
             <div v-if="enterPageTwo" class="vt__page">
                 <input
                     v-model="enterPageTwoValue"
-                    @keydown.enter="enterPageHandler"
+                    @keyup.enter="enterPageHandler($event)"
                     @blur="enterPageTwo = false"
                     class="vt__pagination-block"
                     data-enter="2"
@@ -70,7 +81,12 @@
                     paginateCurrentPage = lastPage;
                     $emit('page-changed', paginateCurrentPage);
                 "
+                @keyup.enter="
+                    paginateCurrentPage = lastPage;
+                    $emit('page-changed', paginateCurrentPage);
+                "
                 class="vt__page vt__selectable vt__pagination-block"
+                tabindex="0"
             >
                 {{ lastPage }}
             </div>
@@ -78,8 +94,10 @@
         <div>
             <div
                 @click="paginateRight($event)"
+                @keyup.enter="paginateRight($event)"
                 class="vt__pagination vt__right vt__pagination-block"
                 :class="{ 'vt__disabled-pagination': disabledRight }"
+                :tabindex="disabledRight ? -1 : 0"
             >
                 <slot><Arrow :disabled="disabledRight"/></slot>
             </div>
@@ -358,6 +376,8 @@ export default {
 
         svg {
             width: 15px;
+            height: 15px;
+            object-fit: cover;
         }
         path {
             fill: var(--color);

@@ -5,7 +5,14 @@
                 {{ text }}
             </span>
         </div>
-        <div ref="el" @mouseover="tipShow()" @mouseout="tipHide()">
+        <div
+            ref="el"
+            @mouseover="tipShow()"
+            @mouseout="tipHide()"
+            @focus="tipShow()"
+            @blur="tipHide()"
+            tabindex="0"
+        >
             <slot></slot>
         </div>
     </div>

@@ -2,11 +2,17 @@
     <teleport to="body">
         <div
             class="vt__modal-container"
-            @click="closeHandler($event)"
+            @click="closeHandler($event, container)"
             :style="containerStyles"
             ref="container"
         >
-            <div class="vt__modal" :style="styles">
+            <div
+                class="vt__modal"
+                :style="styles"
+                @keyup.enter="closeHandler($event, modal)"
+                tabindex="0"
+                ref="modal"
+            >
                 <slot>
                     <h1>VTModal</h1>
                 </slot>
@@ -30,14 +36,14 @@ export default {
 
     setup(props, { emit }) {
         const container = ref(null);
+        const modal = ref(null);
 
-        const closeHandler = e => {
-            if (e.target !== container.value) return;
-
+        const closeHandler = (e, el) => {
+            if (e.target !== el) return;
             emit('close');
         };
 
-        return { container, closeHandler };
+        return { container, modal, closeHandler };
     },
 };
 </script>

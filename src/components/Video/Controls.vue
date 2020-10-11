@@ -29,7 +29,7 @@
             <Fullscreen
                 :video="video"
                 :buttonStyles="buttonStyles"
-                @click.native="fullscreenClick = !fullscreenClick"
+                @click="fullscreenClick = !fullscreenClick"
             />
         </div>
     </div>

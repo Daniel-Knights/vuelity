@@ -9,6 +9,7 @@ module.exports = {
                 additionalData: `
                     @import "@/sass/_variables.scss";
                     @import "@/sass/_mixins.scss";
+                    @import "@/sass/_tab.scss";
                 `,
             },
         },

@@ -33,7 +33,7 @@
             <transition name="vt__play">
                 <Play
                     v-if="!isPlaying && !isLoading && video.networkState !== 2"
-                    @click.native="video.play()"
+                    @click="video.play()"
                     class="vt__video-play-main"
                 />
             </transition>
@@ -50,7 +50,7 @@
                 :buttonStyles="buttonStyles"
                 :thumbStyles="thumbStyles"
                 :trackColor="trackColor"
-                @mousemove.native="displayControls()"
+                @mousemove="displayControls()"
             />
         </div>
     </div>

@@ -6,7 +6,7 @@
                 @click="search = ''"
                 class="vt__search-cross"
             >
-                <Cross />
+                <Cross @keyup.enter="search = ''" tabindex="0" />
             </div>
         </transition>
         <form @submit.prevent="searchSubmit()" :class="{ 'vt__icon-enabled': iconEnabled }">
@@ -22,7 +22,7 @@
             />
             <div class="vt__search-submit">
                 <slot>
-                    <SearchIcon @click.native="searchSubmit()" />
+                    <SearchIcon @click="searchSubmit()" />
                 </slot>
             </div>
         </form>
