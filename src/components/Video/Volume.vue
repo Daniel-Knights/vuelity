@@ -1,13 +1,45 @@
 <template>
     <div class="vt__volume vt__control">
-        <VolumeMute :key="1" v-if="videoVolume < 0.01" @click="mute()" />
-        <VolumeLow :key="2" v-else-if="videoVolume > 0 && videoVolume < 0.33" @click="mute()" />
+        <VolumeMute
+            :key="1"
+            v-if="videoVolume < 0.01"
+            @click="mute()"
+            @keyup.enter="mute()"
+            @focus="$emit('video-focused')"
+            role="button"
+            aria-label="mute (m)"
+            tabindex="0"
+        />
+        <VolumeLow
+            :key="2"
+            v-else-if="videoVolume > 0 && videoVolume < 0.33"
+            @click="mute()"
+            @keyup.enter="mute()"
+            @focus="$emit('video-focused')"
+            role="button"
+            aria-label="mute (m)"
+            tabindex="0"
+        />
         <VolumeMedium
             :key="3"
             v-else-if="videoVolume >= 0.33 && videoVolume < 0.66"
             @click="mute()"
+            @keyup.enter="mute()"
+            @focus="$emit('video-focused')"
+            role="button"
+            aria-label="mute (m)"
+            tabindex="0"
         />
-        <VolumeFull :key="4" v-else @click="mute()" />
+        <VolumeFull
+            :key="4"
+            v-else
+            @click="mute()"
+            @keyup.enter="mute()"
+            @focus="$emit('video-focused')"
+            role="button"
+            aria-label="mute (m)"
+            tabindex="0"
+        />
         <input
             type="range"
             @input="volume($event)"
@@ -15,15 +47,23 @@
             max="1"
             step="0.001"
             :value="videoVolume"
+            role="slider"
+            aria-label="volume"
+            aria-valuemin="0"
+            aria-valuemax="1"
+            :aria-valuenow="videoVolume"
+            :aria-valuetext="parseInt(videoVolume * 100) + '% volume'"
         />
         <div
             class="vt__volume-track"
             :style="{ backgroundColor: trackColor, height: trackHeight + 'px' }"
+            aria-hidden="true"
         ></div>
     </div>
 </template>
 
 <script>
+import focusedStore from '../js/focused';
 import VolumeMute from './svg/VolumeMute';
 import VolumeLow from './svg/VolumeLow';
 import VolumeMedium from './svg/VolumeMedium';
@@ -41,8 +81,6 @@ export default {
 
     props: {
         video: HTMLVideoElement,
-        videoId: String,
-        videoFocused: String,
         videoVolume: Number,
         trackColor: {
             type: String,
@@ -66,25 +104,23 @@ export default {
     },
 
     created() {
-        // Prevent arrow key scrolling
+        // Increment/decrement volume on up/down arrow keys
         document.addEventListener('keydown', e => {
-            if (this.videoId !== this.videoFocused) return;
+            if (this.video.id !== focusedStore().focused.value) return;
+            // Prevent scrolling
             if (e.key === 'ArrowUp' || e.key === 'ArrowDown') e.preventDefault();
         });
-        // Increment/decrement volume on up/down arrow keys
         document.addEventListener('keyup', e => {
-            if (e.key !== 'ArrowUp' || this.videoId !== this.videoFocused) return;
-            if (this.video.volume < 1) this.video.volume += 0.1;
-        });
-        document.addEventListener('keyup', e => {
-            if (e.key !== 'ArrowDown' || this.videoId !== this.videoFocused) return;
-            if (this.video.volume > 0.01) this.video.volume -= 0.1;
+            if (this.video.id !== focusedStore().focused.value) return;
+            if (e.key === 'ArrowUp' && this.video.volume < 1) this.video.volume += 0.1;
+            if (e.key === 'ArrowDown' && this.video.volume > 0.01) this.video.volume -= 0.1;
+            if (e.key === 'm') this.mute();
         });
     },
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .vt__volume {
     .vt__volume-track {
         display: none;

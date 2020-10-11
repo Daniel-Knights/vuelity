@@ -1,5 +1,5 @@
 <template>
-    <VTNavbar :styles="navbarStyles" position="top" :slider="false">
+    <VTNavbar :styles="navbarStyles" position="top" :slider="true">
         <h1>Vuelity</h1>
         <VTSearchbar @search-submit="logValue($event)" @search-value="searchValue($event)" />
         <VTHoverbox :width="100" :height="50">
@@ -95,10 +95,8 @@
         width="50vw"
         v-for="video in videos"
         :key="video._uid"
-        :videoId="String(video._uid)"
         :videoSrc="require('@/assets/video.mp4')"
         :videoTitle="video.title"
-        :videoFocused="videoFocused"
         :videoPoster="video.poster ? video.poster.filename : ''"
         :timeTags="video.tags"
         :buttonStyles="videoButtonStyles"
@@ -106,8 +104,6 @@
         :containerStyles="videoContainerStyles"
         :contextmenu="false"
         trackColor="red"
-        @click="videoFocused = String(video._uid)"
-        @video-focused="videoFocused = String(video._uid)"
     />
 
     <VTPopup :hoverColor="color" :hoverBackground="colorTwo" animationDelay="2s" :cookie="false"

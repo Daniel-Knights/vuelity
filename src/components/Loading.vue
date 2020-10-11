@@ -2,6 +2,7 @@
     <div
         class="vt__loading-container"
         :style="containerStyles"
+        aria-busy="true"
         aria-label="loading"
         aria-live="polite"
     >

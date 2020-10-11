@@ -1,10 +1,11 @@
 <template>
-    <div class="vt__video-container" :style="{ width }">
+    <div class="vt__video-container" :style="{ width }" @click="setFocused(id)">
         <div class="vt__video" :style="containerStyles">
             <div
                 class="vt__video-loading"
                 v-if="isLoading || video.networkState === 2"
                 aria-label="loading"
+                aria-busy="true"
             >
                 <div></div>
                 <div></div>
@@ -17,7 +18,7 @@
                 <div></div>
             </div>
             <video
-                :id="videoId"
+                :id="id"
                 @click="playPause()"
                 @mousemove="displayControls()"
                 @canplay="isLoading = false"
@@ -26,7 +27,7 @@
                 @timeupdate="updateCurrentTime()"
                 @volumechange="updateVolume()"
                 @progress="videoBuffer($event)"
-                @focus="focused = videoId"
+                @focus="setFocused(id)"
                 :poster="videoPoster"
                 :style="styles"
                 :src="src"
@@ -40,15 +41,16 @@
                 <Play
                     v-if="!isPlaying && !isLoading && video.networkState !== 2"
                     @click="video.play()"
+                    @keyup.enter="video.play()"
                     class="vt__video-play-main"
-                    aria-hidden="true"
+                    role="button"
+                    aria-label="play"
+                    tabindex="0"
                 />
             </transition>
             <Controls
                 v-if="!isLoading"
                 :video="video"
-                :videoId="videoId"
-                :videoFocused="focused"
                 :videoPlaying="isPlaying"
                 :videoCurrentTime="videoCurrentTime"
                 :videoVolume="videoVolume"
@@ -58,30 +60,26 @@
                 :thumbStyles="thumbStyles"
                 :trackColor="trackColor"
                 @mousemove="displayControls()"
-                aria-hidden="true"
+                @video-focused="displayControls()"
             />
         </div>
     </div>
 </template>
 
 <script>
+import focusedStore from '../js/focused';
 import Play from './svg/Play';
 import Controls from './Controls';
 
 export default {
     name: 'Video',
 
-    components: {
-        Play,
-        Controls,
-    },
+    components: { Play, Controls },
 
     props: {
         width: { type: String, default: '100%' },
         videoSrc: String,
-        videoId: String,
         videoTitle: String,
-        videoFocused: String,
         videoPoster: String,
         timeTags: Array,
         contextmenu: { type: Boolean, default: true },
@@ -92,13 +90,19 @@ export default {
         trackColor: String,
     },
 
+    setup() {
+        const { setFocused } = focusedStore();
+
+        return { setFocused };
+    },
+
     data() {
         return {
+            id: Math.random() * 100,
             video: null,
             videoCurrentTime: 0,
             videoBuffered: 0,
             videoVolume: 1,
-            focused: this.videoFocused,
             isLoading: true,
             src: this.videoSrc || 'Null',
             isPlaying: false,
@@ -117,27 +121,25 @@ export default {
         playPause() {
             this.isPlaying = !this.isPlaying;
             this.video.paused ? this.video.play() : this.video.pause();
-            this.$emit('video-focused');
         },
         displayControls() {
-            const video = this.video;
-            const sibling = video.nextSibling.nextSibling;
+            const sibling = this.video.nextSibling.nextSibling;
             const controls = sibling.firstChild;
 
             clearTimeout(this.hideControlsTimeout);
 
-            if (!controls || !video || !sibling) return;
+            if (!controls || !this.video || !sibling) return;
 
             controls.style.opacity = '1';
             controls.style.transform = 'translateY(0px)';
             sibling.style.opacity = '1';
-            video.style.cursor = 'default';
+            this.video.style.cursor = 'default';
 
             this.hideControlsTimeout = setTimeout(() => {
                 controls.style.opacity = '0';
                 controls.style.transform = 'translateY(10px)';
                 sibling.style.opacity = '0';
-                video.style.cursor = 'none';
+                this.video.style.cursor = 'none';
             }, 3000);
         },
         updateCurrentTime() {
@@ -226,51 +228,51 @@ export default {
             border-radius: 50%;
             background: $white;
             animation: grid 1.2s linear infinite;
-        }
-        div:nth-child(1) {
-            top: 8px;
-            left: 8px;
-            animation-delay: 0s;
-        }
-        div:nth-child(2) {
-            top: 8px;
-            left: 32px;
-            animation-delay: -0.4s;
-        }
-        div:nth-child(3) {
-            top: 8px;
-            left: 56px;
-            animation-delay: -0.8s;
-        }
-        div:nth-child(4) {
-            top: 32px;
-            left: 8px;
-            animation-delay: -0.4s;
-        }
-        div:nth-child(5) {
-            top: 32px;
-            left: 32px;
-            animation-delay: -0.8s;
-        }
-        div:nth-child(6) {
-            top: 32px;
-            left: 56px;
-            animation-delay: -1.2s;
-        }
-        div:nth-child(7) {
-            top: 56px;
-            left: 8px;
-            animation-delay: -0.8s;
-        }
-        div:nth-child(8) {
-            top: 56px;
-            left: 32px;
-            animation-delay: -1.2s;
-        }
-        div:nth-child(9) {
-            top: 56px;
-            left: 56px;
-            animation-delay: -1.6s;
+            &:nth-child(1) {
+                top: 8px;
+                left: 8px;
+                animation-delay: 0s;
+            }
+            &:nth-child(2) {
+                top: 8px;
+                left: 32px;
+                animation-delay: -0.4s;
+            }
+            &:nth-child(3) {
+                top: 8px;
+                left: 56px;
+                animation-delay: -0.8s;
+            }
+            &:nth-child(4) {
+                top: 32px;
+                left: 8px;
+                animation-delay: -0.4s;
+            }
+            &:nth-child(5) {
+                top: 32px;
+                left: 32px;
+                animation-delay: -0.8s;
+            }
+            &:nth-child(6) {
+                top: 32px;
+                left: 56px;
+                animation-delay: -1.2s;
+            }
+            &:nth-child(7) {
+                top: 56px;
+                left: 8px;
+                animation-delay: -0.8s;
+            }
+            &:nth-child(8) {
+                top: 56px;
+                left: 32px;
+                animation-delay: -1.2s;
+            }
+            &:nth-child(9) {
+                top: 56px;
+                left: 56px;
+                animation-delay: -1.6s;
+            }
         }
         @keyframes grid {
             0%,
@@ -294,51 +296,51 @@ export default {
             div {
                 width: 8px;
                 height: 8px;
-            }
-            div:nth-child(1) {
-                top: 4px;
-                left: 4px;
-                animation-delay: 0s;
-            }
-            div:nth-child(2) {
-                top: 4px;
-                left: 16px;
-                animation-delay: -0.4s;
-            }
-            div:nth-child(3) {
-                top: 4px;
-                left: 28px;
-                animation-delay: -0.8s;
-            }
-            div:nth-child(4) {
-                top: 16px;
-                left: 4px;
-                animation-delay: -0.4s;
-            }
-            div:nth-child(5) {
-                top: 16px;
-                left: 16px;
-                animation-delay: -0.8s;
-            }
-            div:nth-child(6) {
-                top: 16px;
-                left: 28px;
-                animation-delay: -1.2s;
-            }
-            div:nth-child(7) {
-                top: 28px;
-                left: 4px;
-                animation-delay: -0.8s;
-            }
-            div:nth-child(8) {
-                top: 28px;
-                left: 16px;
-                animation-delay: -1.2s;
-            }
-            div:nth-child(9) {
-                top: 28px;
-                left: 28px;
-                animation-delay: -1.6s;
+                &:nth-child(1) {
+                    top: 4px;
+                    left: 4px;
+                    animation-delay: 0s;
+                }
+                &:nth-child(2) {
+                    top: 4px;
+                    left: 16px;
+                    animation-delay: -0.4s;
+                }
+                &:nth-child(3) {
+                    top: 4px;
+                    left: 28px;
+                    animation-delay: -0.8s;
+                }
+                &:nth-child(4) {
+                    top: 16px;
+                    left: 4px;
+                    animation-delay: -0.4s;
+                }
+                &:nth-child(5) {
+                    top: 16px;
+                    left: 16px;
+                    animation-delay: -0.8s;
+                }
+                &:nth-child(6) {
+                    top: 16px;
+                    left: 28px;
+                    animation-delay: -1.2s;
+                }
+                &:nth-child(7) {
+                    top: 28px;
+                    left: 4px;
+                    animation-delay: -0.8s;
+                }
+                &:nth-child(8) {
+                    top: 28px;
+                    left: 16px;
+                    animation-delay: -1.2s;
+                }
+                &:nth-child(9) {
+                    top: 28px;
+                    left: 28px;
+                    animation-delay: -1.6s;
+                }
             }
         }
     }

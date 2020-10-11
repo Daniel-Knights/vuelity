@@ -20,7 +20,7 @@
 
 <script>
 import { onMounted, ref } from 'vue';
-import rippleHandler from './ripple';
+import rippleHandler from './js/ripple';
 
 export default {
     name: 'Button',

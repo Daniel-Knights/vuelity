@@ -4,15 +4,31 @@
             <Play
                 v-if="!videoPlaying"
                 @click="video.play()"
+                @keyup.enter="video.play()"
+                @focus="$emit('video-focused')"
                 :key="videoPlaying"
                 :style="buttonStyles"
+                role="button"
+                aria-label="play"
+                tabindex="0"
             />
-            <Pause v-else @click="video.pause()" :key="videoPlaying" :style="buttonStyles" />
+            <Pause
+                v-else
+                @click="video.pause()"
+                @keyup.enter="video.pause()"
+                @focus="$emit('video-focused')"
+                :key="videoPlaying"
+                :style="buttonStyles"
+                role="button"
+                aria-label="pause"
+                tabindex="0"
+            />
         </transition>
     </div>
 </template>
 
 <script>
+import focusedStore from '../js/focused';
 import Play from './svg/Play';
 import Pause from './svg/Pause';
 
@@ -26,9 +42,8 @@ export default {
 
     props: {
         video: HTMLVideoElement,
-        videoId: String,
         videoPlaying: Boolean,
-        videoFocused: String,
+        videoFocused: Boolean,
         buttonStyles: { type: Object, default: {} },
     },
 
@@ -37,8 +52,7 @@ export default {
         document.addEventListener('keydown', e => {
             if (e.key !== ' ') return;
             e.preventDefault();
-
-            if (this.videoId !== this.videoFocused) return;
+            if (this.video.id !== focusedStore().focused.value) return;
 
             this.videoPlaying ? this.video.pause() : this.video.play();
         });

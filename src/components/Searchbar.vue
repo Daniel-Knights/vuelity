@@ -1,12 +1,17 @@
 <template>
-    <div class="vt__search-container" ref="container">
+    <div class="vt__search-container" role="search" ref="container">
         <transition name="vt__cross">
             <div
                 v-if="search.length > 0 && crossEnabled"
                 @click="search = ''"
                 class="vt__search-cross"
             >
-                <Cross @keyup.enter="search = ''" aria-label="clear input" tabindex="0" />
+                <Cross
+                    @keyup.enter="search = ''"
+                    role="button"
+                    aria-label="clear input"
+                    tabindex="0"
+                />
             </div>
         </transition>
         <form @submit.prevent="searchSubmit()" :class="{ 'vt__icon-enabled': iconEnabled }">
@@ -19,9 +24,9 @@
                 @keyup="$emit('search-value', search)"
                 @focus="focusHandler()"
                 @blur="blurHandler()"
-                aria-label="search input"
+                role="searchbox"
             />
-            <div class="vt__search-submit" aria-label="submit search">
+            <div class="vt__search-submit" role="button" aria-label="submit search">
                 <slot>
                     <SearchIcon @click="searchSubmit()" />
                 </slot>

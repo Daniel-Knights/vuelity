@@ -1,7 +1,14 @@
 <template>
     <div class="vt__tooltip-container" :style="containerStyles">
         <div class="vt__tooltip">
-            <span class="vt__tip" :class="classPosition" :style="styles" ref="tip">
+            <span
+                class="vt__tip"
+                :class="classPosition"
+                :style="styles"
+                role="tooltip"
+                :id="id"
+                ref="tip"
+            >
                 {{ text }}
             </span>
         </div>
@@ -11,6 +18,7 @@
             @mouseout="tipHide()"
             @focus="tipShow()"
             @blur="tipHide()"
+            :aria-describedby="id"
             tabindex="0"
         >
             <slot></slot>
@@ -32,6 +40,8 @@ export default {
         position: { type: String, default: 'top' },
         arrow: { type: Boolean, default: true },
     },
+
+    data: () => ({ id: Math.random() * 100 }),
 
     computed: {
         tipPosition: function() {

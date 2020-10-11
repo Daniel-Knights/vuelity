@@ -4,13 +4,14 @@
             class="vt__modal-container"
             @click="closeHandler($event, container)"
             :style="containerStyles"
-            aria-live="polite"
             ref="container"
         >
             <div
                 class="vt__modal"
                 :style="styles"
                 @keyup.enter="closeHandler($event, modal)"
+                role="dialog"
+                aria-live="polite"
                 tabindex="0"
                 ref="modal"
             >

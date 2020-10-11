@@ -1,5 +1,12 @@
 <template>
-    <div class="vt__pages" :style="styles" v-if="valid" aria-label="pagination" ref="pages">
+    <div
+        v-if="valid"
+        class="vt__pages"
+        :style="styles"
+        role="toolbar"
+        aria-label="pagination"
+        ref="pages"
+    >
         <div>
             <div
                 @click="paginateLeft($event)"
@@ -7,8 +14,10 @@
                 class="vt__pagination vt__left vt__pagination-block"
                 :class="{ 'vt__disabled-pagination': disabledLeft }"
                 style="transform: rotate(180deg)"
+                role="button"
                 aria-label="left navigation"
-                :tabindex="disabledLeft ? -1 : 0"
+                :aria-disabled="disabledLeft"
+                tabindex="0"
             >
                 <slot><Arrow :disabled="disabledLeft"/></slot>
             </div>
@@ -25,6 +34,7 @@
                     $emit('page-changed', paginateCurrentPage);
                 "
                 class="vt__page vt__selectable vt__pagination-block"
+                role="button"
                 tabindex="0"
             >
                 {{ 1 }}
@@ -39,6 +49,7 @@
                     type="number"
                     placeholder="pg."
                     :max="lastPage"
+                    role="searchbox"
                     aria-label="page number input"
                     ref="inputOne"
                 />
@@ -48,6 +59,7 @@
                 @keyup.enter="enterPageOneHandler($event)"
                 v-if="overflow && paginateCurrentPage > 2 && !enterPageOne"
                 class="vt__page vt__pagination-block"
+                role="button"
                 aria-label="reveal page number input"
                 tabindex="0"
             >
@@ -61,6 +73,7 @@
                 @keyup.enter="enterPageTwoHandler($event)"
                 v-if="overflow && paginateCurrentPage < lastPage - 1 && !enterPageTwo"
                 class="vt__page vt__pagination-block"
+                role="button"
                 aria-label="reveal page number input"
                 tabindex="0"
             >
@@ -76,6 +89,7 @@
                     type="number"
                     placeholder="pg."
                     :max="lastPage"
+                    role="searchbox"
                     aria-label="page number input"
                     ref="inputTwo"
                 />
@@ -91,6 +105,7 @@
                     $emit('page-changed', paginateCurrentPage);
                 "
                 class="vt__page vt__selectable vt__pagination-block"
+                role="button"
                 tabindex="0"
             >
                 {{ lastPage }}
@@ -102,8 +117,10 @@
                 @keyup.enter="paginateRight($event)"
                 class="vt__pagination vt__right vt__pagination-block"
                 :class="{ 'vt__disabled-pagination': disabledRight }"
+                role="button"
                 aria-label="right navigation"
-                :tabindex="disabledRight ? -1 : 0"
+                :aria-disabled="disabledRight"
+                tabindex="0"
             >
                 <slot><Arrow :disabled="disabledRight"/></slot>
             </div>

@@ -4,9 +4,9 @@
         @keyup.enter="toggled()"
         class="vt__toggle-container"
         :style="containerStyles"
-        aria-label="toggle"
-        :aria-checked="toggleOn"
         role="switch"
+        :aria-checked="toggleOn"
+        aria-label="toggle"
         ref="container"
         tabindex="0"
     >

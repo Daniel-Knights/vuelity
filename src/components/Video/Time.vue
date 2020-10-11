@@ -15,6 +15,7 @@
             <div
                 class="vt__video-thumb-container"
                 :style="{ transform: 'translateX(' + playedPixels + 'px)' }"
+                aria-hidden="true"
                 ref="thumbContainer"
             >
                 <div class="vt__video-thumb" :style="thumbStyles" ref="thumb"></div>
@@ -24,17 +25,27 @@
                 @mousedown="scrubStart($event)"
                 @mouseover="scaleTrackUp()"
                 @mouseout="scaleTrackDown()"
+                tabindex="0"
                 ref="videoTrackContainer"
             >
                 <div class="vt__video-track" ref="videoTrack">
                     <div
                         class="vt__video-played"
                         :style="{ maxWidth: playedPercent + '%', backgroundColor: trackColor }"
+                        @focus="$emit('video-focused')"
+                        role="progressbar"
+                        aria-label="video time range"
+                        aria-valuemin="0"
+                        :aria-valuemax="video.duration"
+                        :aria-valuenow="videoCurrentTime"
+                        :aria-valuetext="convertMilliseconds(videoCurrentTime)"
                         ref="played"
                     ></div>
                     <div
                         class="vt__video-buffered"
                         :style="{ maxWidth: videoBuffered + '%' }"
+                        role="progressbar"
+                        aria-hidden="true"
                     ></div>
                 </div>
             </div>
@@ -46,14 +57,14 @@
 </template>
 
 <script>
+import focusedStore from '../js/focused';
+
 export default {
     name: 'Time',
 
     props: {
         video: HTMLVideoElement,
-        videoId: String,
         videoCurrentTime: Number,
-        videoFocused: String,
         videoBuffered: Number,
         timeTags: Array,
         fullscreenClick: Boolean,
@@ -327,15 +338,11 @@ export default {
         });
         // 5 second time skips on left/right arrow keys
         document.addEventListener('keyup', e => {
-            if (e.key !== 'ArrowRight' || this.videoId !== this.videoFocused) return;
+            if (this.video.id !== focusedStore().focused.value) return;
+            if (e.key === 'ArrowRight') this.video.currentTime += 5;
+            else if (e.key === 'ArrowLeft') this.video.currentTime -= 5;
+            else return;
             this.removeTransitionDuration();
-            this.video.currentTime += 5;
-            this.skipHandler();
-        });
-        document.addEventListener('keyup', e => {
-            if (e.key !== 'ArrowLeft' || this.videoId !== this.videoFocused) return;
-            this.removeTransitionDuration();
-            this.video.currentTime -= 5;
             this.skipHandler();
         });
     },

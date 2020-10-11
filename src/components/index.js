@@ -13,7 +13,7 @@ import Tooltip from './Tooltip.vue';
 import Video from './Video/Video.vue';
 
 // Tab outline
-import accessibilityTab from './tab';
+import accessibilityTab from './js/tab';
 export const vtAccessibility = accessibilityTab;
 
 export const VTButton = Button;

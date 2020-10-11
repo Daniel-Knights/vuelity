@@ -1,7 +1,25 @@
 <template>
     <div class="vt__fullscreen vt__control">
-        <Maximise v-if="!videoFullscreen" @click="enterFullscreen()" :style="buttonStyles" />
-        <Minimise v-else @click="leaveFullscreen()" :style="buttonStyles" />
+        <Maximise
+            v-if="!videoFullscreen"
+            @click="enterFullscreen()"
+            @keyup.enter="enterFullscreen()"
+            @focus="$emit('video-focused')"
+            :style="buttonStyles"
+            role="button"
+            aria-label="maximise"
+            tabindex="0"
+        />
+        <Minimise
+            v-else
+            @click="leaveFullscreen()"
+            @keyup.enter="leaveFullscreen()"
+            @focus="$emit('video-focused')"
+            :style="buttonStyles"
+            role="button"
+            aria-label="minimise"
+            tabindex="0"
+        />
     </div>
 </template>
 

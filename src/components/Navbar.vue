@@ -2,12 +2,19 @@
     <header
         class="vt__navbar"
         :class="{ 'vt__navbar-slider': slider }"
-        ref="nav"
+        :id="id"
         :style="containerStyles"
+        ref="nav"
     >
         <div class="vt__navbar-inner" :style="styles">
             <slot></slot>
-            <VTBurger v-if="slider" @open="slideNav()" :style="burgerPosition()"></VTBurger>
+            <VTBurger
+                v-if="slider"
+                @open="slideNav()"
+                :style="burgerPosition()"
+                :aria-controls="id"
+                :aria-expanded="open"
+            ></VTBurger>
         </div>
     </header>
 </template>
@@ -32,11 +39,14 @@ export default {
 
     setup(props) {
         const nav = ref(null);
+        const id = Math.random() * 100;
+        const open = ref(false);
 
         const slideNav = () => {
             if (!nav) return;
             // Toggle open/closed state
             nav.value.classList.toggle('vt__navbar-slider-open');
+            open.value = !open.value;
         };
 
         onMounted(() => {
@@ -46,7 +56,7 @@ export default {
             setTimeout(() => (nav.value.style.transition = 'all 0.25s'), 250);
         });
 
-        return { nav, slideNav };
+        return { nav, id, open, slideNav };
     },
 
     methods: {

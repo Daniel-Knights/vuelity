@@ -3,33 +3,31 @@
         <div class="vt__video-controls">
             <PlayPause
                 :video="video"
-                :videoId="videoId"
-                :videoFocused="videoFocused"
                 :videoPlaying="videoPlaying"
                 :buttonStyles="buttonStyles"
+                @video-focused="$emit('video-focused')"
             />
             <Time
                 :video="video"
-                :videoId="videoId"
-                :videoFocused="videoFocused"
                 :videoCurrentTime="videoCurrentTime"
                 :videoBuffered="videoBuffered"
                 :timeTags="timeTags"
                 :fullscreenClick="fullscreenClick"
                 :thumbStyles="thumbStyles"
                 :trackColor="trackColor"
+                @video-focused="$emit('video-focused')"
             />
             <Volume
                 :video="video"
-                :videoId="videoId"
-                :videoFocused="videoFocused"
                 :videoVolume="videoVolume"
                 :trackColor="trackColor"
+                @video-focused="$emit('video-focused')"
             />
             <Fullscreen
                 :video="video"
                 :buttonStyles="buttonStyles"
                 @click="fullscreenClick = !fullscreenClick"
+                @video-focused="$emit('video-focused')"
             />
         </div>
     </div>
@@ -46,8 +44,6 @@ export default {
 
     props: {
         video: HTMLVideoElement,
-        videoId: String,
-        videoFocused: String,
         videoPlaying: Boolean,
         videoCurrentTime: Number,
         videoVolume: Number,
