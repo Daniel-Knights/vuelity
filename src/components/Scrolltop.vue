@@ -1,7 +1,6 @@
 <template>
     <button
         @click="scroll($event)"
-        @keyup.enter="scroll($event)"
         class="vt__scrolltop-container"
         :style="styles"
         aria-label="scroll to top"

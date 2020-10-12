@@ -1,7 +1,6 @@
 <template>
     <button
         @click="toggle()"
-        @keyup.enter="toggle()"
         class="vt__burger-container"
         :style="styles"
         aria-label="toggle"
