@@ -144,10 +144,14 @@ export default {
             background: none;
         }
 
+        // Display volume track
         svg:hover ~ input,
         svg:hover ~ .vt__volume-track,
+        svg:focus ~ input,
+        svg:focus ~ .vt__volume-track,
         input:hover,
-        input:hover ~ .vt__volume-track {
+        input:hover ~ .vt__volume-track,
+        .vt__volume-display {
             display: block;
             opacity: 1;
         }

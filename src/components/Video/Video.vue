@@ -27,7 +27,10 @@
                 @timeupdate="updateCurrentTime()"
                 @volumechange="updateVolume()"
                 @progress="videoBuffer($event)"
-                @focus="setFocused(id)"
+                @focus="
+                    setFocused(id);
+                    displayControls();
+                "
                 :poster="videoPoster"
                 :style="styles"
                 :src="src"

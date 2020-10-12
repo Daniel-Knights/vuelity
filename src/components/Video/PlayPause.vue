@@ -3,9 +3,9 @@
         <transition name="vt__controls" mode="out-in" :duration="10">
             <Play
                 v-if="!videoPlaying"
-                @click="video.play()"
-                @keyup.enter="video.play()"
-                @focus="$emit('video-focused')"
+                @click="play()"
+                @keyup.enter="play()"
+                @focus="focused()"
                 :key="videoPlaying"
                 :style="buttonStyles"
                 role="button"
@@ -14,9 +14,9 @@
             />
             <Pause
                 v-else
-                @click="video.pause()"
-                @keyup.enter="video.pause()"
-                @focus="$emit('video-focused')"
+                @click="pause()"
+                @keyup.enter="pause()"
+                @focus="focused()"
                 :key="videoPlaying"
                 :style="buttonStyles"
                 role="button"
@@ -45,6 +45,20 @@ export default {
         videoPlaying: Boolean,
         videoFocused: Boolean,
         buttonStyles: { type: Object, default: {} },
+    },
+
+    methods: {
+        play() {
+            this.video.play();
+            this.focused();
+        },
+        pause() {
+            this.video.pause();
+            this.focused();
+        },
+        focused() {
+            this.$emit('video-focused');
+        },
     },
 
     created() {

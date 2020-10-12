@@ -146,7 +146,6 @@ export default {
             videoContainerStyles: {
                 borderRadius: '10px',
                 boxShadow: '1px 1px 10px -5px black',
-                overflow: 'hidden',
             },
             videoButtonStyles: {
                 backgroundColor: 'red',

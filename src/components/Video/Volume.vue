@@ -53,11 +53,13 @@
             aria-valuemax="1"
             :aria-valuenow="videoVolume"
             :aria-valuetext="parseInt(videoVolume * 100) + '% volume'"
+            ref="range"
         />
         <div
             class="vt__volume-track"
             :style="{ backgroundColor: trackColor, height: trackHeight + 'px' }"
             aria-hidden="true"
+            ref="track"
         ></div>
     </div>
 </template>
@@ -101,14 +103,26 @@ export default {
         mute() {
             this.video.volume = this.videoVolume < 0.01 ? 1 : 0;
         },
+        displaySlider() {
+            this.$refs.range.classList.add('vt__volume-display');
+            this.$refs.track.classList.add('vt__volume-display');
+        },
+        hideSlider() {
+            this.$refs.range.classList.remove('vt__volume-display');
+            this.$refs.track.classList.remove('vt__volume-display');
+        },
     },
 
     created() {
         // Increment/decrement volume on up/down arrow keys
         document.addEventListener('keydown', e => {
+            if (e.key === 'Tab') return this.hideSlider();
             if (this.video.id !== focusedStore().focused.value) return;
+            if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') return;
             // Prevent scrolling
-            if (e.key === 'ArrowUp' || e.key === 'ArrowDown') e.preventDefault();
+            e.preventDefault();
+            this.$emit('video-focused');
+            this.displaySlider();
         });
         document.addEventListener('keyup', e => {
             if (this.video.id !== focusedStore().focused.value) return;
@@ -185,9 +199,6 @@ export default {
         border-radius: 3px;
         // Needed to keep the Edge thumb centred
         margin-top: 0px;
-    }
-    input[type='range']:focus {
-        outline: none;
     }
     input[type='range']:focus ~ .vt__volume-track {
         filter: brightness(1);

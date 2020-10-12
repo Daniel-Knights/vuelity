@@ -25,6 +25,7 @@
                 @mousedown="scrubStart($event)"
                 @mouseover="scaleTrackUp()"
                 @mouseout="scaleTrackDown()"
+                @focus="$emit('video-focused')"
                 tabindex="0"
                 ref="videoTrackContainer"
             >
@@ -337,6 +338,13 @@ export default {
             setTimeout(() => this.setTransitionDuration(), 100);
         });
         // 5 second time skips on left/right arrow keys
+
+        document.addEventListener('keydown', e => {
+            if (this.video.id !== focusedStore().focused.value) return;
+            if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+            e.preventDefault();
+            this.$emit('video-focused');
+        });
         document.addEventListener('keyup', e => {
             if (this.video.id !== focusedStore().focused.value) return;
             if (e.key === 'ArrowRight') this.video.currentTime += 5;
