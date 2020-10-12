@@ -6,6 +6,9 @@
             :style="containerStyles"
             ref="container"
         >
+            <div v-if="notify" class="vt__exit-fullscreen">
+                <span>Click outside or press esc to exit fullscreen</span>
+            </div>
             <div
                 class="vt__modal"
                 :style="styles"
@@ -34,6 +37,7 @@ export default {
     props: {
         styles: { type: Object, default: {} },
         containerStyles: { type: Object, default: {} },
+        notify: { type: Boolean, default: true },
     },
 
     setup(props, { emit }) {
@@ -69,6 +73,18 @@ export default {
     background: rgba(0, 0, 0, 0.5);
     transform: translateZ(0);
     z-index: 1000;
+
+    .vt__exit-fullscreen {
+        position: absolute;
+        top: 25px;
+        left: 25px;
+        padding: 10px;
+        font: 500 18px $font_primary;
+        color: $white;
+        background-color: rgba($black, 0.7);
+        border-radius: 5px;
+        box-shadow: 0 0 10px -5px $black;
+    }
 
     .vt__modal {
         cursor: auto;
