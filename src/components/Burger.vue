@@ -1,7 +1,7 @@
 <template>
     <div
-        @click="toggle($event)"
-        @keyup.enter="toggle($event)"
+        @click="toggle()"
+        @keyup.enter="toggle()"
         class="vt__burger-container"
         :style="styles"
         tabindex="0"
@@ -30,15 +30,16 @@ export default {
         hoverBackground: { type: String, default: '#6fd6c1' },
         stripColor: { type: String, default: '#ffffff' },
         stripHoverColor: { type: String, default: '#ffffff' },
+        toggled: { type: Boolean, default: false },
     },
 
     setup(props, { emit }) {
         const container = ref(null);
         const open = ref(false);
 
-        const toggle = e => {
+        const toggle = () => {
             open.value = !open.value;
-            e.target.classList.toggle('vt__burger-open');
+            container.value.classList.toggle('vt__burger-open');
             emit('open', open.value);
         };
         const setColor = (property, color) => {
@@ -67,6 +68,15 @@ export default {
         },
         stripHoverColor(val) {
             this.setColor('--strips-hover', val);
+        },
+        toggled(val) {
+            if (!val) {
+                this.open = false;
+                this.container.classList.remove('vt__burger-open');
+            } else {
+                this.open = true;
+                this.container.classList.add('vt__burger-open');
+            }
         },
     },
 };

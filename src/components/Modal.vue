@@ -45,6 +45,11 @@ export default {
             emit('close');
         };
 
+        document.addEventListener('keyup', e => {
+            if (e.key !== 'Escape') return;
+            emit('close');
+        });
+
         return { container, modal, closeHandler };
     },
 };

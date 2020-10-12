@@ -7,7 +7,6 @@ const app = createApp(App);
 Object.keys(Vuelity).forEach(el => {
     app.component(el, Vuelity[el]);
 });
-
 Vuelity.vtTabber();
 
 app.mount('#app');

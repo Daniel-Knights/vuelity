@@ -10,10 +10,12 @@
             <slot></slot>
             <VTBurger
                 v-if="slider"
-                @open="slideNav()"
+                @open="toggleNav()"
                 :style="burgerPosition()"
+                :toggled="open"
                 :aria-controls="id"
                 :aria-expanded="open"
+                ref="burger"
             ></VTBurger>
         </div>
     </header>
@@ -39,14 +41,21 @@ export default {
 
     setup(props) {
         const nav = ref(null);
+        const burger = ref(null);
         const id = Math.random() * 100;
         const open = ref(false);
 
-        const slideNav = () => {
-            if (!nav) return;
-            // Toggle open/closed state
+        const toggleNav = () => {
             nav.value.classList.toggle('vt__navbar-slider-open');
             open.value = !open.value;
+        };
+        const openNav = () => {
+            nav.value.classList.add('vt__navbar-slider-open');
+            open.value = true;
+        };
+        const closeNav = () => {
+            nav.value.classList.remove('vt__navbar-slider-open');
+            open.value = false;
         };
 
         onMounted(() => {
@@ -54,9 +63,18 @@ export default {
             nav.value.classList.add(`vt__navbar-${props.position}`);
             // Allow for transition delay
             setTimeout(() => (nav.value.style.transition = 'all 0.25s'), 250);
+
+            nav.value.addEventListener('keyup', e => {
+                if (e.key !== 'Tab') return;
+                openNav();
+            });
         });
 
-        return { nav, id, open, slideNav };
+        document.addEventListener('click', e => {
+            if (!e.path.includes(nav.value)) closeNav();
+        });
+
+        return { nav, burger, id, open, toggleNav, openNav, closeNav };
     },
 
     methods: {
