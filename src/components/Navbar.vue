@@ -46,17 +46,17 @@ export default {
         const open = ref(false);
 
         const toggleNav = () => {
-            if (!nav) return;
+            if (!nav.value) return;
             nav.value.classList.toggle('vt__navbar-slider-open');
             open.value = !open.value;
         };
         const openNav = () => {
-            if (!nav) return;
+            if (!nav.value) return;
             nav.value.classList.add('vt__navbar-slider-open');
             open.value = true;
         };
         const closeNav = () => {
-            if (!nav) return;
+            if (!nav.value) return;
             nav.value.classList.remove('vt__navbar-slider-open');
             open.value = false;
         };
