@@ -1,11 +1,11 @@
 <template>
-    <div
+    <button
         @click="toggle()"
         @keyup.enter="toggle()"
         class="vt__burger-container"
         :style="styles"
-        tabindex="0"
         aria-label="toggle"
+        tabindex="0"
         ref="container"
     >
         <div class="vt__burger" aria-hidden="true">
@@ -15,7 +15,7 @@
             <span></span>
             <span></span>
         </div>
-    </div>
+    </button>
 </template>
 
 <script>
@@ -96,6 +96,7 @@ export default {
     padding: 10px;
     height: 50px;
     background: var(--bg);
+    border: none;
     border-radius: 50%;
     box-shadow: 0 0 7px -3px $black;
     box-sizing: border-box;
