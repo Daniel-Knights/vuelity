@@ -1,4 +1,4 @@
-const accessibilityTab = () => {
+const tabber = () => {
     // Tab outline for accessibility
     const handleFirstTab = e => {
         if (e.key === 'Tab') {
@@ -19,4 +19,4 @@ const accessibilityTab = () => {
     window.addEventListener('keydown', handleFirstTab);
 };
 
-export default accessibilityTab;
+export default tabber;
