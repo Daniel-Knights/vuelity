@@ -27,6 +27,7 @@ export default {
         containerStyles: { type: Object, default: {} },
         toggleStyles: { type: Object, default: {} },
         initialState: { type: Boolean, default: false },
+        state: { type: Boolean, default: false },
         hoverColor: { type: String, default: '#ededed' },
     },
 
@@ -68,6 +69,9 @@ export default {
     watch: {
         hoverColor(val) {
             this.setColor('--hover-color', this.hoverColor);
+        },
+        state() {
+            this.toggleOn = !this.toggleOn;
         },
     },
 };
