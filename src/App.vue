@@ -52,14 +52,7 @@
         >
     </VTTooltip>
 
-    <VTBurger
-        background="red"
-        hoverBackground="blue"
-        stripColor="blue"
-        stripHoverColor="red"
-        @open="logValue($event)"
-        :styles="{ right: '0' }"
-    />
+    <VTBurger @open="logValue($event)" :styles="{ right: '0' }" />
 
     <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, vitae corporis? Earum

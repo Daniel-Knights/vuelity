@@ -90,8 +90,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../sass/ripple';
-
 .vt__component {
     --hover-color: #ffffff;
     --hover-bg: #5bd0b9;

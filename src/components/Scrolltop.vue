@@ -76,8 +76,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../sass/ripple';
-
 .vt__scrolltop-container {
     --bg: #47cab1;
     --bg-hover: #6fd6c1;

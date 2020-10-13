@@ -1,6 +1,6 @@
 <template>
     <button
-        @click="toggle()"
+        @click="toggle($event)"
         @mouseup="container.blur()"
         class="vt__burger-container"
         :style="styles"
@@ -20,6 +20,7 @@
 
 <script>
 import { onMounted, ref } from 'vue';
+import rippleHandler from './js/ripple';
 
 export default {
     name: 'Burger',
@@ -27,6 +28,7 @@ export default {
     props: {
         styles: { type: Object, default: {} },
         state: { type: Boolean, default: false },
+        ripple: { type: Boolean, default: false },
         background: { type: String, default: '#47cab1' },
         hoverBackground: { type: String, default: '#6fd6c1' },
         stripColor: { type: String, default: '#ffffff' },
@@ -37,10 +39,12 @@ export default {
         const container = ref(null);
         const open = ref(false);
 
-        const toggle = () => {
+        const toggle = e => {
             open.value = !open.value;
             container.value.classList.toggle('vt__burger-open');
             emit('open', open.value);
+
+            if (props.ripple) rippleHandler(e, container.value);
         };
         const setColor = (property, color) => {
             container.value.style.setProperty(property, color);
@@ -100,6 +104,7 @@ export default {
     border-radius: 50%;
     box-shadow: 0 0 7px -3px $black;
     box-sizing: border-box;
+    overflow: hidden;
     transition: all 0.25s;
 
     .vt__burger {
