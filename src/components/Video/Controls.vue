@@ -116,15 +116,16 @@ export default {
             border: 1px solid rgba($white, 0.8);
             border-radius: 2px;
             transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+
+            &:hover,
+            &:focus {
+                filter: brightness(0.8);
+            }
         }
 
         input {
             cursor: pointer;
             border: none;
-        }
-
-        svg:hover {
-            filter: brightness(0.8);
         }
     }
 

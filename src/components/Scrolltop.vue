@@ -115,12 +115,14 @@ export default {
             }
         }
 
-        &:hover svg path {
+        &:hover svg path,
+        &:focus svg path {
             fill: var(--icon-hover);
         }
     }
 
-    &:hover {
+    &:hover,
+    &:focus {
         background: var(--bg-hover);
 
         svg {

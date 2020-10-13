@@ -25,11 +25,11 @@ export default {
 
     props: {
         styles: { type: Object, default: {} },
+        toggled: { type: Boolean, default: false },
         background: { type: String, default: '#47cab1' },
         hoverBackground: { type: String, default: '#6fd6c1' },
         stripColor: { type: String, default: '#ffffff' },
         stripHoverColor: { type: String, default: '#ffffff' },
-        toggled: { type: Boolean, default: false },
     },
 
     setup(props, { emit }) {
@@ -149,7 +149,8 @@ export default {
         }
     }
 
-    &:hover {
+    &:hover,
+    &:focus {
         background: var(--bg-hover);
 
         span {

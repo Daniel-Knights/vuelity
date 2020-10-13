@@ -35,7 +35,7 @@ export default {
         containerStyles: { type: Object, default: {} },
         text: {
             type: String,
-            default: 'Add tooltip text to the "text" attribute',
+            default: 'Add tooltip text to the "text" prop',
         },
         position: { type: String, default: 'top' },
         arrow: { type: Boolean, default: true },

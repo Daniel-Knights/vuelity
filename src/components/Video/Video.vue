@@ -208,7 +208,8 @@ export default {
         transition: all 0.1s cubic-bezier(0.215, 0.61, 0.355, 1), filter 0.2s;
     }
 
-    .vt__video-play-main:hover {
+    .vt__video-play-main:hover,
+    .vt__video-play-main:focus {
         filter: brightness(0.9);
     }
 

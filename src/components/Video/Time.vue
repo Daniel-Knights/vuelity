@@ -263,13 +263,13 @@ export default {
             if (this.$refs.played) this.playedPixels = this.$refs.played.offsetWidth;
 
             // Reset state if not loading
-            const interval = setInterval(() => {
+            const resetStateInterval = setInterval(() => {
                 if (this.videoLoading) return;
                 this.setTrackPosition();
                 this.setThumbPosition();
                 if (!this.videoEnded) this.setTransitionDuration();
 
-                clearInterval(interval);
+                clearInterval(resetStateInterval);
             }, 100);
         },
         playHandler() {

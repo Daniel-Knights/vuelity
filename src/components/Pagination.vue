@@ -349,7 +349,8 @@ export default {
         width: 30px;
         transition: background-color 0.2s;
 
-        &:hover {
+        &:hover,
+        &:focus {
             background-color: var(--alt-bg);
         }
     }
@@ -370,7 +371,8 @@ export default {
         cursor: pointer;
         transition: background-color 0.2s;
 
-        &:hover {
+        &:hover,
+        &:focus {
             background-color: var(--alt-bg);
         }
     }
@@ -406,7 +408,8 @@ export default {
             fill: var(--color);
         }
 
-        &:hover {
+        &:hover,
+        &:focus {
             background-color: var(--alt-bg);
         }
     }
@@ -418,7 +421,8 @@ export default {
             fill: var(--disabled-color);
         }
 
-        &:hover {
+        &:hover,
+        &:focus {
             background-color: var(--bg);
         }
     }

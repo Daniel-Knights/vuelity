@@ -125,7 +125,8 @@ export default {
         transition: all 0.1s ease;
     }
 
-    &:hover .vt__toggle {
+    &:hover .vt__toggle,
+    &:focus .vt__toggle {
         background: var(--hover-color);
     }
 }

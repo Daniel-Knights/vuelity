@@ -25,6 +25,7 @@
                 @focus="focusHandler()"
                 @blur="blurHandler()"
                 role="searchbox"
+                aria-label="search"
             />
             <div class="vt__search-submit" role="button" aria-label="submit search">
                 <slot>

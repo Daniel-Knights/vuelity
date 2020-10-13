@@ -92,7 +92,8 @@ export default {
         min-height: 30px;
     }
 
-    &:hover {
+    &:hover,
+    &:focus {
         color: var(--hover-color) !important;
         background-color: var(--hover-background) !important;
     }

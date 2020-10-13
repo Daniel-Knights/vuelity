@@ -143,7 +143,8 @@ export default {
         z-index: 3;
     }
 
-    &.vt__hover-enabled:hover {
+    &.vt__hover-enabled:hover,
+    &.vt__hover-enabled:focus {
         color: var(--hover-color);
         background-color: var(--hover-bg);
     }
