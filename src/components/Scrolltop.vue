@@ -116,11 +116,6 @@ export default {
                 fill: var(--icon);
             }
         }
-
-        &:hover svg path,
-        &:focus svg path {
-            fill: var(--icon-hover);
-        }
     }
 
     &:hover,
@@ -129,6 +124,10 @@ export default {
 
         svg {
             transform: scale(1.2);
+
+            path {
+                fill: var(--icon-hover);
+            }
         }
     }
 }

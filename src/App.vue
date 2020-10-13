@@ -105,7 +105,7 @@
         >You will be automatically logged out in 5s</VTPopup
     >
 
-    <VTScrolltop />
+    <VTScrolltop iconHoverColor="red" />
 </template>
 
 <script>
