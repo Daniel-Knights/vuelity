@@ -10,7 +10,9 @@
         ref="container"
     >
         <div class="vt__scrolltop" aria-hidden="true">
-            <Chevron />
+            <slot>
+                <Chevron />
+            </slot>
         </div>
     </button>
 </template>
