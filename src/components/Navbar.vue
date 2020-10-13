@@ -12,7 +12,7 @@
                 v-if="slider"
                 @open="toggleNav()"
                 :style="burgerPosition()"
-                :toggled="open"
+                :state="open"
                 :aria-controls="id"
                 :aria-expanded="open"
                 ref="burger"
