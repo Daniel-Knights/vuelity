@@ -29,6 +29,7 @@ export default {
 
     props: {
         styles: { type: Object, default: {} },
+        target: { type: Element },
         ripple: { type: Boolean, default: true },
         background: { type: String, default: '#47cab1' },
         hoverBackground: { type: String, default: '#6fd6c1' },
@@ -40,7 +41,9 @@ export default {
         const container = ref(null);
 
         const scroll = e => {
-            window.scroll(0, 0);
+            console.log(props.target);
+            if (props.target) props.target.scroll(0, 0);
+            else window.scroll(0, 0);
 
             if (props.ripple) rippleHandler(e, container.value);
         };
