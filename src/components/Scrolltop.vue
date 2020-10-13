@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import rippleHandler from './js/ripple';
 import Chevron from './svg/Chevron';
 
@@ -29,7 +29,8 @@ export default {
 
     props: {
         styles: { type: Object, default: {} },
-        target: { type: Element },
+        target: { type: String, default: 'html' },
+        smooth: { type: Boolean, default: true },
         ripple: { type: Boolean, default: true },
         background: { type: String, default: '#47cab1' },
         hoverBackground: { type: String, default: '#6fd6c1' },
@@ -39,12 +40,10 @@ export default {
 
     setup(props) {
         const container = ref(null);
+        const target = computed(() => document.querySelector(props.target));
 
         const scroll = e => {
-            console.log(props.target);
-            if (props.target) props.target.scroll(0, 0);
-            else window.scroll(0, 0);
-
+            target.value.scroll(0, 0);
             if (props.ripple) rippleHandler(e, container.value);
         };
         const setColor = (property, color) => {
@@ -56,6 +55,9 @@ export default {
             setColor('--bg-hover', props.hoverBackground);
             setColor('--icon', props.iconColor);
             setColor('--icon-hover', props.iconHoverColor);
+
+            // Set scroll behaviour
+            if (props.smooth) target.value.style.scrollBehavior = 'smooth';
         });
 
         return { container, open, scroll, setColor };

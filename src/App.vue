@@ -97,12 +97,14 @@
     <VTPopup :hoverColor="color" :hoverBackground="colorTwo" animationDelay="2s" :cookie="false"
         >You will be automatically logged out in 5s</VTPopup
     >
-    <div
-        ref="test"
-        style="position: relative; height: 100px; overflow: scroll; scroll-behavior: smooth;"
-    >
+    <div id="test" style="position: relative; height: 100px; overflow: scroll;">
         <div style="position: relative; height: 1000vh">
-            <VTScrolltop :styles="{ position: 'absolute' }" iconHoverColor="red" :target="test" />
+            <VTScrolltop
+                :styles="{ position: 'absolute' }"
+                iconHoverColor="red"
+                target="#test"
+                :smooth="false"
+            />
         </div>
     </div>
 </template>
@@ -112,12 +114,6 @@ import Axios from 'axios';
 import { ref } from 'vue';
 
 export default {
-    setup() {
-        const test = ref(null);
-
-        return { test };
-    },
-
     data() {
         return {
             modalCondition: false,
@@ -195,9 +191,7 @@ export default {
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic');
-html {
-    scroll-behavior: smooth;
-}
+
 body {
     margin: 0;
     min-height: 1000vh;
