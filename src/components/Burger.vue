@@ -26,7 +26,7 @@ export default {
 
     props: {
         styles: { type: Object, default: {} },
-        toggled: { type: Boolean, default: false },
+        state: { type: Boolean, default: false },
         background: { type: String, default: '#47cab1' },
         hoverBackground: { type: String, default: '#6fd6c1' },
         stripColor: { type: String, default: '#ffffff' },
@@ -69,7 +69,7 @@ export default {
         stripHoverColor(val) {
             this.setColor('--strips-hover', val);
         },
-        toggled(val) {
+        state(val) {
             if (!val) {
                 this.open = false;
                 this.container.classList.remove('vt__burger-open');
