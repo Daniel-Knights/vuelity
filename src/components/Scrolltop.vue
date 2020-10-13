@@ -1,6 +1,8 @@
 <template>
     <button
         @click="scroll($event)"
+        @keyup.enter="scroll($event)"
+        @mouseup="container.blur()"
         class="vt__scrolltop-container"
         :style="styles"
         aria-label="scroll to top"
@@ -38,9 +40,7 @@ export default {
         const scroll = e => {
             window.scroll(0, 0);
 
-            if (props.ripple && e.type !== 'keyup') {
-                rippleHandler(e, container.value);
-            }
+            if (props.ripple) rippleHandler(e, container.value);
         };
         const setColor = (property, color) => {
             container.value.style.setProperty(property, color);

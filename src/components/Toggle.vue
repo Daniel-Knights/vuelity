@@ -2,6 +2,8 @@
     <div
         @click="toggled()"
         @keyup.enter="toggled()"
+        @focus="addToggleFocus()"
+        @blur="removeToggleFocus()"
         class="vt__toggle-container"
         :style="containerStyles"
         role="switch"
@@ -36,34 +38,43 @@ export default {
         const toggleFocus = ref(null);
         const toggleOn = ref(props.initialState);
 
-        let toggled = ref(() => {});
+        const addToggleFocus = () => {
+            if (!toggleFocus.value) return;
+            toggleFocus.value.style.transform = 'scale(2)';
+            toggleFocus.value.style.opacity = '1';
+        };
+        const removeToggleFocus = () => {
+            if (!toggleFocus.value) return;
+            toggleFocus.value.style.transform = 'scale(1)';
+            toggleFocus.value.style.opacity = '0';
+        };
+        const toggled = () => {
+            toggleOn.value = !toggleOn.value;
+            addToggleFocus();
+            emit('toggle', toggleOn.value);
+        };
         const setColor = (property, color) => {
             container.value.style.setProperty(property, color);
         };
 
         onMounted(() => {
-            toggled.value = () => {
-                toggleOn.value = !toggleOn.value;
-
-                if (toggleFocus.value) {
-                    toggleFocus.value.style.transform = 'scale(2)';
-                    toggleFocus.value.style.opacity = '1';
-                }
-
-                emit('toggle', toggleOn.value);
-            };
-
             window.addEventListener('click', e => {
-                if (e.target !== container.value && toggleFocus.value) {
-                    toggleFocus.value.style.transform = 'scale(1)';
-                    toggleFocus.value.style.opacity = '0';
-                }
+                if (e.target === container.value) return;
+                removeToggleFocus();
             });
 
             setColor('--hover-color', props.hoverColor);
         });
 
-        return { container, toggleFocus, toggleOn, toggled, setColor };
+        return {
+            container,
+            toggleFocus,
+            toggleOn,
+            addToggleFocus,
+            removeToggleFocus,
+            toggled,
+            setColor,
+        };
     },
 
     watch: {

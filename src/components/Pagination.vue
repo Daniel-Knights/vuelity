@@ -2,17 +2,18 @@
     <div
         v-if="valid"
         class="vt__pages"
-        :style="styles"
+        :style="containerStyles"
         role="toolbar"
         aria-label="pagination"
         ref="pages"
     >
-        <div>
+        <div class="vt__pagination-block-container vt__left" :style="blockStyles">
             <div
                 @click="paginateLeft($event)"
                 @keyup.enter="paginateLeft($event)"
-                class="vt__pagination vt__left vt__pagination-block"
+                class="vt__pagination vt__pagination-block"
                 :class="{ 'vt__disabled-pagination': disabledLeft }"
+                :disabled="disabledLeft"
                 style="transform: rotate(180deg)"
                 role="button"
                 aria-label="left navigation"
@@ -33,13 +34,14 @@
                     paginateCurrentPage = 1;
                     $emit('page-changed', paginateCurrentPage);
                 "
+                :style="blockStyles"
                 class="vt__page vt__selectable vt__pagination-block"
                 role="button"
                 tabindex="0"
             >
                 {{ 1 }}
             </div>
-            <div v-if="enterPageOne" class="vt__page">
+            <div v-if="enterPageOne" class="vt__page" :style="blockStyles">
                 <input
                     v-model="enterPageOneValue"
                     @keyup.enter="enterPageHandler($event)"
@@ -58,6 +60,7 @@
                 @click="enterPageOneHandler($event)"
                 @keyup.enter="enterPageOneHandler($event)"
                 v-if="overflow && paginateCurrentPage > 2 && !enterPageOne"
+                :style="blockStyles"
                 class="vt__page vt__pagination-block"
                 role="button"
                 aria-label="reveal page number input"
@@ -65,13 +68,18 @@
             >
                 ...
             </div>
-            <div class="vt__page vt__selectable vt__pagination-block" aria-label="current page">
+            <div
+                class="vt__page vt__selectable vt__pagination-block"
+                :style="blockStyles"
+                aria-label="current page"
+            >
                 {{ paginateCurrentPage }}
             </div>
             <div
                 @click="enterPageTwoHandler($event)"
                 @keyup.enter="enterPageTwoHandler($event)"
                 v-if="overflow && paginateCurrentPage < lastPage - 1 && !enterPageTwo"
+                :style="blockStyles"
                 class="vt__page vt__pagination-block"
                 role="button"
                 aria-label="reveal page number input"
@@ -79,7 +87,7 @@
             >
                 ...
             </div>
-            <div v-if="enterPageTwo" class="vt__page">
+            <div v-if="enterPageTwo" class="vt__page" :style="blockStyles">
                 <input
                     v-model="enterPageTwoValue"
                     @keyup.enter="enterPageHandler($event)"
@@ -104,6 +112,7 @@
                     paginateCurrentPage = lastPage;
                     $emit('page-changed', paginateCurrentPage);
                 "
+                :style="blockStyles"
                 class="vt__page vt__selectable vt__pagination-block"
                 role="button"
                 tabindex="0"
@@ -111,12 +120,13 @@
                 {{ lastPage }}
             </div>
         </div>
-        <div>
+        <div class="vt__pagination-block-container vt__right" :style="blockStyles">
             <div
                 @click="paginateRight($event)"
                 @keyup.enter="paginateRight($event)"
-                class="vt__pagination vt__right vt__pagination-block"
+                class="vt__pagination vt__pagination-block"
                 :class="{ 'vt__disabled-pagination': disabledRight }"
+                :disabled="disabledRight"
                 role="button"
                 aria-label="right navigation"
                 :aria-disabled="disabledRight"
@@ -131,6 +141,7 @@
 <script>
 import { ref, computed, watch, onMounted } from 'vue';
 import Arrow from './svg/Arrow';
+import rippleHandler from './js/ripple';
 
 export default {
     name: 'Page',
@@ -138,8 +149,9 @@ export default {
     components: { Arrow },
 
     props: {
-        styles: { type: Object, default: {} },
+        containerStyles: { type: Object, default: {} },
         blockStyles: { type: Object, default: {} },
+        ripple: { type: Boolean, default: true },
         color: { type: String, default: '#ffffff' },
         disabledColor: { type: String, default: '#dbdbdb' },
         background: { type: String, default: '#5bd0b9' },
@@ -169,6 +181,17 @@ export default {
             setColor('--disabled-color', props.disabledColor);
             setColor('--bg', props.background);
             setColor('--alt-bg', props.altBackground);
+
+            document.querySelectorAll('.vt__pagination-block-container').forEach(block => {
+                block.addEventListener('mouseup', e => e.target.blur());
+
+                if (!props.ripple) return;
+                block.addEventListener('mousedown', e => rippleHandler(e, block));
+                block.addEventListener('keyup', e => {
+                    if (e.key !== 'Enter') return;
+                    rippleHandler(e, block);
+                });
+            });
         });
 
         return {
@@ -277,25 +300,6 @@ export default {
                 this.$emit('page-changed', this.paginateCurrentPage);
             }
         },
-        blockStyling() {
-            if (Object.keys(this.blockStyles).length === 0) return;
-
-            const style = document.createElement('style');
-            let blockStyleList = [];
-
-            for (let i in this.blockStyles) {
-                let formatted = i.replace(/([A-Z])/g, g => `-${g[0].toLowerCase()}`);
-                formatted += `:${this.blockStyles[i]};`;
-
-                blockStyleList.push(formatted);
-            }
-
-            style.type = 'text/css';
-            style.innerHTML = `.vt__pagination-block { ${String(blockStyleList)
-                .split(';,')
-                .join(';')} }`;
-            document.head.appendChild(style);
-        },
         validate() {
             if (this.currentPage > this.lastPage) {
                 console.error(
@@ -315,7 +319,6 @@ export default {
         this.validate();
         this.selectedPage();
         this.pageOverflow();
-        this.blockStyling();
     },
 
     updated() {
@@ -341,6 +344,12 @@ export default {
     box-shadow: 0 0 5px -3px $black;
     font-family: Avenir, Helvetica, Arial, sans-serif;
     font-weight: 500;
+    overflow: hidden;
+
+    .vt__pagination-block-container {
+        position: relative;
+        overflow: hidden;
+    }
 
     .vt__pagination {
         cursor: pointer;
@@ -349,9 +358,11 @@ export default {
         width: 30px;
         transition: background-color 0.2s;
 
-        &:hover,
-        &:focus {
-            background-color: var(--alt-bg);
+        &-block {
+            &:hover,
+            &:focus {
+                background-color: var(--alt-bg);
+            }
         }
     }
 
@@ -366,15 +377,9 @@ export default {
         height: 30px;
     }
 
-    // Page number input
     .vt__selectable {
         cursor: pointer;
         transition: background-color 0.2s;
-
-        &:hover,
-        &:focus {
-            background-color: var(--alt-bg);
-        }
     }
 
     .vt__selected {
@@ -389,28 +394,18 @@ export default {
         color: var(--color);
         background-color: var(--bg);
         transition: background-color 0.2s;
-
-        &:focus {
-            background-color: var(--alt-bg);
-        }
     }
 
     .vt__right,
     .vt__left {
-        border-radius: 0 5px 5px 0;
-
         svg {
+            pointer-events: none;
             width: 15px;
             height: 15px;
             object-fit: cover;
         }
         path {
             fill: var(--color);
-        }
-
-        &:hover,
-        &:focus {
-            background-color: var(--alt-bg);
         }
     }
 

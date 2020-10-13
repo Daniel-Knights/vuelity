@@ -1,6 +1,7 @@
 <template>
     <button
         @click="toggle()"
+        @mouseup="container.blur()"
         class="vt__burger-container"
         :style="styles"
         aria-label="toggle"

@@ -1,5 +1,6 @@
 <template>
     <button
+        @mouseup="button.blur()"
         :style="styles"
         class="vt__component vt__btn"
         :class="{
@@ -51,7 +52,11 @@ export default {
 
             // Set ripple effect
             if (props.ripple) {
-                button.value.addEventListener('click', e => rippleHandler(e, content.value));
+                button.value.addEventListener('mousedown', e => rippleHandler(e, content.value));
+                button.value.addEventListener('keyup', e => {
+                    if (e.key !== 'Enter') return;
+                    rippleHandler(e, content.value);
+                });
             }
 
             // Set CSS border-radius variable
