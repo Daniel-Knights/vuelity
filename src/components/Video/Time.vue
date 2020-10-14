@@ -440,7 +440,7 @@ export default {
         position: absolute;
         width: 100%;
         height: 100%;
-        background-color: rgb(40, 123, 225);
+        background-color: #5bd0b9;
         transition: max-width 0s cubic-bezier(0.215, 0.61, 0.355, 1);
     }
     .vt__video-buffered {

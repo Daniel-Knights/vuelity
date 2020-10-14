@@ -87,11 +87,7 @@
         :videoTitle="video.title"
         :videoPoster="video.poster ? video.poster.filename : ''"
         :timeTags="video.tags"
-        :buttonStyles="videoButtonStyles"
-        :thumbStyles="videoThumbStyles"
-        :containerStyles="videoContainerStyles"
         :contextmenu="false"
-        trackColor="red"
     />
 
     <VTPopup :hoverColor="color" :hoverBackground="colorTwo" animationDelay="2s" :cookie="false"

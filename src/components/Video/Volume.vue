@@ -84,10 +84,7 @@ export default {
     props: {
         video: HTMLVideoElement,
         videoVolume: Number,
-        trackColor: {
-            type: String,
-            default: 'rgb(40, 123, 225)',
-        },
+        trackColor: { type: String, default: '#5bd0b9' },
     },
 
     computed: {

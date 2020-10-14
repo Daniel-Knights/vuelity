@@ -80,16 +80,16 @@ export default {
     components: { Play, Controls },
 
     props: {
-        width: { type: String, default: '100%' },
+        styles: { type: Object, default: {} },
+        containerStyles: { type: Object, default: {} },
+        buttonStyles: { type: Object, default: {} },
+        thumbStyles: { type: Object, default: {} },
         videoSrc: String,
         videoTitle: String,
         videoPoster: String,
         timeTags: Array,
         contextmenu: { type: Boolean, default: true },
-        styles: { type: Object, default: {} },
-        containerStyles: { type: Object, default: {} },
-        buttonStyles: { type: Object, default: {} },
-        thumbStyles: { type: Object, default: {} },
+        width: { type: String, default: '100%' },
         trackColor: String,
     },
 
