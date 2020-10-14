@@ -114,6 +114,7 @@ export default {
     },
 
     created() {
+        let hideTimeout;
         // Increment/decrement volume on up/down arrow keys
         document.addEventListener('keydown', e => {
             if (e.key === 'Tab') return this.hideSlider();
@@ -122,7 +123,10 @@ export default {
             // Prevent scrolling
             e.preventDefault();
             this.$emit('video-focused');
+
             this.displaySlider();
+            clearTimeout(hideTimeout);
+            hideTimeout = setTimeout(() => this.hideSlider(), 3000);
         });
         document.addEventListener('keyup', e => {
             if (this.video.id !== focusedStore().focused.value) return;
