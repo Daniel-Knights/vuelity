@@ -12,9 +12,6 @@
             <VTButton :styles="btnStyles" :shine="true">Signup</VTButton>
         </div>
     </VTNavbar>
-    <div :style="{ position: 'relative', width: '500px', height: '600px' }">
-        <VTLoading />
-    </div>
 
     <VTSearchbar
         :style="{ margin: '100px auto' }"

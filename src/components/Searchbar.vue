@@ -21,7 +21,7 @@
                 name="searchbar"
                 v-model="search"
                 :style="styles"
-                @keyup="$emit('search-value', search)"
+                @input="$emit('search-value', search)"
                 @focus="focusHandler()"
                 @blur="blurHandler()"
                 role="searchbox"
