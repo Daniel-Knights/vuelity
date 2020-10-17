@@ -13,7 +13,7 @@
             </span>
         </div>
         <div
-            class="vt__tabber-content"
+            class="vt__tooltip-content"
             @mouseover="tipShow()"
             @mouseout="tipHide()"
             @focus="tipShow()"
