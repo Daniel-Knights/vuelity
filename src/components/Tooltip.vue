@@ -13,13 +13,14 @@
             </span>
         </div>
         <div
-            ref="el"
+            class="vt__tabber-content"
             @mouseover="tipShow()"
             @mouseout="tipHide()"
             @focus="tipShow()"
             @blur="tipHide()"
             :aria-describedby="id"
             tabindex="0"
+            ref="el"
         >
             <slot></slot>
         </div>
