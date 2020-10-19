@@ -57,7 +57,8 @@ export default {
         top() {
             const tip = this.$refs.tip;
 
-            tip.parentElement.style.transform = `translateY(${-tip.offsetHeight * 1.5}px)`;
+            tip.parentElement.style.transform = `translateY(${-tip.offsetHeight - 15}px)`;
+            tip.parentElement.style.justifyContent = 'center';
         },
         right() {
             const elWidth = this.$refs.el.offsetWidth;
@@ -70,19 +71,20 @@ export default {
             tipParent.style.justifyContent = 'flex-start';
         },
         bottom() {
+            const tipParent = this.$refs.tip.parentElement;
             const elHeight = this.$refs.el.offsetHeight;
 
-            this.$refs.tip.parentElement.style.transform = `translateY(${elHeight + 15}px)`;
+            tipParent.style.transform = `translateY(${elHeight + 15}px)`;
+            tipParent.style.justifyContent = 'center';
         },
         left() {
             const elWidth = this.$refs.el.offsetWidth;
             const elHeight = this.$refs.el.offsetHeight;
             const tip = this.$refs.tip;
 
-            tip.parentElement.style.transform = `translate(${-elWidth / 2 -
-                tip.offsetWidth / 2 -
-                10}px, ${elHeight / 2 - tip.offsetHeight / 2}px)`;
-            tip.style.justifyContent = 'flex-end';
+            tip.parentElement.style.transform = `translate(${-elWidth - 10}px, ${elHeight / 2 -
+                tip.offsetHeight / 2}px)`;
+            tip.parentElement.style.justifyContent = 'flex-end';
         },
         tipShow() {
             if (!this.$refs.tip) return;
@@ -93,6 +95,12 @@ export default {
             if (!this.$refs.tip) return;
             this.$refs.tip.style.opacity = '0';
             this.$refs.tip.style.transform = 'scale(0.8)';
+        },
+    },
+
+    watch: {
+        position(val) {
+            this[val]();
         },
     },
 

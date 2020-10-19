@@ -54,11 +54,17 @@
     <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, vitae corporis? Earum
         quos
-        <VTTooltip text="An unknown word">
+        <VTTooltip :position="position" :styles="{ width: '30px', minWidth: 'unset' }">
             <span style="text-decoration: underline;">quibusdam</span>
         </VTTooltip>
         , perferendis nesciunt nostrum ea laboriosam cumque.
     </p>
+    <select v-model="position">
+        <option value="top">top</option>
+        <option value="right">right</option>
+        <option value="bottom">bottom</option>
+        <option value="left">left</option>
+    </select>
 
     <VTPagination :currentPage="number" :lastPage="10" @page-changed="logValue($event)" />
     <VTButton @click="modalCondition = true">OPEN MODAL</VTButton>
@@ -109,6 +115,7 @@ import { ref } from 'vue';
 export default {
     data() {
         return {
+            position: 'top',
             modalCondition: false,
             number: 1,
             log: 1,

@@ -1,5 +1,5 @@
-import Button from './Button.vue';
 import Burger from './Burger.vue';
+import Button from './Button.vue';
 import Hoverbox from './Hoverbox.vue';
 import Loading from './Loading.vue';
 import Modal from './Modal.vue';
@@ -16,8 +16,8 @@ import Video from './Video/Video.vue';
 import tabber from './js/tabber';
 export const vtTabber = tabber;
 
-export const VTButton = Button;
 export const VTBurger = Burger;
+export const VTButton = Button;
 export const VTHoverbox = Hoverbox;
 export const VTLoading = Loading;
 export const VTModal = Modal;
@@ -34,8 +34,8 @@ export const VTVideo = Video;
 if (window !== undefined && window.Vue) {
     window.Vuelity = {
         vtTabber: tabber,
-        'vt-button': VTButton,
         'vt-burger': VTBurger,
+        'vt-button': VTButton,
         'vt-hoverbox': VTHoverbox,
         'vt-loading': VTLoading,
         'vt-modal': VTModal,
