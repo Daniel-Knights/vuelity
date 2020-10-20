@@ -5,6 +5,7 @@
         aria-busy="true"
         aria-label="loading"
         aria-live="polite"
+        ref="container"
     >
         <slot>
             <div v-if="default" :style="styles" aria-hidden="true">
@@ -25,7 +26,8 @@
 </template>
 
 <script>
-import { onBeforeUnmount } from 'vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
+
 export default {
     name: 'Loading',
 
@@ -37,8 +39,15 @@ export default {
     },
 
     setup(props) {
-        if (props.fullscreen) document.body.style.overflow = 'hidden';
-        onBeforeUnmount(() => (document.body.style.overflow = 'visible'));
+        const container = ref(null);
+
+        if (props.fullscreen) {
+            document.body.style.overflow = 'hidden';
+            onMounted(() => container.value.classList.add('vt__loading-fullscreen'));
+            onBeforeUnmount(() => (document.body.style.overflow = 'visible'));
+        }
+
+        return { container };
     },
 };
 </script>
@@ -139,6 +148,10 @@ export default {
                 transform: rotate(360deg);
             }
         }
+    }
+
+    &.vt__loading-fullscreen {
+        position: fixed;
     }
 }
 </style>
