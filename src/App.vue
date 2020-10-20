@@ -50,7 +50,7 @@
     </VTTooltip>
 
     <VTBurger @open="logValue($event)" :styles="{ right: '0' }" />
-
+    <VTLoading v-if="loading" :fullscreen="true" @click="loading = false" />
     <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, vitae corporis? Earum
         quos
@@ -115,6 +115,7 @@ import { ref } from 'vue';
 export default {
     data() {
         return {
+            loading: true,
             position: 'top',
             modalCondition: false,
             number: 1,

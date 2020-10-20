@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { onBeforeUnmount } from 'vue';
 export default {
     name: 'Loading',
 
@@ -32,6 +33,12 @@ export default {
         styles: { type: Object, default: {} },
         containerStyles: { type: Object, default: {} },
         default: { type: Boolean, default: true },
+        fullscreen: { type: Boolean, default: false },
+    },
+
+    setup(props) {
+        if (props.fullscreen) document.body.style.overflow = 'hidden';
+        onBeforeUnmount(() => (document.body.style.overflow = 'visible'));
     },
 };
 </script>
