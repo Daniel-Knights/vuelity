@@ -66,7 +66,7 @@
         <option value="left">left</option>
     </select>
 
-    <VTPagination :currentPage="number" :lastPage="10" @page-changed="logValue($event)" />
+    <VTPagination :currentPage="number" :lastPage="10" @page-change="logValue($event)" />
     <VTButton @click="modalCondition = true">OPEN MODAL</VTButton>
     <VTModal v-if="modalCondition" @close="modalCondition = false">
         {{ log }}

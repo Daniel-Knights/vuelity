@@ -28,11 +28,11 @@
                 v-if="overflow && paginateCurrentPage >= 2"
                 @click="
                     paginateCurrentPage = 1;
-                    $emit('page-changed', paginateCurrentPage);
+                    $emit('page-change', paginateCurrentPage);
                 "
                 @keyup.enter="
                     paginateCurrentPage = 1;
-                    $emit('page-changed', paginateCurrentPage);
+                    $emit('page-change', paginateCurrentPage);
                 "
                 :style="blockStyles"
                 class="vt__page vt__selectable vt__pagination-block"
@@ -106,11 +106,11 @@
                 v-if="overflow && paginateCurrentPage !== lastPage"
                 @click="
                     paginateCurrentPage = lastPage;
-                    $emit('page-changed', paginateCurrentPage);
+                    $emit('page-change', paginateCurrentPage);
                 "
                 @keyup.enter="
                     paginateCurrentPage = lastPage;
-                    $emit('page-changed', paginateCurrentPage);
+                    $emit('page-change', paginateCurrentPage);
                 "
                 :style="blockStyles"
                 class="vt__page vt__selectable vt__pagination-block"
@@ -215,7 +215,6 @@ export default {
             if (!this.valid) return;
 
             this.paginateCurrentPage = val;
-            this.$emit('page-changed', val);
         },
         color(val) {
             this.setColor('--color', val);
@@ -278,7 +277,7 @@ export default {
                 }
             }
 
-            this.$emit('page-changed', this.paginateCurrentPage);
+            this.$emit('page-change', this.paginateCurrentPage);
         },
         enterPageOneHandler(e) {
             this.enterPageOne = true;
@@ -291,13 +290,13 @@ export default {
         paginateLeft(e) {
             if (this.paginateCurrentPage > 1) {
                 this.paginateCurrentPage -= 1;
-                this.$emit('page-changed', this.paginateCurrentPage);
+                this.$emit('page-change', this.paginateCurrentPage);
             }
         },
         paginateRight(e) {
             if (this.paginateCurrentPage < this.lastPage) {
                 this.paginateCurrentPage += 1;
-                this.$emit('page-changed', this.paginateCurrentPage);
+                this.$emit('page-change', this.paginateCurrentPage);
             }
         },
         validate() {
