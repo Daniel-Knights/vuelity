@@ -81,8 +81,8 @@ export default {
         hoverColor(val) {
             this.setColor('--hover-color', this.hoverColor);
         },
-        state() {
-            this.toggleOn = !this.toggleOn;
+        state(val) {
+            this.toggleOn = val;
         },
     },
 };
