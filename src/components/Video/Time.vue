@@ -22,7 +22,8 @@
             </div>
             <div
                 class="vt__video-track-container"
-                @pointerdown="scrubStart($event)"
+                @mousedown="scrubStart($event)"
+                @touchstart="scrubStart($event)"
                 @mouseover="scaleTrackUp()"
                 @mouseout="scaleTrackDown()"
                 @focus="$emit('video-focused')"
@@ -328,8 +329,10 @@ export default {
             this.removeTransitionDuration();
         });
         // Scrubbing
-        document.addEventListener('pointermove', e => this.scrubbing(e));
-        document.addEventListener('pointerup', () => this.scrubEnd());
+        document.addEventListener('mousemove', e => this.scrubbing(e));
+        document.addEventListener('mouseup', () => this.scrubEnd());
+        document.addEventListener('touchmove', e => this.scrubbing(e));
+        document.addEventListener('touchend', () => this.scrubEnd());
         window.addEventListener('resize', () => {
             // Prevent thumb/track transition on resize/fullscreen
             this.removeTransitionDuration();
