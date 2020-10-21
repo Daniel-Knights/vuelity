@@ -227,7 +227,6 @@ export default {
             if (e.which === 3 || e.button === 2) return;
 
             const pageX = device ? e.changedTouches[0].pageX : e.pageX;
-            console.log(pageX);
             const trackX = this.$refs.videoTrackContainer.getBoundingClientRect().x;
             const eventPlayed = (pageX - trackX) / this.$refs.videoTrackContainer.offsetWidth;
 
