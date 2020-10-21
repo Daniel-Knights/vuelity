@@ -23,7 +23,7 @@
             <div
                 class="vt__video-track-container"
                 @mousedown="scrubStart($event)"
-                @touchstart="scrubStart($event)"
+                @touchstart="scrubStart($event, 'mobile')"
                 @mouseover="scaleTrackUp()"
                 @mouseout="scaleTrackDown()"
                 @focus="$emit('video-focused')"
@@ -219,15 +219,17 @@ export default {
             this.$refs.thumbContainer.style.transitionDuration = '0s';
             this.$refs.played.style.transitionDuration = '0s';
         },
-        scrubStart(e) {
+        scrubStart(e, device) {
             // Ensure transition duration set if scrubbing back from end
             this.videoEnded = false;
 
             // Detect right click
             if (e.which === 3 || e.button === 2) return;
 
+            const pageX = device ? e.changedTouches[0].pageX : e.pageX;
+            console.log(pageX);
             const trackX = this.$refs.videoTrackContainer.getBoundingClientRect().x;
-            const eventPlayed = (e.pageX - trackX) / this.$refs.videoTrackContainer.offsetWidth;
+            const eventPlayed = (pageX - trackX) / this.$refs.videoTrackContainer.offsetWidth;
 
             this.videoLoading = true;
             this.dragging = true;
@@ -240,10 +242,11 @@ export default {
             // Set thumb position
             setTimeout(() => (this.playedPixels = this.$refs.played.offsetWidth), 1);
         },
-        scrubbing(e) {
+        scrubbing(e, device) {
             if (!this.dragging) return;
+            const pageX = device ? e.changedTouches[0].pageX : e.pageX;
             const trackX = this.$refs.videoTrackContainer.getBoundingClientRect().x;
-            const eventPlayed = (e.pageX - trackX) / this.$refs.videoTrackContainer.offsetWidth;
+            const eventPlayed = (pageX - trackX) / this.$refs.videoTrackContainer.offsetWidth;
 
             this.videoLoading = true;
             if (eventPlayed < 0) {
@@ -331,7 +334,7 @@ export default {
         // Scrubbing
         document.addEventListener('mousemove', e => this.scrubbing(e));
         document.addEventListener('mouseup', () => this.scrubEnd());
-        document.addEventListener('touchmove', e => this.scrubbing(e));
+        document.addEventListener('touchmove', e => this.scrubbing(e, 'mobile'));
         document.addEventListener('touchend', () => this.scrubEnd());
         window.addEventListener('resize', () => {
             // Prevent thumb/track transition on resize/fullscreen
