@@ -1,5 +1,5 @@
 <template>
-    <VTNavbar :styles="navbarStyles" position="top" :slider="true">
+    <!-- <VTNavbar :styles="navbarStyles" position="top" :slider="true">
         <h1>Vuelity</h1>
         <VTSearchbar @search-submit="logValue($event)" @search-value="searchValue($event)" />
         <VTHoverbox :width="100" :height="50">
@@ -66,7 +66,7 @@
         <option value="left">left</option>
     </select>
 
-    <VTPagination :currentPage="number" :lastPage="10" @page-change="logValue($event)" />
+    <VTPagination :currentPage="number" :lastPage="10" @page-change="logValue($event)" /> -->
     <VTButton @click="modalCondition = true">OPEN MODAL</VTButton>
     <VTModal v-if="modalCondition" @close="modalCondition = false">
         {{ log }}
@@ -82,7 +82,7 @@
         :containerStyles="videoContainerStyles"
         videoPoster="https://a.storyblok.com/f/87848/800x800/a97f990693/sudhith-xavier-iun1o500lmi-unsplash-1.jpg"
     /> -->
-    <VTVideo
+    <!-- <VTVideo
         width="50vw"
         v-for="video in videos"
         :key="video._uid"
@@ -105,7 +105,7 @@
                 :smooth="false"
             />
         </div>
-    </div>
+    </div> -->
 </template>
 
 <script>

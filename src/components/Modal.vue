@@ -76,10 +76,12 @@ export default {
 
     .vt__exit-fullscreen {
         position: absolute;
-        top: 25px;
-        left: 25px;
+        top: 12px;
+        left: 12px;
         padding: 10px;
-        font: 500 18px $font_primary;
+        max-width: calc(100vw - 44px);
+        text-align: center;
+        font: 500 clamp(15px, 2.5vw, 18px) $font_primary;
         color: $white;
         background-color: rgba($black, 0.7);
         border-radius: 5px;
@@ -95,6 +97,14 @@ export default {
         background: $primary;
         border-radius: 10px;
         box-shadow: 0 0 10px -3px $black;
+    }
+
+    @media screen and (max-width: 450px) {
+        .vt__exit-fullscreen {
+            top: 20px;
+            left: unset;
+            padding: 5px 10px;
+        }
     }
 }
 </style>
