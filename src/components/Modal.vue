@@ -81,9 +81,9 @@ export default {
         padding: 10px;
         max-width: calc(100vw - 44px);
         text-align: center;
-        font-family: $font_primary;
-        font-size: clamp(15px, 2.5vw, 18px);
         font-weight: 500;
+        font-size: clamp(15px, 3.5vw, 18px);
+        font-family: $font_primary;
         color: $white;
         background-color: rgba($black, 0.7);
         border-radius: 5px;
