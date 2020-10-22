@@ -81,7 +81,9 @@ export default {
         padding: 10px;
         max-width: calc(100vw - 44px);
         text-align: center;
-        font: 500 clamp(15px, 2.5vw, 18px) $font_primary;
+        font-family: $font_primary;
+        font-size: clamp(15px, 2.5vw, 18px);
+        font-weight: 500;
         color: $white;
         background-color: rgba($black, 0.7);
         border-radius: 5px;
@@ -103,7 +105,6 @@ export default {
         .vt__exit-fullscreen {
             top: 20px;
             left: unset;
-            padding: 5px 10px;
         }
     }
 }
