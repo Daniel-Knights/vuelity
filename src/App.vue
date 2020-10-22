@@ -186,6 +186,8 @@ export default {
                 this.testSrc = res.data.story.content.sets[0].videos[0].aws_url;
             }, 5000);
         });
+
+        this.$toast('test');
     },
 };
 </script>

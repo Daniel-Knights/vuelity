@@ -16,6 +16,10 @@ import Video from './Video/Video.vue';
 import tabber from './js/tabber';
 export const vtTabber = tabber;
 
+// Toast notifications
+import toast from './Toast/toast';
+export const VTToast = toast;
+
 export const VTBurger = Burger;
 export const VTButton = Button;
 export const VTHoverbox = Hoverbox;
@@ -33,7 +37,6 @@ export const VTVideo = Video;
 // CDN compatibility
 if (window !== undefined && window.Vue) {
     window.Vuelity = {
-        vtTabber: tabber,
         'vt-burger': VTBurger,
         'vt-button': VTButton,
         'vt-hoverbox': VTHoverbox,
@@ -47,5 +50,7 @@ if (window !== undefined && window.Vue) {
         'vt-toggle': VTToggle,
         'vt-tooltip': VTTooltip,
         'vt-video': VTVideo,
+        VTToast,
+        vtTabber: tabber,
     };
 }

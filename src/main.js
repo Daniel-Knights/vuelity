@@ -8,5 +8,6 @@ Object.keys(Vuelity).forEach(el => {
     app.component(el, Vuelity[el]);
 });
 Vuelity.vtTabber();
+app.use(Vuelity.VTToast);
 
 app.mount('#app');
