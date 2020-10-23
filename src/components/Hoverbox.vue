@@ -88,6 +88,7 @@ export default {
     }
 
     .vt__slot-container {
+        position: relative;
         z-index: 1;
     }
 }

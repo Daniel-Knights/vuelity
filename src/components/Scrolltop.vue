@@ -56,8 +56,17 @@ export default {
             setColor('--icon', props.iconColor);
             setColor('--icon-hover', props.iconHoverColor);
 
+            if (!target.value) {
+                console.error('Vuelity [Error]: VTScrolltop: Invalid target');
+            }
+
             // Set scroll behaviour
             if (props.smooth) target.value.style.scrollBehavior = 'smooth';
+
+            // Safari ripple
+            if (navigator.vendor.match(/apple/i) && props.ripple) {
+                container.value.style.webkitMaskImage = 'radial-gradient(white, black)';
+            }
         });
 
         return { container, open, scroll, setColor };

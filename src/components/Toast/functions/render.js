@@ -5,7 +5,7 @@ const renderToast = (app, options) => {
     const container = document.createElement('div');
 
     // Set container attributes
-    container.className = 'dk__toast-container';
+    container.className = 'vt__toast-container';
     container.setAttribute('role', 'status');
     container.setAttribute('aria-live', 'polite');
     container.setAttribute('aria-atomic', 'false');
@@ -14,18 +14,18 @@ const renderToast = (app, options) => {
     document.body.appendChild(container);
 
     // Render individual toast
-    const DKToast = (text, localOptions) => {
+    const VTToast = (text, localOptions) => {
         const toast = document.createElement('div');
         let duration, styles, clicked;
 
         if (!localOptions) localOptions = {};
         if (!text && !localOptions.slot)
-            return console.error('vue-dk-toast [Error]: a text value is required');
+            return console.error('Vuelity [Error]: VTToast: a text value is required');
 
         toast.innerHTML = text;
         if (localOptions.slot) toast.innerHTML += localOptions.slot;
-        toast.className = 'dk__toast';
-        if (!text && localOptions.slot) toast.classList.add('dk__icon-only');
+        toast.className = 'vt__toast';
+        if (!text && localOptions.slot) toast.classList.add('vt__icon-only');
 
         // Set custom local styles
         duration = localOptions.duration ? localOptions.duration : options.duration;
@@ -44,7 +44,7 @@ const renderToast = (app, options) => {
         }, duration);
     };
 
-    app.config.globalProperties.$toast = DKToast;
+    app.config.globalProperties.$toast = VTToast;
 };
 
 export default renderToast;

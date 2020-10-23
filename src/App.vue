@@ -1,5 +1,5 @@
 <template>
-    <!-- <VTNavbar :styles="navbarStyles" position="top" :slider="true">
+    <VTNavbar :styles="navbarStyles" position="top" :slider="true">
         <h1>Vuelity</h1>
         <VTSearchbar @search-submit="logValue($event)" @search-value="searchValue($event)" />
         <VTHoverbox :width="100" :height="50">
@@ -9,10 +9,10 @@
             <VTHoverbox :containerStyles="hoverboxContainerStyles">
                 <VTButton :styles="btnStyles" :onlyBorder="true">Login</VTButton>
             </VTHoverbox>
-            <VTButton :styles="btnStyles" :shine="true">Signup</VTButton>
+            <VTButton :styles="btnStyles" :ripple="false" :shine="true">Signup</VTButton>
         </div>
     </VTNavbar>
-
+    <!--
     <VTSearchbar
         :style="{ margin: '100px auto' }"
         :primary="color"
@@ -21,14 +21,6 @@
     />
     <VTSearchbar :style="{ margin: '100px auto' }" :primary="color" :secondary="colorTwo" />
     {{ search }}
-
-    <VTToggle
-        @toggle="logValue($event)"
-        :containerStyles="toggleContainerStyles"
-        :toggleStyles="toggleStyles"
-        :initialState="true"
-        :hoverColor="color"
-    />
 
     <VTHoverbox :styles="hoverboxStyles" fill="red">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo commodi necessitatibus id
@@ -64,18 +56,16 @@
         <option value="right">right</option>
         <option value="bottom">bottom</option>
         <option value="left">left</option>
-    </select>
-
-    <VTPagination :currentPage="number" :lastPage="10" @page-change="logValue($event)" /> -->
+    </select> -->
+    <div style="background:#000">
+        <VTPagination :currentPage="number" :lastPage="10" @page-change="logValue($event)" />
+    </div>
     <VTButton @click="modalCondition = true">OPEN MODAL</VTButton>
-    <VTModal v-if="modalCondition" @close="modalCondition = false">
-        {{ log }}
-        <input type="number" v-model.number="number" />
-        <input type="color" v-model="color" />
-        <input type="color" v-model="colorTwo" />
 
-        <VTButton />
-    </VTModal>
+    <VTToggle :containerStyles="{ width: '100px' }" />
+    <div style="background:#000">
+        <VTBurger :ripple="true" />
+    </div>
 
     <!-- <VTVideo
         :videoSrc="testSrc"
@@ -95,8 +85,8 @@
 
     <VTPopup :hoverColor="color" :hoverBackground="colorTwo" animationDelay="2s" :cookie="false"
         >You will be automatically logged out in 5s</VTPopup
-    >
-    <div id="test" style="position: relative; height: 100px; overflow: scroll;">
+    > -->
+    <div id="test" style="position: relative; height: 1000px; overflow: scroll;">
         <div style="position: relative; height: 1000vh">
             <VTScrolltop
                 :styles="{ position: 'absolute' }"
@@ -105,7 +95,7 @@
                 :smooth="false"
             />
         </div>
-    </div> -->
+    </div>
 </template>
 
 <script>

@@ -55,6 +55,11 @@ export default {
             setColor('--bg-hover', props.hoverBackground);
             setColor('--strips', props.stripColor);
             setColor('--strips-hover', props.stripHoverColor);
+
+            // Safari ripple
+            if (navigator.vendor.match(/apple/i) && props.ripple) {
+                container.value.style.webkitMaskImage = 'radial-gradient(white, black)';
+            }
         });
 
         return { container, open, toggle, setColor };
@@ -96,7 +101,7 @@ export default {
     cursor: pointer;
     pointer-events: all;
     @include flex-x(center, center);
-    position: absolute;
+    position: relative;
     padding: 10px;
     height: 50px;
     background: var(--bg);

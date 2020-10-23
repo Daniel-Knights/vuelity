@@ -32,7 +32,6 @@ const rippleHandler = (e, el) => {
     }
 
     el.appendChild(rippleEl);
-
     setTimeout(() => rippleEl.remove(), 100000);
 };
 

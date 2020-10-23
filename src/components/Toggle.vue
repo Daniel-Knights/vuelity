@@ -12,7 +12,7 @@
         ref="container"
         tabindex="0"
     >
-        <div class="vt__toggle-inner" :class="{ 'vt__toggle-on': toggleOn }" aria-hidden="true">
+        <div class="vt__toggle-inner" aria-hidden="true" ref="toggle">
             <div class="vt__toggle-focus" ref="toggleFocus"></div>
             <div class="vt__toggle" :style="toggleStyles"></div>
         </div>
@@ -35,6 +35,7 @@ export default {
 
     setup(props, { emit }) {
         const container = ref(null);
+        const toggle = ref(null);
         const toggleFocus = ref(null);
         const toggleOn = ref(props.initialState);
 
@@ -52,6 +53,13 @@ export default {
             toggleOn.value = !toggleOn.value;
             addToggleFocus();
             emit('toggle', toggleOn.value);
+
+            if (toggleOn.value) {
+                const width = container.value.offsetWidth - toggle.value.offsetWidth - 2;
+                toggle.value.style.transform = `translateX(${width}px)`;
+            } else {
+                toggle.value.style.transform = `translateX(2px)`;
+            }
         };
         const setColor = (property, color) => {
             container.value.style.setProperty(property, color);
@@ -68,6 +76,7 @@ export default {
 
         return {
             container,
+            toggle,
             toggleFocus,
             toggleOn,
             addToggleFocus,
@@ -96,8 +105,8 @@ export default {
     @include flex-x(false, center);
     position: relative;
     margin: 0 5px;
-    height: 19px;
-    width: 40px;
+    height: 17px;
+    width: 38px;
     border-radius: 15px;
     background: darken($primary, 10%);
     box-shadow: 0 0 2px $black;
@@ -109,14 +118,8 @@ export default {
     .vt__toggle-inner {
         @include flex-x(center, center);
         position: absolute;
-        right: 100%;
-        transform: translateX(calc(100% + 2px));
+        transform: translateX(2px);
         transition: all 0.1s ease;
-
-        &.vt__toggle-on {
-            right: 2px;
-            transform: translateX(0);
-        }
     }
 
     .vt__toggle {

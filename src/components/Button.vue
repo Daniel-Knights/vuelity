@@ -65,7 +65,7 @@ export default {
             }
 
             // Safari ripple
-            if (navigator.vendor.match(/apple/i)) {
+            if (navigator.vendor.match(/apple/i) && props.ripple) {
                 button.value.style.webkitMaskImage = 'radial-gradient(white, black)';
             }
         });
@@ -115,6 +115,7 @@ export default {
         cursor: pointer;
         display: block;
         position: relative;
+        margin: 0;
         height: 40px;
         min-width: 125px;
         font: 18px bold $font_primary;

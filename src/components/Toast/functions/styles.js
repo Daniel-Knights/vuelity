@@ -22,7 +22,7 @@ export const formatCssProperties = (styles, duration) => {
         .join('');
 
     // Calculate -0.15s from the end of duration for animating out
-    let animation = `animation: dk__toast-in 0.15s, dk__toast-in 0.15s ${duration / 1000 -
+    let animation = `animation: vt__toast-in 0.15s, vt__toast-in 0.15s ${duration / 1000 -
         0.15}s reverse forwards;`;
 
     return (formatted += animation);
@@ -39,7 +39,7 @@ export const appendStylesheet = options => {
 
     // Stylesheet content
     let styles = `
-            .dk__toast-container {
+            .vt__toast-container {
                 display: flex;
                 flex-direction: column;
                 position: fixed;
@@ -48,7 +48,7 @@ export const appendStylesheet = options => {
                 margin-${oppositePositionX}: 60px;
                 z-index: 100;
             }
-            .dk__toast {
+            .vt__toast {
                 cursor: pointer;
                 display: flex;
                 justify-content: center;
@@ -66,25 +66,25 @@ export const appendStylesheet = options => {
                 transition: opacity 0.25s;
                 ${properties || ''}
             }
-            .dk__toast:hover {
+            .vt__toast:hover {
                 opacity: 0.8;
             }
-            .dk__toast span,
-            .dk__toast i {
+            .vt__toast span,
+            .vt__toast i {
                 position: absolute;
                 right: 10px;
                 padding: 5px;
                 font-size: 16px;
             }
-            .dk__icon-only {
+            .vt__icon-only {
                 padding: 6px 0;
             }
-            .dk__icon-only i,
-            .dk__icon-only span {
+            .vt__icon-only i,
+            .vt__icon-only span {
                 position: relative;
                 right: unset;
             }
-            @keyframes dk__toast-in {
+            @keyframes vt__toast-in {
                 from {
                     transform: translateY(100%);
                     opacity: 0;
@@ -95,17 +95,17 @@ export const appendStylesheet = options => {
                 }
             }
             @media only screen and (max-width: 450px) {
-                .dk__toast-container {
+                .vt__toast-container {
                     right: 0;
                     left: 0;
                     ${options.positionY}: 10px;
                     margin: 0 auto;
                     width: 90%;
                 }
-                .dk__toast {
+                .vt__toast {
                     padding: 10px 30px;
                 }
-                .dk__icon-only {
+                .vt__icon-only {
                     flex: 1;
                     padding: 8px 30px;
                 }

@@ -74,7 +74,9 @@ export default {
         });
 
         document.addEventListener('click', e => {
-            if (!e.path.includes(nav.value)) closeNav();
+            const path = e.path || (e.composedPath && e.composedPath());
+
+            if (!path.includes(nav.value)) closeNav();
         });
 
         return { nav, burger, id, open, toggleNav, openNav, closeNav };
@@ -105,7 +107,7 @@ export default {
                 },
             };
 
-            return { ...position[this.position], ...this.burgerStyles };
+            return { ...position[this.position], ...this.burgerStyles, position: 'absolute' };
         },
     },
 };

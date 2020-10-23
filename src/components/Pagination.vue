@@ -186,6 +186,12 @@ export default {
                 block.addEventListener('mouseup', e => e.target.blur());
 
                 if (!props.ripple) return;
+
+                // Safari ripple
+                if (navigator.vendor.match(/apple/i)) {
+                    pages.value.style.webkitMaskImage = 'radial-gradient(white, black)';
+                }
+
                 block.addEventListener('mousedown', e => rippleHandler(e, block));
                 block.addEventListener('keyup', e => {
                     if (e.key !== 'Enter') return;
@@ -302,12 +308,12 @@ export default {
         validate() {
             if (this.currentPage > this.lastPage) {
                 console.error(
-                    `Vuelity [Error]: Prop currentPage must be less than or equal to lastPage, received ${this.currentPage}`
+                    `Vuelity [Error]: VTPagination: Prop currentPage must be less than or equal to lastPage, received ${this.currentPage}`
                 );
                 this.valid = false;
             } else if (this.currentPage <= 0) {
                 console.error(
-                    `Vuelity [Error]: Prop currentPage must be greater than 0, received ${this.currentPage}`
+                    `Vuelity [Error]: VTPagination: Prop currentPage must be greater than 0, received ${this.currentPage}`
                 );
                 this.valid = false;
             }
@@ -339,7 +345,7 @@ export default {
     width: 210px;
     color: var(--color);
     background: var(--bg);
-    border-radius: 5px;
+    border-radius: 115px;
     box-shadow: 0 0 5px -3px $black;
     font-family: Avenir, Helvetica, Arial, sans-serif;
     font-weight: 500;
