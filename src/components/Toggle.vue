@@ -49,17 +49,19 @@ export default {
             toggleFocus.value.style.transform = 'scale(1)';
             toggleFocus.value.style.opacity = '0';
         };
-        const toggled = () => {
-            toggleOn.value = !toggleOn.value;
-            addToggleFocus();
-            emit('toggle', toggleOn.value);
-
+        const setTogglePosition = () => {
             if (toggleOn.value) {
                 const width = container.value.offsetWidth - toggle.value.offsetWidth - 2;
                 toggle.value.style.transform = `translateX(${width}px)`;
             } else {
                 toggle.value.style.transform = `translateX(2px)`;
             }
+        };
+        const toggled = () => {
+            toggleOn.value = !toggleOn.value;
+            addToggleFocus();
+            setTogglePosition();
+            emit('toggle', toggleOn.value);
         };
         const setColor = (property, color) => {
             container.value.style.setProperty(property, color);
@@ -70,6 +72,8 @@ export default {
                 if (e.target === container.value) return;
                 removeToggleFocus();
             });
+
+            setTogglePosition();
 
             setColor('--hover-color', props.hoverColor);
         });
@@ -105,8 +109,8 @@ export default {
     @include flex-x(false, center);
     position: relative;
     margin: 0 5px;
-    height: 17px;
-    width: 38px;
+    height: 19px;
+    width: 40px;
     border-radius: 15px;
     background: darken($primary, 10%);
     box-shadow: 0 0 2px $black;

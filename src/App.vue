@@ -62,7 +62,7 @@
     </div>
     <VTButton @click="modalCondition = true">OPEN MODAL</VTButton>
 
-    <VTToggle :containerStyles="{ width: '100px' }" />
+    <VTToggle :initialState="true" />
     <div style="background:#000">
         <VTBurger :ripple="true" />
     </div>
@@ -86,7 +86,7 @@
     <VTPopup :hoverColor="color" :hoverBackground="colorTwo" animationDelay="2s" :cookie="false"
         >You will be automatically logged out in 5s</VTPopup
     > -->
-    <div id="test" style="position: relative; height: 1000px; overflow: scroll;">
+    <!-- <div id="test" style="position: relative; height: 1000px; overflow: scroll;">
         <div style="position: relative; height: 1000vh">
             <VTScrolltop
                 :styles="{ position: 'absolute' }"
@@ -95,7 +95,7 @@
                 :smooth="false"
             />
         </div>
-    </div>
+    </div> -->
 </template>
 
 <script>

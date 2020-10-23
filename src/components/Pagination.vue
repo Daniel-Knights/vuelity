@@ -345,7 +345,7 @@ export default {
     width: 210px;
     color: var(--color);
     background: var(--bg);
-    border-radius: 115px;
+    border-radius: 5px;
     box-shadow: 0 0 5px -3px $black;
     font-family: Avenir, Helvetica, Arial, sans-serif;
     font-weight: 500;
