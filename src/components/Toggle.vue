@@ -50,6 +50,7 @@ export default {
             toggleFocus.value.style.opacity = '0';
         };
         const setTogglePosition = () => {
+            console.log(toggleOn.value);
             if (toggleOn.value) {
                 const width = container.value.offsetWidth - toggle.value.offsetWidth - 2;
                 toggle.value.style.transform = `translateX(${width}px)`;
@@ -85,6 +86,7 @@ export default {
             toggleOn,
             addToggleFocus,
             removeToggleFocus,
+            setTogglePosition,
             toggled,
             setColor,
         };
@@ -96,6 +98,7 @@ export default {
         },
         state(val) {
             this.toggleOn = val;
+            this.setTogglePosition();
         },
     },
 };
@@ -107,7 +110,6 @@ export default {
 
     cursor: pointer;
     @include flex-x(false, center);
-    position: relative;
     margin: 0 5px;
     height: 19px;
     width: 40px;

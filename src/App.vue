@@ -60,9 +60,10 @@
     <div style="background:#000">
         <VTPagination :currentPage="number" :lastPage="10" @page-change="logValue($event)" />
     </div>
-    <VTButton @click="modalCondition = true">OPEN MODAL</VTButton>
+    <VTButton @click="state = !state">OPEN MODAL</VTButton>
 
-    <VTToggle :initialState="true" />
+    <VTToggle :initialState="true" :state="state" @toggle="state = !state" />
+
     <div style="background:#000">
         <VTBurger :ripple="true" />
     </div>
@@ -105,6 +106,7 @@ import { ref } from 'vue';
 export default {
     data() {
         return {
+            state: true,
             loading: true,
             position: 'top',
             modalCondition: false,
