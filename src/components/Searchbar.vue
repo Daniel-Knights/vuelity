@@ -237,6 +237,10 @@ export default {
     ::placeholder {
         @include placeholder;
     }
+    ::-moz-placeholder {
+        @include placeholder;
+        line-height: 35px;
+    }
     :-ms-input-placeholder {
         /* Internet Explorer 10-11 */
         @include placeholder;

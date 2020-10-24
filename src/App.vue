@@ -12,7 +12,7 @@
             <VTButton :styles="btnStyles" :ripple="false" :shine="true">Signup</VTButton>
         </div>
     </VTNavbar>
-    <!--
+
     <VTSearchbar
         :style="{ margin: '100px auto' }"
         :primary="color"
@@ -21,6 +21,7 @@
     />
     <VTSearchbar :style="{ margin: '100px auto' }" :primary="color" :secondary="colorTwo" />
     {{ search }}
+    <!--
 
     <VTHoverbox :styles="hoverboxStyles" fill="red">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo commodi necessitatibus id
