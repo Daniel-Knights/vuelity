@@ -1,6 +1,6 @@
 {
     "name": "vuelity",
-    "version": "2.0.64",
+    "version": "2.0.65",
     "private": false,
     "main": "./dist/vuelity.umd.min.js",
     "scripts": {
