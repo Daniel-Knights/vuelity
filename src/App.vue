@@ -182,8 +182,7 @@ export default {
 
         this.$toast('test', {
             duration: 100000,
-            slotLeft: '<i>Hello</i>',
-            slotRight: '<span>hello</span>',
+            slot: '<i>Hello</i>',
         });
     },
 };

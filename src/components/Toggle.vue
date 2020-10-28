@@ -50,7 +50,6 @@ export default {
             toggleFocus.value.style.opacity = '0';
         };
         const setTogglePosition = () => {
-            console.log(toggleOn.value);
             if (toggleOn.value) {
                 const width = container.value.offsetWidth - toggle.value.offsetWidth - 2;
                 toggle.value.style.transform = `translateX(${width}px)`;
