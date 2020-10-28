@@ -180,7 +180,11 @@ export default {
             }, 5000);
         });
 
-        this.$toast('test');
+        this.$toast('test', {
+            duration: 100000,
+            slotLeft: '<i>Hello</i>',
+            slotRight: '<span>hello</span>',
+        });
     },
 };
 </script>

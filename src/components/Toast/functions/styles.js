@@ -1,3 +1,34 @@
+// Minify CSS
+const minify = styles => {
+    let property = false;
+    let value = false;
+
+    const minified = styles
+        .split('')
+        .map((char, i, arr) => {
+            // Retain spaces between selectors
+            if ((char === '.' && !parseInt(arr[i + 1])) || (char === '#' && !value))
+                property = true;
+            if (property && (char === ',' || char === '{')) property = false;
+
+            // Retain spaces between rules with multiple values
+            if ((char === ':' || char === '@') && !property) value = true;
+            if ((char === ';' || char === '{') && !property) value = false;
+
+            // Replace spaces and line-breaks
+            if ((char === ' ' || char === '\n' || char === '\r') && !property && !value) return '';
+            return char;
+        })
+        .join('')
+        .split(' {')
+        .join('{')
+        .split(': ')
+        .join(':');
+
+    return minified;
+};
+
+// Format CSS from camelCase
 export const formatCssProperties = (styles, duration) => {
     if (!styles) styles = {};
 
@@ -39,84 +70,127 @@ export const appendStylesheet = options => {
 
     // Stylesheet content
     let styles = `
+        .vt__toast-container {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                    flex-direction: column;
+            position: fixed;
+            ${options.positionY}: 40px;
+            ${options.positionX}: 60px;
+            margin-${oppositePositionX}: 60px;
+            z-index: 100;
+        }
+        .vt__toast {
+            cursor: pointer;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-pack: distribute;
+                justify-content: space-around;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
+            margin: 5px 0;
+            padding: 7px 40px;
+            min-width: 100px;
+            font: 17px Avenir, sans-serif;
+            text-align: center;
+            border-radius: 5px;
+            background: #fff;
+            -webkit-box-shadow: 0 1px 3px #000;
+                    box-shadow: 0 1px 3px #000;
+            -webkit-transition: opacity 0.25s;
+            -o-transition: opacity 0.25s;
+            transition: opacity 0.25s;
+            ${properties || ''}
+        }
+        .vt__toast:hover {
+            opacity: 0.7;
+        }
+        .vt__icon-left,
+        .vt__icon-right {
+            display: flex;
+            position: absolute;
+            padding: 5px 12px;
+        }
+        .vt__icon-left {
+            left: 0;
+        }
+        .vt__icon-right {
+            right: 0;
+        }
+        .vt__icon-left i,
+        .vt__icon-left span,
+        .vt__icon-right i,
+        .vt__icon-right span {
+            font-size: 16px;
+        }
+        .vt__icon-only {
+            padding: 6px 0;
+        }
+        .vt__icon-only .vt__icon-left,
+        .vt__icon-only .vt__icon-right {
+            display: flex;
+            position: relative;
+            right: unset;
+            left: unset;
+            padding: 4px;
+        }
+        @-webkit-keyframes vt__toast-in {
+            from {
+                -webkit-transform: translateY(100%);
+                        transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                -webkit-transform: translateY(0);
+                        transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        @keyframes vt__toast-in {
+            from {
+                -webkit-transform: translateY(100%);
+                        transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                -webkit-transform: translateY(0);
+                        transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        @media only screen and (max-width: 450px) {
             .vt__toast-container {
-                display: flex;
-                flex-direction: column;
-                position: fixed;
-                ${options.positionY}: 40px;
-                ${options.positionX}: 60px;
-                margin-${oppositePositionX}: 60px;
-                z-index: 100;
+                right: 0;
+                left: 0;
+                ${options.positionY}: 10px;
+                bottom: 10px;
+                margin: 0 auto;
+                width: 90%;
             }
             .vt__toast {
-                cursor: pointer;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                position: relative;
-                margin: 5px 0;
-                padding: 7px 45px;
-                min-width: 100px;
-                font: 17px Avenir, sans-serif;
-                text-align: center;
-                border-radius: 5px;
-                color: #fff;
-                background: #5bd0b9;
-                box-shadow: 0 1px 3px #000;
-                transition: opacity 0.25s;
-                ${properties || ''}
-            }
-            .vt__toast:hover {
-                opacity: 0.8;
-            }
-            .vt__toast span,
-            .vt__toast i {
-                position: absolute;
-                right: 10px;
-                padding: 5px;
-                font-size: 16px;
+                padding: 10px 40px;
             }
             .vt__icon-only {
-                padding: 6px 0;
+                -webkit-box-flex: 1;
+                    -ms-flex: 1;
+                        flex: 1;
+                padding: 8px 30px;
             }
-            .vt__icon-only i,
-            .vt__icon-only span {
-                position: relative;
-                right: unset;
-            }
-            @keyframes vt__toast-in {
-                from {
-                    transform: translateY(100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateY(0);
-                    opacity: 1;
-                }
-            }
-            @media only screen and (max-width: 450px) {
-                .vt__toast-container {
-                    right: 0;
-                    left: 0;
-                    ${options.positionY}: 10px;
-                    margin: 0 auto;
-                    width: 90%;
-                }
-                .vt__toast {
-                    padding: 10px 30px;
-                }
-                .vt__icon-only {
-                    flex: 1;
-                    padding: 8px 30px;
-                }
-            }
-        `;
+        }
+    `;
 
     // Create stylesheet
     const stylesheet = document.createElement('style');
 
     // Set stylesheet content
-    stylesheet.innerHTML = styles;
+    stylesheet.innerHTML = minify(styles);
+    stylesheet.type = 'text/css';
 
     // Append
     document.head.appendChild(stylesheet);

@@ -1,4 +1,5 @@
 import { formatCssProperties } from './styles';
+import { validateLocalOptions } from './validate';
 
 const renderToast = (app, options) => {
     // Render toast container
@@ -15,17 +16,28 @@ const renderToast = (app, options) => {
 
     // Render individual toast
     const VTToast = (text, localOptions) => {
+        if (!localOptions) localOptions = {};
         const toast = document.createElement('div');
+        const left = localOptions.slotLeft;
+        const right = localOptions.slot || localOptions.slotRight;
         let duration, styles, clicked;
 
-        if (!localOptions) localOptions = {};
-        if (!text && !localOptions.slot)
-            return console.error('Vuelity [Error]: VTToast: a text value is required');
+        if (!validateLocalOptions(text, localOptions)) return;
 
-        toast.innerHTML = text;
-        if (localOptions.slot) toast.innerHTML += localOptions.slot;
         toast.className = 'vt__toast';
-        if (!text && localOptions.slot) toast.classList.add('vt__icon-only');
+
+        // If text
+        if (text) toast.textContent = text;
+        // If left slot
+        if (left) {
+            toast.innerHTML = `<div class="vt__icon-left">${left}</div>` + toast.innerHTML;
+        }
+        // If right slot
+        if (right) {
+            toast.innerHTML += `<div class="vt__icon-right">${right}</div>`;
+        }
+        // If slot only
+        if (!text && (left || right)) toast.classList.add('vt__icon-only');
 
         // Set custom local styles
         duration = localOptions.duration ? localOptions.duration : options.duration;
