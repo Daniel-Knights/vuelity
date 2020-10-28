@@ -28,7 +28,6 @@ export const validateLocalOptions = (text, options) => {
     // Slot deprecation warning
     if (options.slot) {
         console.warn('Vuelity [Warn]: VTToast: slot is now deprecated. Use slotRight instead');
-        valid = false;
     }
 
     return valid;

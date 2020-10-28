@@ -100,7 +100,8 @@ export const appendStylesheet = options => {
             font: 17px Avenir, sans-serif;
             text-align: center;
             border-radius: 5px;
-            background: #fff;
+            color: #fff;
+            background: #5bd0b9;
             -webkit-box-shadow: 0 1px 3px #000;
                     box-shadow: 0 1px 3px #000;
             -webkit-transition: opacity 0.25s;
