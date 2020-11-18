@@ -1,8 +1,14 @@
 {
     "name": "vuelity",
     "version": "2.1.3",
+    "author": "Daniel Knights",
     "private": false,
+    "license": "MIT",
     "main": "./dist/vuelity.umd.min.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Daniel-Knights/vuelity"
+    },
     "scripts": {
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build",
@@ -32,9 +38,6 @@
         "last 2 versions",
         "not dead"
     ],
-    "externals": {
-        "vue": "vue"
-    },
     "keywords": [
         "vue",
         "vue 3",

@@ -2,9 +2,7 @@
     <VTNavbar :styles="navbarStyles" position="top" :slider="true">
         <h1>Vuelity</h1>
         <VTSearchbar @search-submit="logValue($event)" @search-value="searchValue($event)" />
-        <VTHoverbox :width="100" :height="50">
-            Home
-        </VTHoverbox>
+        <VTHoverbox :width="100" :height="50"> Home </VTHoverbox>
         <div class="auth-btns">
             <VTHoverbox :containerStyles="hoverboxContainerStyles">
                 <VTButton :styles="btnStyles" :onlyBorder="true">Login</VTButton>
@@ -58,14 +56,14 @@
         <option value="bottom">bottom</option>
         <option value="left">left</option>
     </select> -->
-    <div style="background:#000">
+    <div style="background: #000">
         <VTPagination :currentPage="number" :lastPage="10" @page-change="logValue($event)" />
     </div>
     <VTButton @click="state = !state">OPEN MODAL</VTButton>
 
     <VTToggle :initialState="true" :state="state" @toggle="state = !state" />
 
-    <div style="background:#000">
+    <div style="background: #000">
         <VTBurger :ripple="true" />
     </div>
 
@@ -151,7 +149,7 @@ export default {
                 color: 'white',
                 borderColor: 'white',
             },
-            searchFunction: function(search) {
+            searchFunction: function (search) {
                 console.log(search);
             },
             paginationStyles: {},
