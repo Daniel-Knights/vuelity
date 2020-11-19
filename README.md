@@ -1,5 +1,8 @@
 # Vuelity
 
+[![npm](https://img.shields.io/npm/v/vuelity.svg)](https://www.npmjs.com/package/vuelity)
+[![vue](https://img.shields.io/badge/vue-3.x-brightgreen)](https://v3.vuejs.org/)
+
 > [Interactive Docs](https://vuelity.netlify.app/)
 
 > [Codepen Demo](https://codepen.io/daniel-knights/pen/jOrOVXX)
